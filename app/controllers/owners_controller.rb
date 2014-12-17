@@ -28,13 +28,17 @@ class OwnersController < ApplicationController
 
     respond_to do |format|
       if @owner.save
-        format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
+        format.html { redirect_to signin_path, notice: 'Sign Up was successfully. You can now log in with your account' }
         format.json { render :show, status: :created, location: @owner }
       else
         format.html { render :new }
         format.json { render json: @owner.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def signin
+
   end
 
   # PATCH/PUT /owners/1
@@ -69,6 +73,6 @@ class OwnersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def owner_params
-      params.require(:owner).permit(:name, :email, :password_digest)
+      params.require(:owner).permit(:name, :email, :password,:password_confirmation)
     end
 end
