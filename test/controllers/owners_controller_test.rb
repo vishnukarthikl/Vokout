@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OwnersControllerTest < ActionController::TestCase
   setup do
-    @owner = owners(:one)
+    @owner = owners(:owner1)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class OwnersControllerTest < ActionController::TestCase
 
   test "should create owner" do
     assert_difference('Owner.count') do
-      post :create, owner: { email: @owner.email, name: @owner.name, password_digest: @owner.password_digest }
+      post :create, owner: { email: "foo@bar.com", name: "owner name", password: "123456", password_confirmation: "123456" }
     end
 
     assert_redirected_to owner_path(assigns(:owner))
@@ -35,7 +35,7 @@ class OwnersControllerTest < ActionController::TestCase
   end
 
   test "should update owner" do
-    patch :update, id: @owner, owner: { email: @owner.email, name: @owner.name, password_digest: @owner.password_digest }
+    patch :update, id: @owner, owner: { email: "newemail@bar.com",password: "123456",password_confirmation: "123456" }
     assert_redirected_to owner_path(assigns(:owner))
   end
 

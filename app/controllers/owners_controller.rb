@@ -28,7 +28,11 @@ class OwnersController < ApplicationController
 
     respond_to do |format|
       if @owner.save
-        format.html { redirect_to signin_path, notice: 'Sign Up was successfully. You can now log in with your account' }
+        format.html {
+          log_in @owner
+          flash[:success] = "You have successfully Signed up"
+          redirect_to @owner
+        }
         format.json { render :show, status: :created, location: @owner }
       else
         format.html { render :new }
@@ -37,9 +41,6 @@ class OwnersController < ApplicationController
     end
   end
 
-  def signin
-
-  end
 
   # PATCH/PUT /owners/1
   # PATCH/PUT /owners/1.json
