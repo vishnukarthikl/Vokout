@@ -34,7 +34,7 @@ class OwnersController < ApplicationController
       if @owner.save
         format.html {
           log_in @owner
-          flash[:success] = "You have successfully Signed up"
+          flash[:success] = "#{@owner.name}, your profile has been created"
           redirect_to dashboard_owner_path(@owner)
         }
         format.json { render :show, status: :created, location: @owner }
@@ -50,8 +50,11 @@ class OwnersController < ApplicationController
   # PATCH/PUT /owners/1.json
   def update
     respond_to do |format|
-      if @owner.update(owner_params)
-        format.html { redirect_to @owner, notice: 'Owner was successfully updated.' }
+      if @owner.update_attributes(owner_params)
+        format.html {
+            flash[:success] = "Profile updated successfully"
+            redirect_to @owner
+        }
         format.json { render :show, status: :ok, location: @owner }
       else
         format.html { render :edit }

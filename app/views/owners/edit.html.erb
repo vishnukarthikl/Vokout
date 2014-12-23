@@ -1,6 +1,22 @@
-<h1>Editing Owner</h1>
+<h1>Edit your profile</h1>
 
-<%= render 'form' %>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@owner) do |f| %>
+        <%= render 'shared/error_messages' %>
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: 'form-control' %>
 
-<%= link_to 'Show', @owner %> |
-<%= link_to 'Back', owners_path %>
+        <%= f.label :email %><br>
+        <%= f.text_field :email, class: 'form-control'  %>
+
+        <%= f.label :password %><br>
+        <%= f.password_field :password, class: 'form-control'  %>
+
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation, class: 'form-control'  %>
+
+        <%= f.submit "Save changes", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>
