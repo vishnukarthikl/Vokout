@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root             'static#home'
+  root             'application#root'
+  get 'home'    => 'static#home'
   get 'help'    => 'static#help'
   get 'about'   => 'static#about'
   get 'contact' => 'static#contact'
@@ -10,5 +11,9 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  resources :owners
+  resources :owners do
+    member do
+      get 'dashboard' => 'owners#dashboard', as: 'dashboard'
+    end
+  end
 end
