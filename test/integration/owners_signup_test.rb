@@ -21,7 +21,7 @@ class OwnersSignupTest < ActionDispatch::IntegrationTest
           password:              "password",
           password_confirmation: "password" }
     end
-    assert_template 'owners/show'
+    assert_template 'owners/dashboard'
     assert_not flash.empty?
   end
 

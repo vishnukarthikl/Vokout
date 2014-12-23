@@ -21,7 +21,7 @@ class OwnersControllerTest < ActionController::TestCase
       post :create, owner: { email: "foo@bar.com", name: "owner name", password: "123456", password_confirmation: "123456" }
     end
 
-    assert_redirected_to owner_path(assigns(:owner))
+    assert_redirected_to dashboard_owner_path(assigns(:owner))
   end
 
   test "should show owner" do

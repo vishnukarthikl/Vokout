@@ -1,6 +1,10 @@
 class OwnersController < ApplicationController
   before_action :set_owner, only: [:show, :edit, :update, :destroy]
 
+  def dashboard
+
+  end
+  
   # GET /owners
   # GET /owners.json
   def index
@@ -31,7 +35,7 @@ class OwnersController < ApplicationController
         format.html {
           log_in @owner
           flash[:success] = "You have successfully Signed up"
-          redirect_to @owner
+          redirect_to dashboard_owner_path(@owner)
         }
         format.json { render :show, status: :created, location: @owner }
       else

@@ -20,11 +20,27 @@ class OwnersLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information" do
     get login_path
     post login_path, session: { email: @owner.email, password: 'password' }
-    assert_redirected_to @owner
+    assert_redirected_to dashboard_owner_path(@owner)
     follow_redirect!
-    assert_template 'owners/show'
+    assert_template 'owners/dashboard'
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
     # assert_select "a[href=?]", owner_path(@owner)
+  end
+  
+  test "after login root path should redirect to owner dashboard" do
+    get login_path
+    post login_path, session: { email: @owner.email, password: 'password' }
+    get root_path
+    follow_redirect!
+    assert_template 'owners/dashboard'
+  end
+
+  test "without login root path should redirect to home" do
+    get login_path
+    assert_template 'sessions/new'
+    get root_path
+    follow_redirect!
+    assert_template 'static/home'
   end
 end
