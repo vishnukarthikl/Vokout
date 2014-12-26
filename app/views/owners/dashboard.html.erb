@@ -1,1 +1,8 @@
 <h1>Dashboard</h1>
+<div id="dashboard">
+    <% if @facility %>
+        <%= @facility.name %>
+    <% else %>
+        You do not have any gym/facility added to your account.
+    <% end %>
+</div>

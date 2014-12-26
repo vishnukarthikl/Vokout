@@ -1,8 +1,8 @@
 class OwnersController < ApplicationController
-  before_action :set_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_owner, only: [:show, :edit, :update, :destroy,:dashboard]
 
   def dashboard
-
+    @facility = @owner.facility
   end
   
   # GET /owners

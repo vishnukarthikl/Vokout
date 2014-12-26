@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OwnersControllerTest < ActionController::TestCase
   setup do
-    @owner = owners(:owner1)
+    @owner = facilities(:afterburn).owner
   end
 
   test "should get index" do
@@ -45,5 +45,10 @@ class OwnersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to owners_path
+  end
+  
+  test "should return facility of owner" do 
+    get :dashboard, id: @owner
+    assert_equal "Afterburn", assigns(:facility).name
   end
 end

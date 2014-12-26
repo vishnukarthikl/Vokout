@@ -10,4 +10,12 @@ class ActiveSupport::TestCase
   def is_logged_in?
     !session[:owner_id].nil?
   end
+  
+  def login(owner,password)
+    get login_path
+    post login_path, session: { email: owner.email, password: password }
+    assert_redirected_to dashboard_owner_path(owner)
+    follow_redirect!
+    assert_template 'owners/dashboard'
+  end
 end

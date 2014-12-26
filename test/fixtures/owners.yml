@@ -4,3 +4,8 @@ owner1:
   name: Vishnu
   email: vishnu@lvk.com
   password_digest: <%= Owner.digest('password') %>
+  
+owner_with_facility:
+  name: Karthik
+  email: karthik@foo.com
+  password_digest: <%= Owner.digest('password') %>
