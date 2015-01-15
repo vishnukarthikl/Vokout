@@ -1,8 +1,20 @@
-<h1>Dashboard</h1>
-<div id="dashboard">
-    <% if @facility %>
-        <%= @facility.name %>
-    <% else %>
-        You do not have any gym/facility added to your account.
-    <% end %>
+<div id="dashboard" class="row" ng-app="vorkoutjs">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Members</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <div class="row placeholders">
+            <% if @facility %>
+                <%= @facility.name %>
+            <% else %>
+                {{"You do not have any gym/facility added to your account."}}
+            <% end %>
+        </div>
+    </div>
+
 </div>
