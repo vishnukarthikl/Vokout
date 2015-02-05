@@ -4,7 +4,7 @@ class OwnersController < ApplicationController
   def dashboard
     @facility = @owner.facility
   end
-  
+
   # GET /owners
   # GET /owners.json
   def index

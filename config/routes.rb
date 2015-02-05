@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     member do
       get 'dashboard' => 'owners#dashboard', as: 'dashboard'
     end
+    resources :facilities
   end
 end

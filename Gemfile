@@ -13,6 +13,7 @@ gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
 gem 'bower-rails'
 gem 'foreman'
+gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'master'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

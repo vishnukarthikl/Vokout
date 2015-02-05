@@ -8,7 +8,7 @@ class OwnersDashboardTest < ActionDispatch::IntegrationTest
   
   test "should ask to add facility if not added" do
     login(@owner,'password')
-    assert_select "div[id='dashboard']", 'You do not have any gym/facility added to your account.'
+    assert_select "div[id='dashboard'] h1", 'Initial Setup'
   end
   
   test "should show facility name if added" do
