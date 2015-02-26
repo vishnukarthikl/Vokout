@@ -1,8 +1,14 @@
 class OwnersController < ApplicationController
-  before_action :set_owner, only: [:show, :edit, :update, :destroy,:dashboard]
+  before_filter :authenticate, unless: [:new]
+
+  before_action :set_owner, only: [:show, :edit, :update, :destroy, :dashboard]
+  include AccountsetupHelper
 
   def dashboard
     @facility = @owner.facility
+    unless is_account_setup(@facility)
+      redirect_to setup_path
+    end
   end
 
   # GET /owners
@@ -52,8 +58,8 @@ class OwnersController < ApplicationController
     respond_to do |format|
       if @owner.update_attributes(owner_params)
         format.html {
-            flash[:success] = "Profile updated successfully"
-            redirect_to @owner
+          flash[:success] = "Profile updated successfully"
+          redirect_to @owner
         }
         format.json { render :show, status: :ok, location: @owner }
       else
@@ -74,13 +80,13 @@ class OwnersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_owner
-      @owner = Owner.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_owner
+    @owner = Owner.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def owner_params
-      params.require(:owner).permit(:name, :email, :password,:password_confirmation)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def owner_params
+    params.require(:owner).permit(:name, :email, :password, :password_confirmation)
+  end
 end

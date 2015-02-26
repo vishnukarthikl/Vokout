@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate
+    unless logged_in?
+      #todo: get current url and redirect after login
+      redirect_to 'SessionsController#new'
+    end
+  end
+
 end

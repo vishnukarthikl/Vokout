@@ -13,7 +13,7 @@ class OwnersDashboardTest < ActionDispatch::IntegrationTest
   
   test "should show facility name if added" do
     login(@owner_with_facility,'password')
-    assert_select "div[id='dashboard']", @owner_with_facility.facility.name
+    assert_select "div[id='dashboard'] h1", @owner_with_facility.facility.name
   end
   
 end

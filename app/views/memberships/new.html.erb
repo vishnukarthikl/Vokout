@@ -1,0 +1,13 @@
+<h1>Membership</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= simple_form_for(@membership, :url => facility_memberships_path(@facility), :method => :post) do |f| %>
+        <%= render 'shared/error_messages_membership' %>
+        <%= f.input :name %><br>
+        <%= f.input :cost %><br>
+        <%= f.input :duration, :label => 'Duration in months' %><br>
+        <%= f.submit 'Add', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

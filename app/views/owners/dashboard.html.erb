@@ -11,21 +11,11 @@
     <div class="row placeholders">
       <% if @facility %>
           <h1><%= @facility.name %></h1>
-      <% else %>
-          <h1>Initial Setup</h1>
-          <%= simple_form_for([@owner, @owner.build_facility], html: {class: 'form-horizontal'}) do |f| %>
-              <div>
-                <h3>Facility Details</h3>
-                <%= f.input :name %>
-                <%= f.input :address %><br/>
-                <%= f.input :phone %><br/>
-              </div>
-
-              <div>
-                <%= f.button :submit %>
-              </div>
+          <% if @facility.memberships.nil? %>
 
           <% end %>
+          <a class="btn btn-default" href="<%= new_facility_membership_path(@facility) %>">Add
+            membership</a>
       <% end %>
     </div>
   </div>

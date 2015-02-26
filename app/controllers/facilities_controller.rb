@@ -1,4 +1,7 @@
 class FacilitiesController < ApplicationController
+
+  before_filter :authenticate
+
   before_action :set_owner, only: [:create]
   
   def create

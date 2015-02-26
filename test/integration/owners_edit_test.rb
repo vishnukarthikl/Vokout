@@ -3,6 +3,7 @@ require 'test_helper'
 class OwnersEditTest < ActionDispatch::IntegrationTest
   def setup
     @owner = owners(:owner1)
+    login(@owner,'password')
   end
 
   test "unsuccessful edit" do

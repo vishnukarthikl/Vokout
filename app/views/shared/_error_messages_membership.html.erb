@@ -1,0 +1,12 @@
+<% if @membership.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        <%= pluralize(@membership.errors.count, "error") %> encounterd during membership creation, please rectify
+      </div>
+      <ul>
+        <% @membership.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
