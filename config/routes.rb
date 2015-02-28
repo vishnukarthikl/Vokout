@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :customers
+
   root 'application#root'
   get 'home' => 'static#home'
   get 'help' => 'static#help'
@@ -22,5 +24,6 @@ Rails.application.routes.draw do
 
   resources :facilities do
     resources :memberships
+    resources :customers
   end
 end
