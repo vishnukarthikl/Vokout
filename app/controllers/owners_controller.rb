@@ -4,6 +4,8 @@ class OwnersController < ApplicationController
   before_action :set_owner, only: [:show, :edit, :update, :destroy, :dashboard]
   include AccountsetupHelper
 
+  respond_to :json
+
   def dashboard
     @facility = @owner.facility
     unless is_account_setup(@facility)
@@ -20,6 +22,7 @@ class OwnersController < ApplicationController
   # GET /owners/1
   # GET /owners/1.json
   def show
+    true
   end
 
   # GET /owners/new
@@ -74,7 +77,7 @@ class OwnersController < ApplicationController
   def destroy
     @owner.destroy
     respond_to do |format|
-      format.html { redirect_to owners_url, notice: 'Owner was successfully destroyed.' }
+      format.html { redirect_to owners_url, notice: 'Facility was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

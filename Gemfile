@@ -6,13 +6,15 @@ gem 'rails', '4.2.0.rc3'
 gem 'bcrypt','3.1.7'
 gem 'sass-rails',   '5.0.0.beta1'
 gem 'uglifier',     '2.5.3'
-gem 'coffee-rails', '4.1.0'
+gem 'coffee-rails'
 gem 'jquery-rails', '4.0.0.beta2'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
+gem 'responders', '~> 2.0'
 gem 'bower-rails'
 gem 'foreman'
+gem 'angular-rails'
 gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'master'
 
 group :development, :test do

@@ -1,13 +1,116 @@
-<h1>Initial Setup</h1>
-<%= simple_form_for([@owner, @owner.build_facility], html: {class: 'form-horizontal'}) do |f| %>
-    <div>
-      <h3>Facility Details</h3>
-      <%= f.input :name %>
-      <%= f.input :address %><br/>
-      <%= f.input :phone %><br/>
+<div ng-controller="SetupCtrl">
+  <div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" ng-style="progressStyle" >
     </div>
+  </div>
 
-    <div>
-      <%= f.button :submit %>
-    </div>
-<% end %>
+  <form class="form-horizontal" ng-show="showFacility">
+    <fieldset>
+      <!-- Form Name -->
+      <legend class="col-md-offset-3">Initial Setup</legend>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="facilityName">Gym Name</label>
+
+        <div class="col-md-4">
+          <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md" required="">
+
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="facilityAddress">Address</label>
+
+        <div class="col-md-4">
+          <textarea class="form-control" ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
+        </div>
+      </div>
+
+      <!-- Prepended text-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="facilityPhone">Phone number</label>
+
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-addon">+91</span>
+            <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" class="form-control" type="text">
+          </div>
+
+        </div>
+      </div>
+
+      <br/>
+      <!-- Button (Double) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="facilitySave"></label>
+
+        <div class="col-md-6 col-md-offset-4">
+          <button id="facilitySave" ng-click="saveFacility()" name="facilitySave" class="btn btn-success">Save</button>
+          <button id="facilictyClear" ng-click="clearFacility()" name="facilictyClear" class="btn btn-danger">Clear</button>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
+
+  <form class="form-horizontal" ng-show="showMembership">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend class="col-md-offset-3">Membership</legend>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="newMembershipName">Name</label>
+
+        <div class="col-md-4">
+          <input id="newMembershipName" name="newMembershipName" type="text" placeholder="eg monthly" class="form-control input-md" required="">
+
+        </div>
+      </div>
+
+      <!-- Appended Input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="newMembershipDuration">Duration</label>
+
+        <div class="col-md-2">
+          <div class="input-group">
+            <input id="newMembershipDuration" name="newMembershipDuration" class="form-control" placeholder="" type="text" required="">
+            <span class="input-group-addon">months</span>
+          </div>
+
+        </div>
+      </div>
+      <!-- Prepended text-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="newMembershipCost">Cost</label>
+
+        <div class="col-md-2">
+          <div class="input-group">
+            <span class="input-group-addon">₹</span>
+            <input id="newMembershipCost" name="newMembershipCost" class="form-control" placeholder="" type="text" required="">
+          </div>
+
+        </div>
+      </div>
+
+      <br/>
+      <!-- Button (Double) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="facilitySave"></label>
+
+        <div class="col-md-6 col-md-offset-4">
+          <button id="membershipSave" ng-click="saveMembership()" name="MembershipSave" class="btn btn-success">Save</button>
+          <button id="membershipClear" ng-click="clearMembership()" name="MembershipClear" class="btn btn-danger">Clear</button>
+        </div>
+      </div>
+
+
+    </fieldset>
+  </form>
+
+
+</div>
