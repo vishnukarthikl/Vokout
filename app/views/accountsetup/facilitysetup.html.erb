@@ -1,116 +1,268 @@
 <div ng-controller="SetupCtrl">
-  <div class="progress">
-    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" ng-style="progressStyle" >
+  <div class="progress row">
+    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" ng-style="progressStyle">
     </div>
   </div>
 
-  <form class="form-horizontal" ng-show="showFacility">
-    <fieldset>
-      <!-- Form Name -->
-      <legend class="col-md-offset-3">Initial Setup</legend>
+  <div ng-switch on="status">
+    <div class="row" ng-switch-when="facility">
+      <form class="form-horizontal">
+        <fieldset>
+          <!-- Form Name -->
+          <legend class="col-md-offset-3">Initial Setup</legend>
 
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="facilityName">Gym Name</label>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="facilityName">Gym Name</label>
 
-        <div class="col-md-4">
-          <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md" required="">
+            <div class="col-md-4">
+              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md" required="">
 
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="facilityAddress">Address</label>
-
-        <div class="col-md-4">
-          <textarea class="form-control" ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
-        </div>
-      </div>
-
-      <!-- Prepended text-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="facilityPhone">Phone number</label>
-
-        <div class="col-md-4">
-          <div class="input-group">
-            <span class="input-group-addon">+91</span>
-            <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" class="form-control" type="text">
+            </div>
           </div>
 
-        </div>
-      </div>
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="facilityAddress">Address</label>
 
-      <br/>
-      <!-- Button (Double) -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="facilitySave"></label>
-
-        <div class="col-md-6 col-md-offset-4">
-          <button id="facilitySave" ng-click="saveFacility()" name="facilitySave" class="btn btn-success">Save</button>
-          <button id="facilictyClear" ng-click="clearFacility()" name="facilictyClear" class="btn btn-danger">Clear</button>
-        </div>
-      </div>
-
-    </fieldset>
-  </form>
-
-
-  <form class="form-horizontal" ng-show="showMembership">
-    <fieldset>
-
-      <!-- Form Name -->
-      <legend class="col-md-offset-3">Membership</legend>
-
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="newMembershipName">Name</label>
-
-        <div class="col-md-4">
-          <input id="newMembershipName" name="newMembershipName" type="text" placeholder="eg monthly" class="form-control input-md" required="">
-
-        </div>
-      </div>
-
-      <!-- Appended Input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="newMembershipDuration">Duration</label>
-
-        <div class="col-md-2">
-          <div class="input-group">
-            <input id="newMembershipDuration" name="newMembershipDuration" class="form-control" placeholder="" type="text" required="">
-            <span class="input-group-addon">months</span>
+            <div class="col-md-4">
+              <textarea class="form-control" ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
+            </div>
           </div>
 
-        </div>
-      </div>
-      <!-- Prepended text-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="newMembershipCost">Cost</label>
+          <!-- Prepended text-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="facilityPhone">Phone number</label>
 
-        <div class="col-md-2">
-          <div class="input-group">
-            <span class="input-group-addon">₹</span>
-            <input id="newMembershipCost" name="newMembershipCost" class="form-control" placeholder="" type="text" required="">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">+91</span>
+                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" class="form-control" type="text">
+              </div>
+
+            </div>
           </div>
 
-        </div>
+          <br/>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="facilitySave"></label>
+
+            <div class="col-md-6 col-md-offset-4">
+              <button id="facilitySave" ng-click="saveFacility()" name="facilitySave" class="btn btn-success">Save</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+
+
+    <div class="row" ng-switch-when="membership">
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend class="col-md-offset-3">Membership</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="newMembershipName">Name</label>
+
+            <div class="col-md-3">
+              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" class="form-control input-md" ng-minlength="2">
+
+            </div>
+          </div>
+
+          <!-- Appended Input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="newMembershipDuration">Duration</label>
+
+            <div class="col-md-2">
+              <div class="input-group">
+                <input id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" class="form-control" placeholder="" type="text" ng-minlength="1">
+                <span class="input-group-addon">months</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- Prepended text-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="newMembershipCost">Cost</label>
+
+            <div class="col-md-2">
+              <div class="input-group">
+                <span class="input-group-addon">₹</span>
+                <input id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" class="form-control" placeholder="" type="text" ng-minlength="2">
+              </div>
+
+            </div>
+          </div>
+
+          <br/>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="facilitySave"></label>
+
+            <div class="col-md-6 col-md-offset-4">
+              <button id="membershipSave" ng-click="saveMembership()" name="MembershipSave" class="btn btn-success">Save</button>
+              <button id="customerSetupButton" ng-click="setupCustomer()" ng-show="facility.memberships.length > 0" name="customerSetupButton" class="btn btn-primary">Next</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+
+      <div class="col-md-6 col-md-offset-3" ng-show="facility.memberships.length > 0">
+        <table class="table table-striped table-condensed">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Cost</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="membership in facility.memberships">
+            <td>{{membership.name}}</td>
+            <td>{{membership.duration}}</td>
+            <td>{{membership.cost}}</td>
+          </tr>
+          </tbody>
+        </table>
+
       </div>
+    </div>
 
-      <br/>
-      <!-- Button (Double) -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="facilitySave"></label>
+    <div class="row" ng-switch-when="customer">
+      <form class="form-horizontal">
+        <fieldset>
 
-        <div class="col-md-6 col-md-offset-4">
-          <button id="membershipSave" ng-click="saveMembership()" name="MembershipSave" class="btn btn-success">Save</button>
-          <button id="membershipClear" ng-click="clearMembership()" name="MembershipClear" class="btn btn-danger">Clear</button>
-        </div>
-      </div>
+          <!-- Form Name -->
+          <legend>Customers</legend>
 
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerName">Name</label>
 
-    </fieldset>
-  </form>
+            <div class="col-md-4">
+              <input id="customerName" ng-model="newCustomer.name" name="customerName" type="text" placeholder="" class="form-control input-md" required="">
 
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerMembership">Membership</label>
+
+            <div class="col-md-2">
+              <select ng-model="newCustomer.membership" id="customerMembership" name="customerMembership" class="form-control"
+                      ng-options="membership.name for membership in facility.memberships">
+              </select>
+            </div>
+          </div>
+
+          <!-- Prepended text-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerPhone">Phone</label>
+
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">+91</span>
+                <input id="customerPhone" ng-model="newCustomer.phone" name="customerPhone" class="form-control" placeholder="" type="text" required="">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerEmail">E mail</label>
+
+            <div class="col-md-4">
+              <input id="customerEmail" ng-model="newCustomer.email" name="customerEmail" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerSex">Sex</label>
+
+            <div class="col-md-2">
+              <select id="customerSex" ng-model="newCustomer.is_male" name="customerSex" class="form-control">
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerDob">Date of Birth</label>
+
+            <div class="col-md-4">
+              <input id="customerDob" ng-model="newCustomer.date_of_birth" name="customerDob" type="text" placeholder="ddmmyyy" class="form-control input-md">
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerOccupation">Occupation</label>
+
+            <div class="col-md-4">
+              <input id="customerOccupation" ng-model="newCustomer.occupation" name="customerOccupation" type="text" placeholder="" class="form-control input-md">
+
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerAddress">Address</label>
+
+            <div class="col-md-4">
+              <textarea class="form-control" id="customerAddress" ng-model="newCustomer.Address" name="customerAddress"></textarea>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerPincode">Pincode</label>
+
+            <div class="col-md-4">
+              <input id="customerPincode" ng-model="newCustomer.pincode" name="customerPincode" type="text" placeholder="" class="form-control input-md">
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="customerEmergencyNumber">Emergency Contact Phone</label>
+
+            <div class="col-md-4">
+              <input id="customerEmergencyNumber" ng-model="newCustomer.emergency_number" name="customerEmergencyNumber" type="text" placeholder="" class="form-control input-md">
+
+            </div>
+          </div>
+
+          <!-- Button (Double) -->
+          <div class="form-group">
+
+            <div class="col-md-8">
+              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn col-md-2 col-md-offset-2">Membership</button>
+              <button id="saveCustomerButton" name="saveCustomerButton" class="btn btn-success col-md-2 col-md-offset-2">Save</button>
+              <button id="skipCustomerButton" name="skipCustomerButton" class="btn btn-primary col-md-2 col-md-offset-2">Add
+                Later
+              </button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
 
 </div>

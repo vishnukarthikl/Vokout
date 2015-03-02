@@ -21,8 +21,10 @@ class MembershipsController < ApplicationController
           flash[:success] = "#{@membership.name} has been created"
           redirect_to facility_memberships_path(@facility)
         }
+        format.json { render json: @membership, status: :ok }
       else
         format.html { render :edit }
+        format.json { render json: @owner.errors, status: :unprocessable_entity }
       end
     end
   end

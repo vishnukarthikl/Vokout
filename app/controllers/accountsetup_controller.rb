@@ -4,13 +4,16 @@ class AccountsetupController < ApplicationController
   before_action :set_owner
 
   def facility
-      render 'accountsetup/facilitysetup'
+    render 'accountsetup/facilitysetup'
   end
 
+  def setup_status
+    @facility = @owner.facility
+  end
 
   private
   def set_owner
-    @owner = Owner.find(params[:id])
+    @owner = current_owner
   end
 
 end
