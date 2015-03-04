@@ -7,6 +7,7 @@
       update: {method: "PUT"}
     })
   Membership = $resource('/facilities/:facility_id/memberships/:id/', {facility_id: "@facility_id", id: "@id"})
+  Customer = $resource('/customers/:id', {id: "@id"})
 
   $http.get('/setupstatus')
   .success (data, status, headers, config) ->
@@ -50,5 +51,12 @@
     $scope.newCustomer = {}
     $scope.status = "customer"
     $scope.progressStyle = {width: "80%"}
+
+
+  $scope.saveCustomer = ->
+    $scope.newCustomer.facility_id = $scope.facility.id
+    customerToSave = new Customer $scope.newCustomer
+    customerToSave.$save (customerToSave) ->
+      console.log("success") if customerToSave.id?
 
 

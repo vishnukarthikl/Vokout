@@ -156,9 +156,9 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="customerMembership">Membership</label>
 
-            <div class="col-md-2">
+            <div class="col-md-4">
               <select ng-model="newCustomer.membership" id="customerMembership" name="customerMembership" class="form-control"
-                      ng-options="membership.name for membership in facility.memberships">
+                      ng-options="membership.name + ' ( ' + membership.duration +' months '+'₹'+membership.cost +' )' for membership in facility.memberships">
               </select>
             </div>
           </div>
@@ -170,7 +170,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="customerPhone" ng-model="newCustomer.phone" name="customerPhone" class="form-control" placeholder="" type="text" required="">
+                <input id="customerPhone" ng-model="newCustomer.phone_number" name="customerPhone" class="form-control" placeholder="" type="text" required="">
               </div>
 
             </div>
@@ -223,7 +223,7 @@
             <label class="col-md-4 control-label" for="customerAddress">Address</label>
 
             <div class="col-md-4">
-              <textarea class="form-control" id="customerAddress" ng-model="newCustomer.Address" name="customerAddress"></textarea>
+              <textarea class="form-control" id="customerAddress" ng-model="newCustomer.address" name="customerAddress"></textarea>
             </div>
           </div>
 
@@ -250,9 +250,9 @@
           <!-- Button (Double) -->
           <div class="form-group">
 
-            <div class="col-md-8">
-              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn col-md-2 col-md-offset-2">Membership</button>
-              <button id="saveCustomerButton" name="saveCustomerButton" class="btn btn-success col-md-2 col-md-offset-2">Save</button>
+            <div class="col-md-8 col-md-offset-1">
+              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-2">Membership</button>
+              <button id="saveCustomerButton" ng-click="saveCustomer()" name="saveCustomerButton" class="btn btn-success col-md-2 col-md-offset-2">Save</button>
               <button id="skipCustomerButton" name="skipCustomerButton" class="btn btn-primary col-md-2 col-md-offset-2">Add
                 Later
               </button>

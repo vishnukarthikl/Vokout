@@ -70,9 +70,7 @@ class CustomersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def customer_params
-    customer_params = params.require(:customer).permit([:name, :email, :phone_number, :is_male, :date_of_birth, :occupation, :address, :pincode, :facility_id])
-    customer_params[:is_male] = customer_params[:is_male] == 'male'
-    customer_params
+    params.require(:customer).permit([:name, :email, :phone_number, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
   end
 
   def facility_id
