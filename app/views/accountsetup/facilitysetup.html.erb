@@ -16,7 +16,7 @@
             <label class="col-md-4 control-label" for="facilityName">Facility Name</label>
 
             <div class="col-md-4">
-              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md" required="">
+              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md">
 
             </div>
           </div>
@@ -114,7 +114,7 @@
         <div ng-show="newMembershipStatus" class="alert alert-success alert-dismissible center col-md-6 col-md-offset-3">{{newMembershipStatus}}</div>
       </form>
 
-      <br />
+      <br/>
 
       <div class="row panel panel-default" ng-show="facility.memberships.length > 0">
         <div class="panel-heading">List of all memberships added</div>
@@ -152,7 +152,7 @@
             <label class="col-md-4 control-label" for="customerName">Name</label>
 
             <div class="col-md-4">
-              <input id="customerName" ng-model="newCustomer.name" name="customerName" type="text" placeholder="" class="form-control input-md" required="">
+              <input id="customerName" ng-model="newCustomer.name" name="customerName" type="text" placeholder="" class="form-control input-md">
 
             </div>
           </div>
@@ -171,7 +171,7 @@
             <label class="col-md-4 control-label" for="customerMembershipDate">Membership start date</label>
 
             <div class="col-md-4">
-              <input id="customerMembershipDate" ng-model="newCustomer.subscription.start_date" name="customerMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text" required="">
+              <input id="customerMembershipDate" ng-model="newCustomer.subscription.start_date" name="customerMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text">
             </div>
           </div>
 
@@ -182,7 +182,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="customerPhone" ng-model="newCustomer.phone_number" name="customerPhone" class="form-control" placeholder="" type="text" required="">
+                <input id="customerPhone" ng-model="newCustomer.phone_number" name="customerPhone" class="form-control" placeholder="" type="text">
               </div>
 
             </div>
@@ -193,7 +193,7 @@
             <label class="col-md-4 control-label" for="customerEmail">E mail</label>
 
             <div class="col-md-4">
-              <input id="customerEmail" ng-model="newCustomer.email" name="customerEmail" type="text" placeholder="" class="form-control input-md" required="">
+              <input id="customerEmail" ng-model="newCustomer.email" name="customerEmail" type="text" placeholder="" class="form-control input-md">
 
             </div>
           </div>
@@ -258,24 +258,54 @@
 
             </div>
           </div>
-          <br />
+          <br/>
           <!-- Button (Double) -->
           <div class="form-group">
 
             <div class="col-md-8 col-md-offset-2">
               <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">Membership</button>
               <button id="saveCustomerButton" ng-click="saveCustomer()" name="saveCustomerButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
-              <button id="skipCustomerButton" name="skipCustomerButton" class="btn btn-primary col-md-2 col-md-offset-1">Add
+              <a id="skipCustomerButton" href="/" name="skipCustomerButton" class="btn btn-primary col-md-2 col-md-offset-1">Add
                 Later
-              </button>
+              </a>
             </div>
           </div>
 
         </fieldset>
+
+        <div ng-show="newCustomerStatus" class="row alert alert-success col-md-6 col-md-offset-3 center">{{newCustomerStatus}}</div>
+
       </form>
-      <br />
-      <div ng-show="newCustomerStatus" class="row alert alert-success col-md-6 col-md-offset-3 center"></div>
+      <br/>
+
+
+      <div class="row panel panel-default" ng-show="facility.customers.length > 0">
+        <div class="panel-heading">List of all Customers</div>
+
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone no</th>
+            <th>Subscription</th>
+            <th>Days left for renewal</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="customer in facility.customers">
+            <td>{{customer.name}}</td>
+            <td>{{customer.phone_number}}</td>
+            <td>{{customer.subscriptions[0].membership.name}}</td>
+            <td>{{customer.subscriptions[0].days_left}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
     </div>
+
   </div>
+</div>
 
 </div>

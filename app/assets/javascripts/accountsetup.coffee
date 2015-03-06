@@ -7,7 +7,8 @@
       update: {method: "PUT"}
     })
   Membership = $resource('/facilities/:facility_id/memberships/:id/', {facility_id: "@facility_id", id: "@id"})
-  Customer = $resource('/customers/:id', {id: "@id"})
+  Customer = $resource('/facilities/:facility_id/customers/:id', {facility_id: "@facility_id", id: "@id"},
+    isArray: true)
 
   $http.get('/setupstatus')
   .success (data, status, headers, config) ->
@@ -49,8 +50,7 @@
         $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
 
   $scope.setupCustomer = ->
-    if $scope.newMembership.name isnt ""
-      $scope.saveMembership()
+    $scope.facility.customers = Customer.query({facility_id: $scope.facility.id})
     $scope.newCustomer = {}
     $scope.status = "customer"
     $scope.progressStyle = {width: "80%"}
@@ -63,5 +63,4 @@
       if customerToSave.id?
         $scope.newCustomerStatus = customerToSave.name + " was successfully added"
         $scope.newCustomer = {}
-
-
+        $scope.facility.customers.push(customerToSave)

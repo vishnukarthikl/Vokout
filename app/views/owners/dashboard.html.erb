@@ -9,14 +9,8 @@
 
   <div class="col-md-10" id="dashboard">
     <div class="row placeholders">
-      <% if @facility %>
-          <h1><%= @facility.name %></h1>
-          <% if @facility.memberships.nil? %>
-
-          <% end %>
-          <a class="btn btn-default" href="<%= new_facility_membership_path(@facility) %>">Add
-            membership</a>
-      <% end %>
+      <h1><%= @facility.name %></h1>
+      No of customers : <%= @facility.customers.length %>
     </div>
   </div>
 
