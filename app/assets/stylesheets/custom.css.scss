@@ -33,6 +33,10 @@ html {
   }
 }
 
+body {
+  padding-bottom: 100px;
+}
+
 section {
   overflow: auto;
 }
@@ -74,7 +78,6 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-
 
 /* header */
 
@@ -129,7 +132,6 @@ aside {
     }
   }
 }
-
 
 /* forms */
 

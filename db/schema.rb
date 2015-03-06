@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227103240) do
+ActiveRecord::Schema.define(version: 20150306070203) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -29,14 +29,6 @@ ActiveRecord::Schema.define(version: 20150227103240) do
   end
 
   add_index "customers", ["facility_id"], name: "index_customers_on_facility_id"
-
-  create_table "customers_memberships", id: false, force: true do |t|
-    t.integer "customer_id"
-    t.integer "membership_id"
-  end
-
-  add_index "customers_memberships", ["customer_id"], name: "index_customers_memberships_on_customer_id"
-  add_index "customers_memberships", ["membership_id"], name: "index_customers_memberships_on_membership_id"
 
   create_table "facilities", force: true do |t|
     t.string   "name"
@@ -69,5 +61,16 @@ ActiveRecord::Schema.define(version: 20150227103240) do
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true
+
+  create_table "subscriptions", force: true do |t|
+    t.date     "start_date"
+    t.integer  "membership_id"
+    t.integer  "customer_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "subscriptions", ["customer_id"], name: "index_subscriptions_on_customer_id"
+  add_index "subscriptions", ["membership_id"], name: "index_subscriptions_on_membership_id"
 
 end

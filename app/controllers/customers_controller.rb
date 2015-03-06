@@ -26,9 +26,11 @@ class CustomersController < ApplicationController
   def create
     @facility = Facility.find(facility_id)
     @customer = @facility.customers.build(customer_params)
+    subscription = subscription_for(subscription_params, @customer)
 
     respond_to do |format|
       if @customer.save
+        subscription.save if subscription
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -36,6 +38,11 @@ class CustomersController < ApplicationController
         format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def subscription_for(subscription_params, customer)
+    membership = Membership.find(subscription_params[:membership_id])
+    Subscription.new({customer: customer, membership: membership, start_date: subscription_params[:start_date]})
   end
 
   # PATCH/PUT /customers/1
@@ -71,6 +78,10 @@ class CustomersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def customer_params
     params.require(:customer).permit([:name, :email, :phone_number, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
+  end
+
+  def subscription_params
+    params.require(:subscription).permit([:membership_id, :start_date])
   end
 
   def facility_id

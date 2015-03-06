@@ -46,8 +46,11 @@
       if membershipToSave.id?
         $scope.facility.memberships.push(membershipToSave)
         $scope.newMembership = {}
+        $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
 
   $scope.setupCustomer = ->
+    if $scope.newMembership.name isnt ""
+      $scope.saveMembership()
     $scope.newCustomer = {}
     $scope.status = "customer"
     $scope.progressStyle = {width: "80%"}
@@ -57,6 +60,8 @@
     $scope.newCustomer.facility_id = $scope.facility.id
     customerToSave = new Customer $scope.newCustomer
     customerToSave.$save (customerToSave) ->
-      console.log("success") if customerToSave.id?
+      if customerToSave.id?
+        $scope.newCustomerStatus = customerToSave.name + " was successfully added"
+        $scope.newCustomer = {}
 
 

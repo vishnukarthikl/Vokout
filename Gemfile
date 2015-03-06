@@ -15,6 +15,7 @@ gem 'responders', '~> 2.0'
 gem 'bower-rails'
 gem 'foreman'
 gem 'angular-rails'
+gem 'angular-ui-bootstrap-rails'
 gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'master'
 
 group :development, :test do
