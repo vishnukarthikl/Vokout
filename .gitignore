@@ -15,3 +15,6 @@
 /log/*.log
 /tmp
 /.idea
+/vendor/assets/components
+/node_modules/
+/log/

@@ -7,15 +7,11 @@ gem 'bcrypt','3.1.7'
 gem 'sass-rails',   '5.0.0.beta1'
 gem 'uglifier',     '2.5.3'
 gem 'coffee-rails'
-gem 'jquery-rails', '4.0.0.beta2'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
 gem 'responders', '~> 2.0'
-gem 'bower-rails'
 gem 'foreman'
-gem 'angular-rails'
-gem 'angular-ui-bootstrap-rails'
 gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'master'
 
 group :development, :test do
@@ -27,7 +23,6 @@ end
 
 group :production do
   gem 'pg',             '0.17.1'
-  gem 'rails_serve_static_assets'
   gem 'rails_12factor', '0.0.2'
   gem 'rails_stdout_logging'
   gem 'rails_serve_static_assets'
