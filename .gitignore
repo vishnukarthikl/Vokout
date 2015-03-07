@@ -14,6 +14,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/vendor/assets/bower_components
 /.idea
-/vendor/assets/components
 /log/
