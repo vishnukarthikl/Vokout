@@ -3,8 +3,8 @@ class AccountsetupController < ApplicationController
 
   before_action :set_owner
 
-  def facility
-    render 'accountsetup/facilitysetup'
+  def setup
+    render 'accountsetup/setup'
   end
 
   def setup_status

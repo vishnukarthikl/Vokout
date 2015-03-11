@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  get 'setup/:id' => 'accountsetup#facility', as: 'setup'
+  get 'setup' => 'accountsetup#setup', as: 'setup'
   get 'setupstatus' => 'accountsetup#setup_status', as:'setup_status'
 
   resources :owners do
