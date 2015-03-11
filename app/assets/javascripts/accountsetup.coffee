@@ -20,11 +20,11 @@
     else
       $scope.setupCustomer()
   .error (data, status, headers, config) ->
-    console.log(status)
+
 
   $scope.setupFacility = ->
     $scope.status = "facility"
-    $scope.progressStyle = {width: "30%"}
+    $scope.setProgress(30)
     $scope.newFacility = {}
 
   $scope.saveFacility = ->
@@ -37,7 +37,7 @@
   $scope.setupMembership = ->
     $scope.newMembership = {}
     $scope.status = "membership"
-    $scope.progressStyle = {width: "60%"}
+    $scope.setProgress(60)
 
 
   $scope.saveMembership = ->
@@ -49,11 +49,18 @@
         $scope.newMembership = {}
         $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
 
+  $scope.setProgress = (percentage)->
+    $scope.progressStyle = {width: percentage + "%"}
+
   $scope.setupCustomer = ->
-    $scope.facility.customers = Customer.query({facility_id: $scope.facility.id})
+    $scope.facility.customers = []
+    $scope.facility.customers = Customer.query({facility_id: $scope.facility.id},
+      ->,
+      (err) -> console.log(err)
+    )
     $scope.newCustomer = {}
     $scope.status = "customer"
-    $scope.progressStyle = {width: "80%"}
+    $scope.setProgress(80)
 
 
   $scope.saveCustomer = ->

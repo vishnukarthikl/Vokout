@@ -4,7 +4,11 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    if facility_id
+      @customers = Customer.where(facility_id: facility_id)
+    else
+      @customers = Customer.all
+    end
   end
 
   # GET /customers/1
@@ -85,6 +89,6 @@ class CustomersController < ApplicationController
   end
 
   def facility_id
-    params.require(:facility_id)
+    params[:facility_id]
   end
 end
