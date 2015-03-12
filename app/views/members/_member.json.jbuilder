@@ -1,5 +1,5 @@
-json.extract! customer, :id, :name, :phone_number, :email, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id
-json.subscriptions customer.subscriptions do |subscription|
+json.extract! member, :id, :name, :phone_number, :email, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id
+json.subscriptions member.subscriptions do |subscription|
   if subscription
     json.extract! subscription, :id, :start_date
     days_left = (subscription.start_date.plus_with_duration(subscription.membership.duration * 30)) - Date.today

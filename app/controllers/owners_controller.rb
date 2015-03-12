@@ -1,17 +1,9 @@
 class OwnersController < ApplicationController
   before_filter :authenticate, unless: [:new]
 
-  before_action :set_owner, only: [:show, :edit, :update, :destroy, :dashboard]
-  include AccountsetupHelper
+  before_action :set_owner, only: [:show, :edit, :update, :destroy]
 
   respond_to :json
-
-  def dashboard
-    @facility = @owner.facility
-    unless is_account_setup(@facility)
-      redirect_to setup_path
-    end
-  end
 
   # GET /owners
   # GET /owners.json
@@ -44,7 +36,7 @@ class OwnersController < ApplicationController
         format.html {
           log_in @owner
           flash[:success] = "#{@owner.name}, your profile has been created"
-          redirect_to dashboard_owner_path(@owner)
+          redirect_to dashboard_path(@owner)
         }
         format.json { render :show, status: :created, location: @owner }
       else

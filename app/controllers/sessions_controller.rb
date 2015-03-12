@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     owner = Owner.find_by(email: params[:session][:email].downcase)
     if owner && owner.authenticate(params[:session][:password])
       log_in owner
-      redirect_to dashboard_owner_path(owner)
+      redirect_to dashboard_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'

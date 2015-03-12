@@ -14,6 +14,6 @@ class CreateCustomers < ActiveRecord::Migration
 
       t.references :facility, index: true
     end
-    add_foreign_key :customers, :facilities
+    add_foreign_key :members, :facilities
   end
 end

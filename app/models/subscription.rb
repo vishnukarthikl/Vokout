@@ -1,4 +1,4 @@
 class Subscription < ActiveRecord::Base
-  belongs_to :customer
+  belongs_to :member
   belongs_to :membership
 end

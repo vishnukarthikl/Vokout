@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :customers
+  resources :members
 
   root 'application#root'
   get 'home' => 'static#home'
@@ -17,15 +17,15 @@ Rails.application.routes.draw do
   get 'setup' => 'accountsetup#setup', as: 'setup'
   get 'setupstatus' => 'accountsetup#setup_status', as:'setup_status'
 
+  get 'dashboard' => 'dashboard#main', as: 'dashboard'
+  get 'dashboard-members' => 'dashboard#members', as: 'dashboard_members'
+
   resources :owners do
-    member do
-      get 'dashboard' => 'owners#dashboard', as: 'dashboard'
-    end
     resources :facilities
   end
 
   resources :facilities do
     resources :memberships
-    resources :customers
+    resources :members
   end
 end

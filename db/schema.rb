@@ -11,9 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306070203) do
+ActiveRecord::Schema.define(version: 20150312075711) do
 
-  create_table "customers", force: true do |t|
+  create_table "facilities", force: true do |t|
+    t.string   "name"
+    t.integer  "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "address"
+    t.string   "phone"
+  end
+
+  add_index "facilities", ["owner_id"], name: "index_facilities_on_owner_id"
+
+  create_table "members", force: true do |t|
     t.string   "name"
     t.string   "phone_number"
     t.string   "email"
@@ -28,18 +39,7 @@ ActiveRecord::Schema.define(version: 20150306070203) do
     t.integer  "facility_id"
   end
 
-  add_index "customers", ["facility_id"], name: "index_customers_on_facility_id"
-
-  create_table "facilities", force: true do |t|
-    t.string   "name"
-    t.integer  "owner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text     "address"
-    t.string   "phone"
-  end
-
-  add_index "facilities", ["owner_id"], name: "index_facilities_on_owner_id"
+  add_index "members", ["facility_id"], name: "index_members_on_facility_id"
 
   create_table "memberships", force: true do |t|
     t.string   "name"
@@ -65,12 +65,12 @@ ActiveRecord::Schema.define(version: 20150306070203) do
   create_table "subscriptions", force: true do |t|
     t.date     "start_date"
     t.integer  "membership_id"
-    t.integer  "customer_id"
+    t.integer  "member_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "subscriptions", ["customer_id"], name: "index_subscriptions_on_customer_id"
+  add_index "subscriptions", ["member_id"], name: "index_subscriptions_on_member_id"
   add_index "subscriptions", ["membership_id"], name: "index_subscriptions_on_membership_id"
 
 end

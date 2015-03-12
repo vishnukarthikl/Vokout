@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   def root
     if logged_in?
-      redirect_to dashboard_owner_path(current_owner)
+      redirect_to dashboard_path
     else
       redirect_to home_path
     end

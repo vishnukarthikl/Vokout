@@ -1,25 +1,24 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-@SetupCtrl = ($scope, $resource, $http) ->
+@SetupCtrl = ($scope, $resource, $http, member) ->
   Facility = $resource('/facilities/:id/', {id: "@id"},
     {
       update: {method: "PUT"}
     })
   Membership = $resource('/facilities/:facility_id/memberships/:id/', {facility_id: "@facility_id", id: "@id"})
-  Customer = $resource('/facilities/:facility_id/customers/:id', {facility_id: "@facility_id", id: "@id"},
-    isArray: true)
 
   $http.get('/setupstatus')
-  .success (data, status, headers, config) ->
+  .success (data) ->
     $scope.facility = data
     if !$scope.facility.id?
       $scope.setupFacility()
     else if $scope.facility.memberships.length is 0
       $scope.setupMembership()
     else
-      $scope.setupCustomer()
+      $scope.setupMember()
   .error (data, status, headers, config) ->
+    console.log(status)
 
 
   $scope.setupFacility = ->
@@ -52,22 +51,22 @@
   $scope.setProgress = (percentage)->
     $scope.progressStyle = {width: percentage + "%"}
 
-  $scope.setupCustomer = ->
-    $scope.facility.customers = []
-    $scope.facility.customers = Customer.query({facility_id: $scope.facility.id},
-      ->,
+  $scope.setupMember = ->
+    $scope.facility.members = []
+    $scope.facility.members = member.query({facility_id: $scope.facility.id},
+      (data)-> console.log(data),
       (err) -> console.log(err)
     )
-    $scope.newCustomer = {}
-    $scope.status = "customer"
+    $scope.newMember = {}
+    $scope.status = "member"
     $scope.setProgress(80)
 
 
-  $scope.saveCustomer = ->
-    $scope.newCustomer.facility_id = $scope.facility.id
-    customerToSave = new Customer $scope.newCustomer
-    customerToSave.$save (customerToSave) ->
-      if customerToSave.id?
-        $scope.newCustomerStatus = customerToSave.name + " was successfully added"
-        $scope.newCustomer = {}
-        $scope.facility.customers.push(customerToSave)
+  $scope.saveMember = ->
+    $scope.newMember.facility_id = $scope.facility.id
+    MemberToSave = new member $scope.newMember
+    MemberToSave.$save (MemberToSave) ->
+      if MemberToSave.id?
+        $scope.newMemberStatus = MemberToSave.name + " was successfully added"
+        $scope.newMember = {}
+        $scope.facility.members.push(MemberToSave)

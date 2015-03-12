@@ -1,4 +1,4 @@
-class Customer < ActiveRecord::Base
+class Member < ActiveRecord::Base
 
   belongs_to :facility
   has_many :subscriptions
