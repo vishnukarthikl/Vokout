@@ -7,10 +7,11 @@
     </ul>
   </div>
 
-  <div class="col-md-10" id="dashboard">
+  <div class="col-md-10" id="dashboard" ng-controller="MembersCtrl">
     <div class="row placeholders">
       <h1><%= @facility.name %></h1>
-      No of Members : <%= @facility.members.length %>
+      <h2>Membership stats</h2>
+      <canvas class="col-md-offset-3" tc-chartjs-doughnut chart-options="chartOptions" height="400" width="400" chart-data="membershipStats"></canvas>
     </div>
   </div>
 

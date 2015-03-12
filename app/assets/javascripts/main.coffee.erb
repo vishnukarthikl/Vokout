@@ -1,6 +1,6 @@
 #= depend_on_asset "dirPagination.tpl.html"
 
-vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination'])
+vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination','tc.chartjs'])
 .controller('SetupCtrl', @SetupCtrl)
 .controller('MembersCtrl', @MembersCtrl)
 .factory('member', ($resource) ->

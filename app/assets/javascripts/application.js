@@ -16,4 +16,6 @@
 //= require angular-resource
 //= require angular-utils-pagination
 //= require bootstrap-sass-official/assets/javascripts/bootstrap
+//= require Chart.js/Chart.js
+//= require tc-angular-chartjs
 //= require_tree .
