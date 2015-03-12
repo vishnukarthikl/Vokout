@@ -8,6 +8,7 @@ class AccountsetupController < ApplicationController
   end
 
   def setup_status
+    @owner = Owner.includes(facility: [members: [subscriptions: :membership]]).find(@owner.id)
     @facility = @owner.facility
   end
 

@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  before_filter :authenticate
+
   before_action :set_owner_facility
 
   include AccountsetupHelper
@@ -10,7 +12,6 @@ class DashboardController < ApplicationController
   end
 
   def members
-    @owner.facility
   end
 
   private

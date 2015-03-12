@@ -1,17 +1,46 @@
-<div class="row">
-  <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="main">Overview <span class="sr-only">(current)</span></a></li>
-      <li><a href="#">Reports</a></li>
-      <li class="active"><a href="#">Members</a></li>
-    </ul>
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-pills nav-stacked">
+    <li><a href="main">Overview <span class="sr-only">(current)</span></a></li>
+    <li><a href="#">Reports</a></li>
+    <li class="active"><a href="#">Members</a></li>
+  </ul>
+</div>
+
+<div class="col-md-8 col-md-offset-1" id="dashboard" ng-controller="MembersCtrl">
+  <h1>Members</h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <label for="search">Search:</label>
+      <input ng-model="q" id="search" class="form-control" placeholder="customer name"></div>
   </div>
 
-  <div class="col-md-10" id="dashboard" ng-controller="MembersCtrl">
-    <div class="row placeholders">
-      <h1>Members</h1>
-      {{facility}}
+  <div class="row">
+    <div class="panel panel-default" ng-show="facility.members.length > 0">
+
+      <div class="panel-heading">List of all members</div>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone no</th>
+          <th>Subscription</th>
+          <th>Days left for renewal</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr dir-paginate="member in facility.members | filter:q  | itemsPerPage: 10">
+          <td>{{member.name}}</td>
+          <td>{{member.phone_number}}</td>
+          <td>{{member.subscriptions[0].membership.name}}</td>
+          <td>{{member.subscriptions[0].days_left}}</td>
+        </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
+  <dir-pagination-controls></dir-pagination-controls>
 
 </div>

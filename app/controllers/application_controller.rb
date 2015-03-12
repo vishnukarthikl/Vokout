@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     unless logged_in?
       #todo: get current url and redirect after login
-      redirect_to 'SessionsController#new'
+      redirect_to login_path
     end
   end
 
