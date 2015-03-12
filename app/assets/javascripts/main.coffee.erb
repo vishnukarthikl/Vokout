@@ -9,5 +9,6 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
   $httpProvider.defaults.headers.common.Accept = 'application/json'
 ]
 .config ["paginationTemplateProvider", (paginationTemplateProvider) ->
-  paginationTemplateProvider.setPath('assets/angular-utils-pagination/dirPagination.tpl.html')
+    path = '<%= asset_path('angular-utils-pagination/dirPagination.tpl.html') %>'
+    paginationTemplateProvider.setPath(path)
 ]
