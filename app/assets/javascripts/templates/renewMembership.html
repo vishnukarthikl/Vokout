@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h3>Membership renewal for {{member.name}}</h3>
+</div>
+<div class="modal-body">
+    <form name="" ng-submit="submitRenewal()" novalidate>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <label class="col-md-6 control-label" for="renewMembership">Membership</label>
+                    <select ng-model="renewMembership.membership_id" id="renewMembership" name="renewMembership"
+                            class="form-control"
+                            ng-options="membership.id as membership.name for membership in memberships">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <label for="renewMembership.start_date" class="col-sm-6 control-label">Start date</label>
+                    <input ng-model="renewMembership.start_date" type="text" class="form-control col-sm-6"
+                           id="renewMembership.start_date" placeholder="dd/mm/yyyy">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
