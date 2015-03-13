@@ -3,9 +3,9 @@ class MembersController < ApplicationController
 
   def index
     if facility_id
-      @members = Member.where(facility_id: facility_id)
+      @members = Member.eager_load(subscriptions: :membership).find(facility_id: facility_id)
     else
-      @members = Member.all
+      @members = Member.eager_load(subscriptions: :membership).all
     end
   end
 
@@ -63,7 +63,7 @@ class MembersController < ApplicationController
 
   private
   def set_member
-    @member = Member.find(params[:id])
+    @member = Member.includes(subscriptions: :membership).find(params[:id])
   end
 
   def member_params
