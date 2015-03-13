@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
 
   include AccountsetupHelper
 
-  def main
+  def overview
     unless is_account_setup(@facility)
       redirect_to setup_path
     end

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'setup' => 'accountsetup#setup', as: 'setup'
   get 'setupstatus' => 'accountsetup#setup_status', as: 'setup_status'
 
-  get 'dashboard' => 'dashboard#main', as: 'dashboard'
+  get 'dashboard' => 'dashboard#overview', as: 'dashboard'
   get 'dashboard-members' => 'dashboard#members', as: 'dashboard_members'
 
   resources :owners do
