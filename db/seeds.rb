@@ -5,14 +5,24 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Owner.delete_all
+Facility.delete_all
+Member.delete_all
+Membership.delete_all
+Subscription.delete_all
+
+puts "Adding owner"
 owner = Owner.create({name: 'vishnu', email: 'foo@bar.com', password: '123456'})
 
+puts "Adding facility"
 facility = owner.create_facility({name: 'ABC fitness', address: 'peelamedu', phone: '123456789'})
 
+puts "Adding memberships"
 m1 = facility.memberships.create({name: 'Monthly', duration: 1, cost: 1000})
 m2 = facility.memberships.create({name: 'Half yearly', duration: 6, cost: 5500})
 m3 = facility.memberships.create({name: 'Yearly', duration: 12, cost: 10000})
 
+puts "Adding members"
 member1 = facility.members.create({name: 'Karthik', phone_number: '9876868672', email: 'ka@bar.com', is_male: true, date_of_birth: '25/10/1990', occupation: 'student', address: 'peelamedu', pincode: '641004', emergency_number: '9672846478'})
 member1.subscriptions << Subscription.create({start_date: Date.today, membership: m1})
 
@@ -72,3 +82,33 @@ member19.subscriptions << Subscription.create({start_date: Date.today, membershi
 
 member20 = facility.members.create({name: 'Quinton', phone_number: '7722348965', email: 'quinton@bar.com', is_male: true, date_of_birth: '13/03/1993', occupation: 'athelete', address: 'race course', pincode: '641009', emergency_number: '9672848931'})
 member20.subscriptions << Subscription.create({start_date: Date.today-38.days, membership: m1})
+
+member21 = facility.members.create({name: 'Radha', phone_number: '8979833333', email: 'radha@bar.com', is_male: false, date_of_birth: '31/05/1978', occupation: 'actoress', address: 'rs puram', pincode: '641002', emergency_number: '9672646666'})
+member21.subscriptions << Subscription.create({start_date: Date.today-85.days, membership: m2})
+
+member22 = facility.members.create({name: 'Satheesh', phone_number: '7722789777', email: 'satheesh@bar.com', is_male: false, date_of_birth: '13/03/1988', occupation: 'IT', address: 'ganapathy', pincode: '641028', emergency_number: '9005454574'})
+member22.subscriptions << Subscription.create({start_date: Date.today-243.days, membership: m3})
+
+member23 = facility.members.create({name: 'Tanya', phone_number: '9007648672', email: 'tanya@bar.com', is_male: false, date_of_birth: '13/03/1992', occupation: 'Scientist', address: 'race course', pincode: '641009', emergency_number: '8764971234'})
+member23.subscriptions << Subscription.create({start_date: Date.today-94.days, membership: m2})
+
+member24 = facility.members.create({name: 'Udhay', phone_number: '9654012222', email: 'udhay@bar.com', is_male: true, date_of_birth: '13/03/1995', occupation: 'Student', address: 'race course', pincode: '641009', emergency_number: '7654103456'})
+member24.subscriptions << Subscription.create({start_date: Date.today-144.days, membership: m3})
+
+member25 = facility.members.create({name: 'Varathan', phone_number: '7726744678', email: 'varathan@bar.com', is_male: true, date_of_birth: '13/03/1990', occupation: 'cricketer', address: 'race course', pincode: '641009', emergency_number: '9673446897'})
+member25.subscriptions << Subscription.create({start_date: Date.today-2.days, membership: m1})
+
+member26 = facility.members.create({name: 'Waqar', phone_number: '8872112345', email: 'waqar@bar.com', is_male: true, date_of_birth: '13/03/1986', occupation: 'IT', address: 'race course', pincode: '641009', emergency_number: '8807401001'})
+member26.subscriptions << Subscription.create({start_date: Date.today-32.days, membership: m1})
+
+member27 = facility.members.create({name: 'Xanya', phone_number: '7711234555', email: 'xanya@bar.com', is_male: false, date_of_birth: '13/03/1993', occupation: 'student', address: 'race course', pincode: '641009', emergency_number: '966584397'})
+member27.subscriptions << Subscription.create({start_date: Date.today-94.days, membership: m2})
+
+member28 = facility.members.create({name: 'yashwanth', phone_number: '8934222328', email: 'yashwanth@bar.com', is_male: true, date_of_birth: '13/03/1989', occupation: 'Body builder', address: 'race course', pincode: '641009', emergency_number: '9672828311'})
+member28.subscriptions << Subscription.create({start_date: Date.today-368.days, membership: m3})
+
+member29 = facility.members.create({name: 'zuck', phone_number: '9008354575', email: 'zuck@bar.com', is_male: true, date_of_birth: '13/03/1987', occupation: 'Entrepreneur', address: 'race course', pincode: '641009', emergency_number: '9443907274'})
+member29.subscriptions << Subscription.create({start_date: Date.today, membership: m2})
+
+member30 = facility.members.create({name: 'Ashley', phone_number: '8222348965', email: 'ashley@bar.com', is_male: false, date_of_birth: '13/03/1995', occupation: 'student', address: 'race course', pincode: '641009', emergency_number: '9678548931'})
+member30.subscriptions << Subscription.create({start_date: Date.today-28.days, membership: m1})
