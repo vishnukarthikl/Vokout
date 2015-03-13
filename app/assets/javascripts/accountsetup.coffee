@@ -1,7 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-@SetupCtrl = ($scope, $resource, $http, member) ->
+@SetupCtrl = ($scope, $resource, $http, memberService) ->
   Facility = $resource('/facilities/:id/', {id: "@id"},
     {
       update: {method: "PUT"}
@@ -53,7 +53,7 @@
 
   $scope.setupMember = ->
     $scope.facility.members = []
-    $scope.facility.members = member.query({facility_id: $scope.facility.id},
+    $scope.facility.members = memberService.query({facility_id: $scope.facility.id},
       (data)-> console.log(data),
       (err) -> console.log(err)
     )
@@ -64,7 +64,7 @@
 
   $scope.saveMember = ->
     $scope.newMember.facility_id = $scope.facility.id
-    MemberToSave = new member $scope.newMember
+    MemberToSave = new memberService $scope.newMember
     MemberToSave.$save (MemberToSave) ->
       if MemberToSave.id?
         $scope.newMemberStatus = MemberToSave.name + " was successfully added"

@@ -1,17 +1,15 @@
-#= depend_on_asset "angular-utils-pagination/dirPagination.tpl.html"
-
-vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination', 'tc.chartjs'])
+vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination', 'tc.chartjs','ui.bootstrap','templates'])
 .controller('SetupCtrl', @SetupCtrl)
 .controller('DashboardMembersCtrl', @DashboardMembersCtrl)
 .controller('DashboardOverviewCtrl', @DashboardOverviewCtrl)
-.factory('member', ($resource) ->
-    $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"}, isArray: true)
+.factory('memberService', ($resource) ->
+    $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"},
+            {update: {method: "PUT"}}, isArray: true)
 )
 .config ["$httpProvider", ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
     $httpProvider.defaults.headers.common.Accept = 'application/json'
 ]
 .config ["paginationTemplateProvider", (paginationTemplateProvider) ->
-    path = '<%= asset_path('angular-utils-pagination/dirPagination.tpl.html') %>'
-    paginationTemplateProvider.setPath(path)
+    paginationTemplateProvider.setPath('dirPagination.html')
 ]

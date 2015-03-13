@@ -2,14 +2,17 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
-  $http.get('/setupstatus')
-  .success (data) ->
-    $scope.facility = data
-    $scope.calculateMembershipStats()
-  .error (data, status, headers, config) ->
-    console.log(status)
+  $scope.refreshData = ->
+    $http.get('/setupstatus')
+    .success (data) ->
+      $scope.facility = data
+      $scope.calculateMembershipStats()
+    .error (data, status, headers, config) ->
+      console.log(status)
 
+  $scope.refreshData()
   colors = ['#5DA5DA', '#FAA43A', '#60BD68', '#DECF3F', '#F15854', '#9e9ac8']
+
   $scope.calculateMembershipStats = ->
     data = {}
     i = 0
@@ -34,9 +37,56 @@
       showTooltips: true
     }
 
-@DashboardMembersCtrl = ($scope, $resource, $http) ->
-  $http.get('/setupstatus')
-  .success (data) ->
-    $scope.facility = data
-  .error (data, status, headers, config) ->
-    console.log(status)
+@DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
+  $scope.refreshData = ->
+    $http.get('/setupstatus')
+    .success (data) ->
+      $scope.facility = data
+    .error (data, status, headers, config) ->
+      console.log(status)
+
+  $scope.refreshData()
+
+  $scope.latestSubscription = (member)->
+    member.subscriptions[0]
+
+  $scope.subscriptionExpired = (member) ->
+    $scope.latestSubscription(member).days_left <= 0
+
+  $scope.orderBySubscriptionExpiry = (member) ->
+    $scope.latestSubscription(member).days_left
+
+
+  $scope.renew = (member) ->
+    modalInstance = $modal.open({
+      templateUrl: 'renewMembership.html',
+      controller: RenewCtrl,
+      scope: $scope,
+      size: 'md',
+      resolve:
+        memberToRenew: -> member
+        memberships: -> $scope.facility.memberships
+    })
+    modalInstance.result.then( (renewedMember) ->
+      $scope.refreshData()
+      $scope.renewStatus = renewedMember.name + " was renewed successfully"
+    )
+
+RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
+  $scope.member = memberToRenew
+  $scope.memberships = memberships
+  $scope.renewMembership = {}
+  $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
+
+  $scope.submitRenewal = ->
+    newSubscription = {membership_id: $scope.renewMembership.membership_id, start_date: $scope.renewMembership.start_date}
+    memberService.get({facility_id: $scope.member.facility_id, id: $scope.member.id}, (data) ->
+      member = data
+      member.subscriptions.push(newSubscription)
+      member.$update((data) ->
+        $modalInstance.close(member)
+      )
+    )
+
+  $scope.cancel = ->
+    $modalInstance.dismiss('cancel')

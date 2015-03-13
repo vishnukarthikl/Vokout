@@ -43,12 +43,23 @@ class MembersController < ApplicationController
 
   def update
     respond_to do |format|
+      newSubscription = renewedSubscription(@member)
       if @member.update(member_params)
+        newSubscription.save if newSubscription
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @member }
       else
         format.html { render :edit }
         format.json { render json: @member.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def renewedSubscription(member)
+    params.require(:subscriptions).each do |subscription|
+      unless subscription[:id]
+        membership = Membership.find(subscription[:membership_id])
+        return Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
       end
     end
   end

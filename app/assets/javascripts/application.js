@@ -15,7 +15,11 @@
 //= require angular
 //= require angular-resource
 //= require angular-utils-pagination
+//= require angular-bootstrap
 //= require bootstrap-sass-official/assets/javascripts/bootstrap
+//= require moment
 //= require Chart.js/Chart.js
 //= require tc-angular-chartjs
+//= require angular-rails-templates
+//= require_tree ./templates
 //= require_tree .
