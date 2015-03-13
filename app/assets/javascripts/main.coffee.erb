@@ -1,4 +1,4 @@
-#= depend_on_asset "dirPagination.tpl.html"
+#= depend_on_asset "angular-utils-pagination/dirPagination.tpl.html"
 
 vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination','tc.chartjs'])
 .controller('SetupCtrl', @SetupCtrl)
@@ -11,6 +11,6 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
   $httpProvider.defaults.headers.common.Accept = 'application/json'
 ]
 .config ["paginationTemplateProvider", (paginationTemplateProvider) ->
-    path = '<%= asset_path('dirPagination.tpl.html') %>'
+    path = '<%= asset_path('angular-utils-pagination/dirPagination.tpl.html') %>'
     paginationTemplateProvider.setPath(path)
 ]
