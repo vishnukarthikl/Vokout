@@ -6,50 +6,52 @@
   </ul>
 </div>
 
-<div class="col-md-8 col-md-offset-1" id="dashboard" ng-controller="DashboardMembersCtrl">
-  <h1>Members</h1>
+<div class="col-md-8 col-md-offset-1" ng-controller="DashboardCtrl">
+  <div id="dashboard-members" ng-controller="DashboardMembersCtrl">
+    <h1>Members</h1>
 
-  <div class="row">
-    <div class="col-md-4">
-      <label for="search">Search:</label>
-      <input ng-model="q" id="search" class="form-control" placeholder="customer name"></div>
-  </div>
-  <div class="row" ng-show="renewStatus">
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="search">Search:</label>
+        <input ng-model="q" id="search" class="form-control" placeholder="customer name"></div>
+    </div>
+    <div class="row" ng-show="renewStatus">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         {{renewStatus}}
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="panel panel-default" ng-show="facility.members.length > 0">
+    <div class="row">
+      <div class="panel panel-default" ng-show="facility.members.length > 0">
 
-      <div class="panel-heading">List of all members</div>
-      <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone no</th>
-          <th>Subscription</th>
-          <th>Days left for renewal</th>
-        </tr>
-        </thead>
+        <div class="panel-heading">List of all members</div>
+        <table class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone no</th>
+            <th>Subscription</th>
+            <th>Days left for renewal</th>
+          </tr>
+          </thead>
 
-        <tbody>
-        <tr ng-class="{warning :subscriptionExpired(member) }" dir-paginate="member in facility.members | filter:q | orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
-          <td>{{member.name}}</td>
-          <td>{{member.phone_number}}</td>
-          <td>{{member.subscriptions[0].membership.name}}</td>
-          <td>{{ !subscriptionExpired(member) ? latestSubscription(member).days_left_words : "Expired since "
-            +latestSubscription(member).days_left_words }}
-            <button ng-show="subscriptionExpired(member)" type="button" class="btn btn-success pull-right" ng-click="renew(member)">Renew</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+          <tbody>
+          <tr ng-class="{warning :subscriptionExpired(member) }" dir-paginate="member in facility.members | filter:q | orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
+            <td>{{member.name}}</td>
+            <td>{{member.phone_number}}</td>
+            <td>{{latestSubscription(member).membership.name}}</td>
+            <td>{{ !subscriptionExpired(member) ? latestSubscription(member).days_left_words : "Expired since "
+              +latestSubscription(member).days_left_words }}
+              <button ng-show="subscriptionExpired(member)" type="button" class="btn btn-success pull-right" ng-click="renew(member)">Renew</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <dir-pagination-controls></dir-pagination-controls>
+    <dir-pagination-controls></dir-pagination-controls>
 
+  </div>
 </div>

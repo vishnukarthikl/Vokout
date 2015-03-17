@@ -1,6 +1,21 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+@DashboardCtrl = ($scope, $resource, $http) ->
+  $scope.latestSubscription = (member)->
+    member.subscriptions.reduce((latestSubscription, currentSubscription) ->
+      if currentSubscription.days_left > latestSubscription.days_left
+        currentSubscription
+      else
+        latestSubscription
+    , member.subscriptions[0])
+
+  $scope.subscriptionExpired = (member) ->
+    $scope.latestSubscription(member).days_left <= 0
+
+  $scope.orderBySubscriptionExpiry = (member) ->
+    $scope.latestSubscription(member).days_left
+
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
   $scope.refreshData = ->
     $http.get('/setupstatus')
@@ -17,7 +32,7 @@
     data = {}
     i = 0
     $scope.facility.members.map((x) ->
-      membership = x.subscriptions[0].membership.name
+      membership = $scope.latestSubscription(x).membership.name
       if membership of data
         data[membership].value += 1
       else
@@ -47,15 +62,6 @@
 
   $scope.refreshData()
 
-  $scope.latestSubscription = (member)->
-    member.subscriptions[0]
-
-  $scope.subscriptionExpired = (member) ->
-    $scope.latestSubscription(member).days_left <= 0
-
-  $scope.orderBySubscriptionExpiry = (member) ->
-    $scope.latestSubscription(member).days_left
-
 
   $scope.renew = (member) ->
     modalInstance = $modal.open({
@@ -67,7 +73,7 @@
         memberToRenew: -> member
         memberships: -> $scope.facility.memberships
     })
-    modalInstance.result.then( (renewedMember) ->
+    modalInstance.result.then((renewedMember) ->
       $scope.refreshData()
       $scope.renewStatus = renewedMember.name + " was renewed successfully"
     )

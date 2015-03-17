@@ -1,7 +1,8 @@
 vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.dirPagination', 'tc.chartjs','ui.bootstrap','templates'])
 .controller('SetupCtrl', @SetupCtrl)
-.controller('DashboardMembersCtrl', @DashboardMembersCtrl)
+.controller('DashboardCtrl', @DashboardCtrl)
 .controller('DashboardOverviewCtrl', @DashboardOverviewCtrl)
+.controller('DashboardMembersCtrl', @DashboardMembersCtrl)
 .factory('memberService', ($resource) ->
     $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"},
             {update: {method: "PUT"}}, isArray: true)
