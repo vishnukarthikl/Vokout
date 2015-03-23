@@ -49,6 +49,7 @@
       onAnimationComplete: ->
         @.showTooltip(@segments, true);
       tooltipEvents: [],
+      animationEasing : "easeInQuint",
       showTooltips: true
     }
 
