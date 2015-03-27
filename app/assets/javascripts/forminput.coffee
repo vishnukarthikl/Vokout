@@ -31,8 +31,8 @@
       if status.invalid and status.touched
         element.removeClass("has-success").addClass("has-error")
       else if !status.invalid and status.touched
-        element.removeClass("has-error").addClass("has-success")
-      else if status.invalid and !status.touched
+        element.removeClass("has-error").addClasssad("has-success")
+      else if mstatus.invalid and !status.touched
         element.removeClass("has-error").removeClass("has-success")
 
 

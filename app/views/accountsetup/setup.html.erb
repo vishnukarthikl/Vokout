@@ -105,7 +105,7 @@
 
             <div class="col-md-6 col-md-offset-4">
               <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave" class="btn btn-success btn-primary col-md-3">Save</button>
-              <button id="memberSetupButton" ng-click="setupMember()" ng-show="facility.memberships.length > 0" name="memberSetupButton" class="btn btn-primary col-md-3 col-md-offset-1">Next</button>
+              <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton" class="btn btn-primary col-md-3 col-md-offset-1">Next</button>
             </div>
           </div>
 

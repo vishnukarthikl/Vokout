@@ -51,7 +51,9 @@
   $scope.setProgress = (percentage)->
     $scope.progressStyle = {width: percentage + "%"}
 
-  $scope.setupMember = ->
+  $scope.setupMember = (membershipForm) ->
+    $scope.saveMembership() if membershipForm and membershipForm.$valid
+
     $scope.facility.members = []
     $scope.facility.members = memberService.query({facility_id: $scope.facility.id},
       (data)-> console.log(data),
