@@ -64,7 +64,7 @@
     $scope.setProgress(80)
 
 
-  $scope.saveMember = ->
+  $scope.saveMember = (memberForm) ->
     $scope.newMember.facility_id = $scope.facility.id
     MemberToSave = new memberService $scope.newMember
     MemberToSave.$save (MemberToSave) ->
@@ -72,3 +72,4 @@
         $scope.newMemberStatus = MemberToSave.name + " was successfully added"
         $scope.newMember = {}
         $scope.facility.members.push(MemberToSave)
+        memberForm.$setUntouched if memberForm

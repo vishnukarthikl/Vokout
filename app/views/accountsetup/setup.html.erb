@@ -36,7 +36,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text" minlength="10" maxlength="10" required>
+                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="number" minlength="10" maxlength="10" required>
               </div>
 
             </div>
@@ -140,7 +140,7 @@
     </div>
 
     <div class="row" ng-switch-when="member">
-      <form class="row form-horizontal">
+      <form class="row form-horizontal" name="memberForm">
         <fieldset>
 
           <!-- Form Name -->
@@ -151,7 +151,7 @@
             <label for="memberName">Name</label>
 
             <div class="col-md-4">
-              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="">
+              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
 
             </div>
           </div>
@@ -161,7 +161,7 @@
 
             <div class="col-md-4">
               <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
-                      ng-options="membership.id as membership.name for membership in facility.memberships">
+                      ng-options="membership.id as membership.name for membership in facility.memberships" required>
               </select>
             </div>
           </div>
@@ -170,7 +170,7 @@
             <label for="memberMembershipDate">Membership start date</label>
 
             <div class="col-md-4">
-              <input id="memberMembershipDate" ng-model="newMember.subscription.start_date" name="memberMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text">
+              <input id="memberMembershipDate" ng-model="newMember.subscription.start_date" name="memberMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text" required>
             </div>
           </div>
 
@@ -181,7 +181,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="memberPhone" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" type="text">
+                <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
               </div>
 
             </div>
@@ -192,7 +192,7 @@
             <label for="memberEmail">E mail</label>
 
             <div class="col-md-4">
-              <input id="memberEmail" ng-model="newMember.email" name="memberEmail" type="text" placeholder="">
+              <input id="memberEmail" ng-model="newMember.email" name="memberEmail" placeholder="" type="email">
 
             </div>
           </div>
@@ -202,7 +202,7 @@
             <label for="memberSex">Sex</label>
 
             <div class="col-md-2">
-              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control">
+              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
                 <option value="true">Male</option>
                 <option value="false">Female</option>
               </select>
@@ -244,7 +244,7 @@
 
             <div class="col-md-8 col-md-offset-2">
               <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">Membership</button>
-              <button id="savememberButton" ng-click="saveMember()" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
+              <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
               <a id="skipMemberButton" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Add
                 Later
               </a>
