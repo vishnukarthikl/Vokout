@@ -6,7 +6,7 @@
 
   <div ng-switch on="status">
     <div class="row" ng-switch-when="facility">
-      <form name="facility" class="form-horizontal" novalidate>
+      <form name="facilityForm" class="form-horizontal" novalidate>
         <fieldset>
           <!-- Form Name -->
           <legend>Initial Setup</legend>
@@ -48,7 +48,7 @@
             <label class="col-md-4 control-label" for="facilitySave"></label>
 
             <div class="col-md-6 col-md-offset-4">
-              <button id="facilitySave" ng-click="saveFacility()" ng-disabled="facility.$invalid" name="facilitySave" class="btn btn-success col-md-3">Save</button>
+              <button id="facilitySave" ng-click="saveFacility()" ng-disabled="facilityForm.$invalid" name="facilitySave" class="btn btn-success col-md-3">Save</button>
             </div>
           </div>
 
@@ -57,7 +57,7 @@
     </div>
 
     <div class="row" ng-switch-when="membership">
-      <form class="row form-horizontal" novalidate>
+      <form name="membershipForm" class="row form-horizontal" novalidate>
         <fieldset>
 
           <!-- Form Name -->
@@ -77,9 +77,9 @@
           <div forminput>
             <label for="newMembershipDuration">Duration</label>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="input-group">
-                <input id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" ng-minlength="1">
+                <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" required>
                 <span class="input-group-addon">months</span>
               </div>
 
@@ -89,10 +89,10 @@
           <div forminput>
             <label for="newMembershipCost">Cost</label>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="input-group">
                 <span class="input-group-addon">₹</span>
-                <input id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" ng-minlength="2">
+                <input type="number" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
               </div>
 
             </div>
@@ -104,7 +104,7 @@
             <label class="col-md-4 control-label" for="facilitySave"></label>
 
             <div class="col-md-6 col-md-offset-4">
-              <button id="membershipSave" ng-click="saveMembership()" name="MembershipSave" class="btn btn-success btn-primary col-md-3">Save</button>
+              <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave" class="btn btn-success btn-primary col-md-3">Save</button>
               <button id="memberSetupButton" ng-click="setupMember()" ng-show="facility.memberships.length > 0" name="memberSetupButton" class="btn btn-primary col-md-3 col-md-offset-1">Next</button>
             </div>
           </div>

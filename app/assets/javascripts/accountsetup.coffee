@@ -38,7 +38,7 @@
     $scope.setProgress(60)
 
 
-  $scope.saveMembership = ->
+  $scope.saveMembership = (membershipForm) ->
     membershipToSave = new Membership $scope.newMembership
     membershipToSave.facility_id = $scope.facility.id
     membershipToSave.$save (membershipToSave) ->
@@ -46,6 +46,7 @@
         $scope.facility.memberships.push(membershipToSave)
         $scope.newMembership = {}
         $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
+        membershipForm.$setUntouched() if membershipForm
 
   $scope.setProgress = (percentage)->
     $scope.progressStyle = {width: percentage + "%"}
