@@ -12,32 +12,31 @@
           <legend>Initial Setup</legend>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="facilityName">Facility Name</label>
+          <div forminput>
+            <label for="facilityName">Facility Name</label>
 
             <div class="col-md-4">
-              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" class="form-control input-md">
-
+              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text">
             </div>
           </div>
 
           <!-- Textarea -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="facilityAddress">Address</label>
+          <div forminput>
+            <label for="facilityAddress">Address</label>
 
             <div class="col-md-4">
-              <textarea class="form-control" ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
+              <textarea ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
             </div>
           </div>
 
           <!-- Prepended text-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="facilityPhone">Phone number</label>
+          <div forminput>
+            <label for="facilityPhone">Phone number</label>
 
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" class="form-control" type="text">
+                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text">
               </div>
 
             </div>
@@ -65,35 +64,35 @@
           <legend>Membership</legend>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="newMembershipName">Name</label>
+          <div forminput>
+            <label for="newMembershipName">Name</label>
 
             <div class="col-md-3">
-              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" class="form-control input-md" ng-minlength="2">
+              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" ng-minlength="2">
 
             </div>
           </div>
 
           <!-- Appended Input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="newMembershipDuration">Duration</label>
+          <div forminput>
+            <label for="newMembershipDuration">Duration</label>
 
             <div class="col-md-2">
               <div class="input-group">
-                <input id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" class="form-control" placeholder="" type="text" ng-minlength="1">
+                <input id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" ng-minlength="1">
                 <span class="input-group-addon">months</span>
               </div>
 
             </div>
           </div>
           <!-- Prepended text-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="newMembershipCost">Cost</label>
+          <div forminput>
+            <label for="newMembershipCost">Cost</label>
 
             <div class="col-md-2">
               <div class="input-group">
                 <span class="input-group-addon">₹</span>
-                <input id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" class="form-control" placeholder="" type="text" ng-minlength="2">
+                <input id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" ng-minlength="2">
               </div>
 
             </div>
@@ -148,17 +147,17 @@
           <legend>Add Members</legend>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberName">Name</label>
+          <div forminput>
+            <label for="memberName">Name</label>
 
             <div class="col-md-4">
-              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" class="form-control input-md">
+              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" >
 
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberMembership">Membership</label>
+          <div forminput>
+            <label for="memberMembership">Membership</label>
 
             <div class="col-md-4">
               <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
@@ -167,8 +166,8 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberMembershipDate">Membership start date</label>
+          <div forminput>
+            <label for="memberMembershipDate">Membership start date</label>
 
             <div class="col-md-4">
               <input id="memberMembershipDate" ng-model="newMember.subscription.start_date" name="memberMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text">
@@ -176,8 +175,8 @@
           </div>
 
           <!-- Prepended text-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberPhone">Phone</label>
+          <div forminput>
+            <label for="memberPhone">Phone</label>
 
             <div class="col-md-4">
               <div class="input-group">
@@ -189,18 +188,18 @@
           </div>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberEmail">E mail</label>
+          <div forminput>
+            <label for="memberEmail">E mail</label>
 
             <div class="col-md-4">
-              <input id="memberEmail" ng-model="newMember.email" name="memberEmail" type="text" placeholder="" class="form-control input-md">
+              <input id="memberEmail" ng-model="newMember.email" name="memberEmail" type="text" placeholder="" >
 
             </div>
           </div>
 
           <!-- Select Basic -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberSex">Sex</label>
+          <div forminput>
+            <label for="memberSex">Sex</label>
 
             <div class="col-md-2">
               <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control">
@@ -211,53 +210,34 @@
           </div>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberDob">Date of Birth</label>
+          <div forminput>
+            <label for="memberDob">Date of Birth</label>
 
             <div class="col-md-4">
-              <input id="memberDob" ng-model="newMember.date_of_birth" name="memberDob" type="text" placeholder="dd/mm/yyyy" class="form-control input-md">
+              <input id="memberDob" ng-model="newMember.date_of_birth" name="memberDob" type="text" placeholder="dd/mm/yyyy" >
 
             </div>
           </div>
 
           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberOccupation">Occupation</label>
+          <div forminput>
+            <label for="memberOccupation">Occupation</label>
 
             <div class="col-md-4">
-              <input id="memberOccupation" ng-model="newMember.occupation" name="memberOccupation" type="text" placeholder="" class="form-control input-md">
+              <input id="memberOccupation" ng-model="newMember.occupation" name="memberOccupation" type="text" placeholder="" >
 
             </div>
           </div>
 
           <!-- Textarea -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberAddress">Address</label>
+          <div forminput>
+            <label for="memberAddress">Address</label>
 
             <div class="col-md-4">
               <textarea class="form-control" id="memberAddress" ng-model="newMember.address" name="memberAddress"></textarea>
             </div>
           </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberPincode">Pincode</label>
-
-            <div class="col-md-4">
-              <input id="memberPincode" ng-model="newMember.pincode" name="memberPincode" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="memberEmergencyNumber">Emergency Contact Phone</label>
-
-            <div class="col-md-4">
-              <input id="memberEmergencyNumber" ng-model="newMember.emergency_number" name="memberEmergencyNumber" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-          </div>
           <br/>
           <!-- Button (Double) -->
           <div class="form-group">
