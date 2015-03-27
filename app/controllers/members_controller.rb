@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   def index
     if facility_id
-      @members = Member.eager_load(subscriptions: :membership).find(facility_id: facility_id)
+      @members = Member.eager_load(subscriptions: :membership).find_by_facility_id(facility_id)
     else
       @members = Member.eager_load(subscriptions: :membership).all
     end
