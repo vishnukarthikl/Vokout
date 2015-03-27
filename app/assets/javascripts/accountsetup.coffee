@@ -20,7 +20,6 @@
   .error (data, status, headers, config) ->
     console.log(status)
 
-
   $scope.setupFacility = ->
     $scope.status = "facility"
     $scope.setProgress(30)

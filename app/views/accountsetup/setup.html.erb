@@ -6,7 +6,7 @@
 
   <div ng-switch on="status">
     <div class="row" ng-switch-when="facility">
-      <form class="form-horizontal">
+      <form name="facility" class="form-horizontal" novalidate>
         <fieldset>
           <!-- Form Name -->
           <legend>Initial Setup</legend>
@@ -16,7 +16,7 @@
             <label for="facilityName">Facility Name</label>
 
             <div class="col-md-4">
-              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text">
+              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" required />
             </div>
           </div>
 
@@ -25,7 +25,7 @@
             <label for="facilityAddress">Address</label>
 
             <div class="col-md-4">
-              <textarea ng-model="newFacility.address" id="facilityAddress" name="facilityAddress"></textarea>
+              <textarea ng-model="newFacility.address" id="facilityAddress" name="facilityAddress" required></textarea>
             </div>
           </div>
 
@@ -36,7 +36,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text">
+                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text" minlength="10" maxlength="10" required>
               </div>
 
             </div>
@@ -48,7 +48,7 @@
             <label class="col-md-4 control-label" for="facilitySave"></label>
 
             <div class="col-md-6 col-md-offset-4">
-              <button id="facilitySave" ng-click="saveFacility()" name="facilitySave" class="btn btn-success col-md-3">Save</button>
+              <button id="facilitySave" ng-click="saveFacility()" ng-disabled="facility.$invalid" name="facilitySave" class="btn btn-success col-md-3">Save</button>
             </div>
           </div>
 
@@ -57,7 +57,7 @@
     </div>
 
     <div class="row" ng-switch-when="membership">
-      <form class="row form-horizontal">
+      <form class="row form-horizontal" novalidate>
         <fieldset>
 
           <!-- Form Name -->
@@ -68,7 +68,7 @@
             <label for="newMembershipName">Name</label>
 
             <div class="col-md-3">
-              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" ng-minlength="2">
+              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
 
             </div>
           </div>

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-resource
+//= require angular-messages
 //= require angular-utils-pagination
 //= require angular-bootstrap
 //= require bootstrap-sass-official/assets/javascripts/bootstrap
