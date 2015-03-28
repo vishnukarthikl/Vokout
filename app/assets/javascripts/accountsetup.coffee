@@ -20,9 +20,11 @@
   .error (data, status, headers, config) ->
     console.log(status)
 
+  $scope.steps = []
+
   $scope.setupFacility = ->
     $scope.status = "facility"
-    $scope.setProgress(30)
+    $scope.setProgress(1)
     $scope.newFacility = {}
 
   $scope.saveFacility = ->
@@ -35,7 +37,7 @@
   $scope.setupMembership = ->
     $scope.newMembership = {}
     $scope.status = "membership"
-    $scope.setProgress(60)
+    $scope.setProgress(2)
 
 
   $scope.saveMembership = (membershipForm) ->
@@ -48,8 +50,14 @@
         $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
         membershipForm.$setUntouched() if membershipForm
 
-  $scope.setProgress = (percentage)->
-    $scope.progressStyle = {width: percentage + "%"}
+  $scope.setProgress = (currentStep)->
+    for i in [1..currentStep]
+      $scope.steps[i] = "progress-bar-success done"
+
+    for i in [currentStep..3]
+      $scope.steps[i] = ""
+
+    $scope.steps[currentStep] = "ongoing"
 
   $scope.setupMember = (membershipForm) ->
     $scope.saveMembership() if membershipForm and membershipForm.$valid
@@ -61,7 +69,7 @@
     )
     $scope.newMember = {}
     $scope.status = "member"
-    $scope.setProgress(80)
+    $scope.setProgress(3)
 
 
   $scope.saveMember = (memberForm) ->

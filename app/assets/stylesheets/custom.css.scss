@@ -174,14 +174,17 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.has-success .glyphicon{
+.has-success .glyphicon {
   color: green;
-  display:inline-block;
+  display: inline-block;
   font-size: 20px;
   margin-top: 5px;
 }
 
-
 form .glyphicon {
   display: none;
+}
+
+.ongoing, .done {
+  width: 100%
 }
