@@ -72,4 +72,6 @@
         $scope.newMemberStatus = MemberToSave.name + " was successfully added"
         $scope.newMember = {}
         $scope.facility.members.push(MemberToSave)
-        memberForm.$setUntouched if memberForm
+        memberForm.$setUntouched() if memberForm
+
+

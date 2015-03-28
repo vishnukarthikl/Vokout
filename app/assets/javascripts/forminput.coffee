@@ -14,33 +14,40 @@
 
   addMessages = (form, element, name, $compile, scope) ->
     elementAccessor = form.$name + '.' + name
-    message = '<div class="help-block" ng-messages="' + elementAccessor + '.$error"
+    glypspan = '<span class="glyphicon glyphicon-ok-circle"></span>'
+    errordiv = '<div class="help-block" ng-messages="' + elementAccessor + '.$error"
                 ng-messages-include="messages.html" >
             </div>'
+    message = glypspan + errordiv
     element.append($compile(message)(scope))
 
   watchFor = (form, name) ->
     () -> if form and form[name]
       {
-        invalid: form[name].$invalid,
-        touched: form[name].$touched
+      invalid: form[name].$invalid,
+      touched: form[name].$touched
+      value: form[name].$modelValue
       }
 
   updateFor = (form, name, element) ->
-    (status) ->
-      if status.invalid and status.touched
-        element.removeClass("has-success").addClass("has-error")
-      else if !status.invalid and status.touched
-        element.removeClass("has-error").addClass("has-success")
-      else if status.invalid and !status.touched
-        element.removeClass("has-error").removeClass("has-success")
+    (field) ->
+      if field.invalid
+        if field.touched
+          element.removeClass("has-success").addClass("has-error")
+        else
+          element.removeClass("has-error").removeClass("has-success")
+      else
+        if field.value
+          element.removeClass("has-error").addClass("has-success")
+        else
+          element.removeClass("has-error").removeClass("has-success")
 
 
   link = ($compile)->
     (scope, element, attributes, form) ->
       name = setupDom(element)
       addMessages(form, element, name, $compile, scope)
-      scope.$watch(watchFor(form, name), updateFor(form, name, element),true)
+      scope.$watch(watchFor(form, name), updateFor(form, name, element), true)
 
   return {
   restrict: "A"

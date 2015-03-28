@@ -1,12 +1,14 @@
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
+$icon-font-path: "../fonts/bootstrap";
+
 /* mixins, variables, etc. */
 
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
 .debug_dump {
@@ -170,4 +172,16 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.has-success .glyphicon{
+  color: green;
+  display:inline-block;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+
+form .glyphicon {
+  display: none;
 }
