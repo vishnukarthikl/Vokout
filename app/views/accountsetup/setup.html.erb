@@ -181,7 +181,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
+                <input unique-phone members="facility.members" id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
               </div>
 
             </div>

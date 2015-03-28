@@ -54,3 +54,16 @@
   require: "^form"
   link: link($compile)
   }
+
+@uniquePhone = () ->
+  return {
+  restrict: 'A'
+  require: 'ngModel'
+  scope: {
+    members: '='
+  }
+  link: (scope, elem, attr, ctrl) ->
+    ctrl.$validators.uniquePhone = (modelValue, viewValue) ->
+      filtered = scope.members.filter((m) -> m.phone_number == viewValue)
+      return filtered.length == 0
+  }
