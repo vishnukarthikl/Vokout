@@ -127,7 +127,7 @@
             <label class="col-md-4 control-label" for="facilitySave"></label>
 
             <div class="col-md-6 col-md-offset-4">
-              <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave" class="btn btn-success btn-primary col-md-3">Save</button>
+              <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave" class="btn btn-success btn-primary col-md-3">Add another</button>
               <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton" class="btn btn-primary col-md-3 col-md-offset-1">Next</button>
             </div>
           </div>
@@ -179,6 +179,18 @@
             </div>
           </div>
 
+          <!-- Select Basic -->
+          <div forminput>
+            <label for="memberSex">Sex</label>
+
+            <div class="col-md-4">
+              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+              </select>
+            </div>
+          </div>
+
           <div forminput>
             <label for="memberMembership">Membership</label>
 
@@ -220,18 +232,6 @@
             </div>
           </div>
 
-          <!-- Select Basic -->
-          <div forminput>
-            <label for="memberSex">Sex</label>
-
-            <div class="col-md-4">
-              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
-                <option value="true">Male</option>
-                <option value="false">Female</option>
-              </select>
-            </div>
-          </div>
-
           <!-- Text input-->
           <div forminput>
             <label for="memberDob">Date of Birth</label>
@@ -265,12 +265,10 @@
           <!-- Button (Double) -->
           <div class="form-group">
 
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-7 col-md-offset-3">
               <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">Membership</button>
               <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
-              <a id="skipMemberButton" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Add
-                Later
-              </a>
+              <a id="skipMemberButton" ng-disabled="facility.members.length == 0" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Dashboard</a>
             </div>
           </div>
 

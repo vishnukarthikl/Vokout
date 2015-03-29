@@ -68,6 +68,8 @@
       (err) -> console.log(err)
     )
     $scope.newMember = {}
+    $scope.newMember.subscription = {}
+    $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
     $scope.status = "member"
     $scope.setProgress(3)
 
