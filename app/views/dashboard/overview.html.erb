@@ -1,19 +1,15 @@
 <div class="row">
-  <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-pills nav-stacked">
-      <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-      <li><a href="#">Reports</a></li>
-      <li><a href="dashboard-members">Members</a></li>
-    </ul>
-  </div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#">Dashboard</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="dashboard-members">Members</a></li>
+  </ul>
 
-  <div class="col-md-10" id="dashboard" ng-controller="DashboardCtrl">
+  <div id="dashboard" ng-controller="DashboardCtrl">
     <div ng-controller="DashboardOverviewCtrl">
       <div class="row placeholders">
-        <h1><%= @facility.name %></h1>
 
-        <h2>Membership stats</h2>
-        <canvas class="col-md-offset-3" tc-chartjs-doughnut chart-options="chartOptions" height="400" width="400" chart-data="membershipStats"></canvas>
+
       </div>
     </div>
   </div>
