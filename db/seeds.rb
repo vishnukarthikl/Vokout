@@ -18,9 +18,9 @@ puts "Adding facility"
 facility = owner.create_facility({name: 'ABC fitness', address: 'peelamedu', phone: '123456789'})
 
 puts "Adding memberships"
-m1 = facility.memberships.create({name: 'Monthly', duration: 1, cost: 1000})
-m2 = facility.memberships.create({name: 'Half yearly', duration: 6, cost: 5500})
-m3 = facility.memberships.create({name: 'Yearly', duration: 12, cost: 10000})
+m1 = facility.memberships.create({name: 'Monthly', duration: 30, cost: 1000, duration_type: 'days'})
+m2 = facility.memberships.create({name: 'Half yearly', duration: 6, cost: 5500, duration_type: 'months'})
+m3 = facility.memberships.create({name: 'Yearly', duration: 1, cost: 10000, duration_type: 'years'})
 
 puts "Adding members"
 member1 = facility.members.create({name: 'Karthik', phone_number: '9876868672', email: 'ka@bar.com', is_male: true, date_of_birth: '25/10/1990', occupation: 'student', address: 'peelamedu', pincode: '641004', emergency_number: '9672846478'})

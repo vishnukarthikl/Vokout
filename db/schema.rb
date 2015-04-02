@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306070203) do
+ActiveRecord::Schema.define(version: 20150402103325) do
 
   create_table "facilities", force: true do |t|
     t.string   "name"
@@ -46,8 +46,10 @@ ActiveRecord::Schema.define(version: 20150306070203) do
     t.integer  "duration"
     t.decimal  "cost"
     t.integer  "facility_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "duration_type"
+    t.integer  "duration_in_days"
   end
 
   add_index "memberships", ["facility_id"], name: "index_memberships_on_facility_id"

@@ -21,6 +21,7 @@
     console.log(status)
 
   $scope.steps = []
+  $scope.durationTypes = ["days", "months", "years"]
 
   $scope.setupFacility = ->
     $scope.status = "facility"
@@ -36,6 +37,7 @@
 
   $scope.setupMembership = ->
     $scope.newMembership = {}
+    $scope.newMembership.duration_type=$scope.durationTypes[1]
     $scope.status = "membership"
     $scope.setProgress(2)
 
@@ -46,9 +48,9 @@
     membershipToSave.$save (membershipToSave) ->
       if membershipToSave.id?
         $scope.facility.memberships.push(membershipToSave)
-        $scope.newMembership = {}
         $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
         membershipForm.$setUntouched() if membershipForm
+        $scope.setupMembership()
 
   $scope.setProgress = (currentStep)->
     for i in [1..currentStep]
@@ -62,11 +64,6 @@
   $scope.setupMember = (membershipForm) ->
     $scope.saveMembership() if membershipForm and membershipForm.$valid
 
-    $scope.facility.members = []
-    $scope.facility.members = memberService.query({facility_id: $scope.facility.id},
-      (data)-> console.log(data),
-      (err) -> console.log(err)
-    )
     $scope.newMember = {}
     $scope.newMember.subscription = {}
     $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')

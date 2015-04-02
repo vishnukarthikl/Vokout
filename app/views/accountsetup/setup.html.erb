@@ -103,7 +103,11 @@
             <div class="col-md-3">
               <div class="input-group">
                 <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" required>
-                <span class="input-group-addon">months</span>
+
+                <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
+                        ng-model="newMembership.duration_type"
+                        ng-options="duration for duration in durationTypes">
+                </select>
               </div>
 
             </div>
@@ -153,7 +157,7 @@
           <tbody>
           <tr ng-repeat="membership in facility.memberships">
             <td>{{membership.name}}</td>
-            <td>{{membership.duration}}</td>
+            <td>{{membership.duration}} {{membership.duration_type}}</td>
             <td>{{membership.cost}}</td>
           </tr>
           </tbody>
@@ -163,7 +167,7 @@
     </div>
 
     <div class="row" ng-switch-when="member">
-      <form class="row form-horizontal" name="memberForm">
+      <form class="row form-horizontal" name="memberForm" novalidate>
         <fieldset>
 
           <!-- Form Name -->
