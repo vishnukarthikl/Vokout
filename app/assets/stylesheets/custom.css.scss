@@ -165,7 +165,7 @@ input {
 }
 
 #home-box {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -195,16 +195,58 @@ form .glyphicon {
 
 #newMembershipDurationType {
   width: 50%;
-  margin-left:5%;
+  margin-left: 5%;
 }
 
 .setup-status-box {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .active-box {
   background: lightgoldenrodyellow;
   border-style: solid;
   border-color: grey;
   border-radius: 5px;
+}
+
+.main-page-button-holder {
+  margin-top: 240px;
+}
+
+#sign-up-button {
+  width: 126px;
+}
+
+#learn-more-button {
+  width: 126px;
+  background: transparent;
+  color: white;
+}
+
+.home-page {
+  background: url(header-vorkout.png) no-repeat fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 550px;
+  margin-top:-20px;
+}
+.heading-lg {
+  font-size: 60px;
+  color: #ffffff;
+  background: rgba(0,0,0,.4);
+  padding: 10px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.heading-md {
+  font-size: 40px;
+  color: #ffffff;
+  background: rgba(0,0,0,.4);
+  padding: 10px;
+  font-weight: 200;
+  text-align: center;
 }

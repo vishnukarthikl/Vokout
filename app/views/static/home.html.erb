@@ -1,10 +1,21 @@
 <% provide(:title, 'Vorkout') %>
-<div class="center jumbotron" id="home-box">
-    <h1>Welcome to Vorkout</h1>
 
-    <h2 class="lead">
-        An application that gives financial insights for gyms.
-    </h2>
+<div class="home-page">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h1 class="heading-lg">Welcome to Vorkout</h1>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+      <h1 class="heading-md">Gym analytics and beyond</h1>
+
+      <div class="center main-page-button-holder">
+        <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
+        <%= link_to "Learn More", signup_path, id: "learn-more-button", class: "btn btn-lg btn-default" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="center">
+    <h2>Coming Soon!</h2>
+  </div>
 </div>

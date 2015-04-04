@@ -1,4 +1,4 @@
-<div ng-controller="SetupCtrl">
+<div class="container" ng-controller="SetupCtrl">
   <div class="row list-group">
     <div class="col-md-2 col-xs-4 col-md-offset-3 setup-status-box" ng-class="{'active-box': status=='facility'}">
       <div class="progress">
@@ -14,7 +14,9 @@
         </div>
       </div>
       <div class="col-md-offset-5 col-xs-offset-5">Step 2</div>
-      <div class="col-md-offset-3 col-xs-offset-2 col-sm-offset-3"><span class="glyphicon glyphicon-calendar"></span> Subscription</div>
+      <div class="col-md-offset-3 col-xs-offset-2 col-sm-offset-3"><span class="glyphicon glyphicon-calendar"></span>
+        Subscription
+      </div>
     </div>
     <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='member'}">
       <div class="progress">
@@ -22,7 +24,8 @@
         </div>
       </div>
       <div class="col-md-offset-5 col-xs-offset-5">Step 3</div>
-      <div class="col-md-offset-4 col-xs-offset-3 col-sm-offset-4"><span class="glyphicon glyphicon-user"></span> Member</div>
+      <div class="col-md-offset-4 col-xs-offset-3 col-sm-offset-4"><span class="glyphicon glyphicon-user"></span> Member
+      </div>
     </div>
 
   </div>
@@ -132,14 +135,22 @@
 
             <div class="col-md-6 col-md-offset-4">
               <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave"
-                      class="btn btn-success btn-primary col-md-3">Add another</button>
+                      class="btn btn-success btn-primary col-md-3">Add another
+              </button>
               <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton"
-                      class="btn btn-primary col-md-3 col-md-offset-1">Next</button>
+                      class="btn btn-primary col-md-3 col-md-offset-1">Next
+              </button>
             </div>
           </div>
 
         </fieldset>
-        <div ng-show="newMembershipStatus" class="alert alert-success alert-dismissible center col-md-6 col-md-offset-3">{{newMembershipStatus}}</div>
+        <div ng-show="newMembershipStatus.text" class="alert alert-dismissible center col-md-6 col-md-offset-3" ng-class="newMembershipStatus.style" role="alert">
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          {{newMembershipStatus.text}}
+        </div>
+
+
       </form>
 
       <br/>
