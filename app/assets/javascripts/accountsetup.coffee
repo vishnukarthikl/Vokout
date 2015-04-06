@@ -48,7 +48,7 @@
     () ->
       if membershipToSave.id?
         $scope.facility.memberships.push(membershipToSave)
-        $scope.newMembershipStatus = {text: membershipToSave.name + " was successfully added", style: "success"}
+        $scope.newMembershipStatus = {text: membershipToSave.name + " added successfully, Add another or continue with setup", style: "success"}
 
         membershipForm.$setUntouched() if membershipForm
         $scope.setupMembership()
@@ -89,14 +89,13 @@
     $scope.status = "member"
     $scope.setProgress(3)
 
-  $scope.open = ($event) ->
+  $scope.open = ($event, opened) ->
     $event.preventDefault();
     $event.stopPropagation();
-    $scope.opened = true;
+    $scope[opened] = true;
 
   $scope.clear = () ->
     $scope.newMember.subscription.start_date = null;
-
 
 
   $scope.saveMember = (memberForm) ->
@@ -107,7 +106,7 @@
   afterMemberSave = (memberToSave, memberForm) ->
     () ->
       if memberToSave.id?
-        $scope.newMemberStatus = {text: memberToSave.name + " was successfully added", style: "success"}
+        $scope.newMemberStatus = {text: memberToSave.name + " was successfully added. Add another or continue to dashboard", style: "success"}
         $scope.newMember = {}
         $scope.facility.members.push(memberToSave)
         memberForm.$setUntouched() if memberForm
