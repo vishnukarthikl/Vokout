@@ -41,6 +41,8 @@
     $scope.status = "membership"
     $scope.setProgress(2)
 
+  $scope.getMembershipNames = ->
+    $scope.facility.memberships.map((x)-> x.name)
 
   afterMembershipSave = (membershipToSave, membershipForm) ->
     (data) ->
@@ -73,6 +75,9 @@
       $scope.steps[i] = ""
 
     $scope.steps[currentStep] = "ongoing"
+
+  $scope.getMembersPhone =  ->
+    $scope.facility.members.map((x)-> x.phone_number)
 
   $scope.setupMember = (membershipForm) ->
     $scope.saveMembership() if membershipForm and membershipForm.$valid

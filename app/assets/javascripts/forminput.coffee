@@ -25,14 +25,14 @@
     () -> if form and form[name]
       {
       invalid: form[name].$invalid,
-      touched: form[name].$touched
-      value: form[name].$modelValue
+      touched: form[name].$touched,
+      value: form[name].$viewValue
       }
 
   updateFor = (form, name, element) ->
     (field) ->
       if field.invalid
-        if field.touched
+        if field.touched or field.value
           element.removeClass("has-success").addClass("has-error")
         else
           element.removeClass("has-error").removeClass("has-success")
@@ -55,15 +55,14 @@
   link: link($compile)
   }
 
-@uniquePhone = () ->
+@unique = () ->
   return {
-  restrict: 'A'
-  require: 'ngModel'
+  restrict: 'A',
+  require: 'ngModel',
   scope: {
-    members: '='
+    items: '&'
   }
   link: (scope, elem, attr, ctrl) ->
-    ctrl.$validators.uniquePhone = (modelValue, viewValue) ->
-      filtered = scope.members.filter((m) -> m.phone_number == viewValue)
-      return filtered.length == 0
+    ctrl.$validators.unique = (modelValue, viewValue) ->
+      scope.items().indexOf(viewValue) == -1
   }

@@ -94,7 +94,7 @@
             <label for="newMembershipName">Name</label>
 
             <div class="col-md-3">
-              <input id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
+              <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
 
             </div>
           </div>
@@ -229,7 +229,7 @@
             <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">+91</span>
-                <input unique-phone members="facility.members" id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
+                <input unique-items items="getMembersPhone()" id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
               </div>
 
             </div>
