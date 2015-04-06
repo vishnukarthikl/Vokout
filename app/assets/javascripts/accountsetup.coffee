@@ -45,8 +45,7 @@
     $scope.facility.memberships.map((x)-> x.name)
 
   afterMembershipSave = (membershipToSave, membershipForm) ->
-    (data) ->
-      console.log(data)
+    () ->
       if membershipToSave.id?
         $scope.facility.memberships.push(membershipToSave)
         $scope.newMembershipStatus = {text: membershipToSave.name + " was successfully added", style: "success"}
@@ -55,7 +54,6 @@
         $scope.setupMembership()
 
   membershipSaveFailureCallback = (err) ->
-    console.log(err)
     reason = err.data
     status = "save failed"
     status += " " + reason if reason
@@ -76,7 +74,7 @@
 
     $scope.steps[currentStep] = "ongoing"
 
-  $scope.getMembersPhone =  ->
+  $scope.getMembersPhone = ->
     $scope.facility.members.map((x)-> x.phone_number)
 
   $scope.setupMember = (membershipForm) ->
@@ -91,12 +89,28 @@
 
   $scope.saveMember = (memberForm) ->
     $scope.newMember.facility_id = $scope.facility.id
-    MemberToSave = new memberService $scope.newMember
-    MemberToSave.$save (MemberToSave) ->
-      if MemberToSave.id?
-        $scope.newMemberStatus = MemberToSave.name + " was successfully added"
+    memberToSave = new memberService $scope.newMember
+    memberToSave.$save afterMemberSave(memberToSave, memberForm), memberSaveFailureCallback
+
+  afterMemberSave = (memberToSave, memberForm) ->
+    () ->
+      if memberToSave.id?
+        $scope.newMemberStatus = {text: memberToSave.name + " was successfully added", style: "success"}
         $scope.newMember = {}
-        $scope.facility.members.push(MemberToSave)
+        $scope.facility.members.push(memberToSave)
         memberForm.$setUntouched() if memberForm
+
+  memberSaveFailureCallback = (err) ->
+    console.log(err)
+    reason = prettyError(err)
+    status = "save failed"
+    status += ": " + reason if reason
+    $scope.newMemberStatus = {text: status, style: "danger"}
+
+  prettyError = (err) ->
+    result = ""
+    for own key, value of err.data
+      result += "(" + key + ")  " + value
+
 
 
