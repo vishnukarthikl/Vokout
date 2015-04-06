@@ -35,7 +35,7 @@ class OwnersController < ApplicationController
       if @owner.save
         format.html {
           log_in @owner
-          flash[:success] = "#{@owner.name}, your profile has been created"
+          flash[:success] = "#{@owner.name}, your profile has been created, Please continue customizing your profile"
           redirect_to dashboard_path(@owner)
         }
         format.json { render :show, status: :created, location: @owner }

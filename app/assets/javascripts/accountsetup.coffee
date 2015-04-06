@@ -75,7 +75,10 @@
     $scope.steps[currentStep] = "ongoing"
 
   $scope.getMembersPhone = ->
-    $scope.facility.members.map((x)-> x.phone_number)
+    if $scope.facility.members
+      $scope.facility.members.map((x)-> x.phone_number)
+    else
+      []
 
   $scope.setupMember = (membershipForm) ->
     $scope.saveMembership() if membershipForm and membershipForm.$valid
@@ -85,6 +88,15 @@
     $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
     $scope.status = "member"
     $scope.setProgress(3)
+
+  $scope.open = ($event) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
+
+  $scope.clear = () ->
+    $scope.newMember.subscription.start_date = null;
+
 
 
   $scope.saveMember = (memberForm) ->

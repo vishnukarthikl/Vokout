@@ -218,7 +218,13 @@
             <label for="memberMembershipDate">Membership start date</label>
 
             <div class="col-md-4">
-              <input id="memberMembershipDate" ng-model="newMember.subscription.start_date" name="memberMembershipDate" class="form-control" placeholder="dd/mm/yyyy" type="text" required>
+              <p class="input-group">
+              <input id="memberMembershipDate"  name="memberMembershipDate" type="text" class="form-control"
+                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.subscription.start_date" is-open="$parent.opened" close-text="Close" ng-required="true" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
             </div>
           </div>
 
@@ -286,12 +292,10 @@
           </div>
 
         </fieldset>
-
         <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
-
       </form>
-      <br/>
 
+      <br/>
 
       <div class="row panel panel-default" ng-show="facility.members.length > 0">
         <div class="panel-heading">List of all members</div>
