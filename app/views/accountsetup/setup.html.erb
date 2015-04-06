@@ -144,11 +144,7 @@
           </div>
 
         </fieldset>
-        <div ng-show="newMembershipStatus.text" class="alert alert-dismissible center col-md-6 col-md-offset-3" ng-class="newMembershipStatus.style" role="alert">
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          {{newMembershipStatus.text}}
-        </div>
+        <alert ng-show="newMembershipStatus" type="{{newMembershipStatus.style}}" class="center">{{newMembershipStatus.style}} {{newMembershipStatus.text}}</alert>
 
 
       </form>

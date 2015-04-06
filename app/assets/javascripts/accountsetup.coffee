@@ -37,20 +37,33 @@
 
   $scope.setupMembership = ->
     $scope.newMembership = {}
-    $scope.newMembership.duration_type=$scope.durationTypes[1]
+    $scope.newMembership.duration_type = $scope.durationTypes[1]
     $scope.status = "membership"
     $scope.setProgress(2)
+
+
+  afterMembershipSave = (membershipToSave, membershipForm) ->
+    (data) ->
+      console.log(data)
+      if membershipToSave.id?
+        $scope.facility.memberships.push(membershipToSave)
+        $scope.newMembershipStatus = {text: membershipToSave.name + " was successfully added", style: "success"}
+
+        membershipForm.$setUntouched() if membershipForm
+        $scope.setupMembership()
+
+  membershipSaveFailureCallback = (err) ->
+    console.log(err)
+    reason = err.data
+    status = "save failed"
+    status += " " + reason if reason
+    $scope.newMembershipStatus = {text: status, style: "danger"}
 
 
   $scope.saveMembership = (membershipForm) ->
     membershipToSave = new Membership $scope.newMembership
     membershipToSave.facility_id = $scope.facility.id
-    membershipToSave.$save (membershipToSave) ->
-      if membershipToSave.id?
-        $scope.facility.memberships.push(membershipToSave)
-        $scope.newMembershipStatus = membershipToSave.name + " was successfully added"
-        membershipForm.$setUntouched() if membershipForm
-        $scope.setupMembership()
+    membershipToSave.$save afterMembershipSave(membershipToSave, membershipForm), membershipSaveFailureCallback
 
   $scope.setProgress = (currentStep)->
     for i in [1..currentStep]

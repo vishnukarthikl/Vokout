@@ -24,7 +24,7 @@ class MembershipsController < ApplicationController
         format.json { render json: @membership, status: :ok }
       else
         format.html { render :edit }
-        format.json { render json: @owner.errors, status: :unprocessable_entity }
+        format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
     end
   end
