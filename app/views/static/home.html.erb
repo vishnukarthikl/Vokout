@@ -1,19 +1,59 @@
 <% provide(:title, 'Vorkout') %>
 
 <section class="home-page">
-    <div class="col-md-10 col-md-offset-1">
-      <h1 class="heading-lg">Welcome to Vorkout</h1>
+  <div class="col-md-10 col-md-offset-1">
+    <h1 class="heading-lg">Welcome to Vorkout</h1>
 
-      <h1 class="heading-md">Gym analytics and beyond</h1>
+    <h1 class="heading-md">Gym analytics and beyond</h1>
 
-      <div class="center main-page-button-holder">
-        <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
-        <%= link_to "Learn More", signup_path, id: "learn-more-button", class: "btn btn-lg btn-default" %>
-      </div>
+    <div class="center main-page-button-holder">
+      <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
+      <%= link_to "Learn More", signup_path, id: "learn-more-button", class: "btn btn-lg btn-default" %>
     </div>
-</section>
-<div>
-  <div class="center">
-    <h2>Coming Soon!</h2>
   </div>
+</section>
+<div class="container">
+  <div class="row">
+    <h1 class="text-align-center">Focus on what you do best and grow your business</h1>
+  </div>
+  <div class="row col-lg-10 col-lg-offset-1">
+    <p class="text-center lead">Vorkout is a cloud based web application, which allows gym owners to bill their
+      customers, track business performance and manage customer information from anywhere. Say goodbye to ledgers or card
+      systems.</p>
+
+  </div>
+  <div class="row text-center">
+
+    <div class="col-sm-4">
+      <img src="<%= asset_path('graph.png') %>" class="icon-features">
+
+      <h3 class="short text-align-center">Financial Insights</h3>
+
+      <p class="text-align-center">
+        Run detailed reports to compare your revenue and customer base, giving you true insight as to how your business is doing.
+      </p>
+    </div>
+
+    <div class="col-sm-4">
+      <img src="<%= asset_path('folder.png') %>" class="icon-features">
+
+      <h3 class="short text-align-center">Customer Management</h3>
+
+      <p class="text-align-center">
+        Knowing your customer better can help you grow your business and this has been made easier than never before.
+      </p>
+    </div>
+
+    <div class="col-sm-4">
+      <img src="<%= asset_path('money.png') %>" class="icon-features">
+
+      <h3 class="short text-align-center">Billing</h3>
+
+      <p class="text-align-center">
+        Manage your customer’s subscriptions and use notifications to identify past due and upcoming bill payments.
+      </p>
+    </div>
+
+  </div>
+
 </div>

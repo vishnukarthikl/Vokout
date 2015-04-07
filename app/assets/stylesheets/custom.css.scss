@@ -231,13 +231,14 @@ form .glyphicon-ok-circle {
   -o-background-size: cover;
   background-size: cover;
   min-height: 550px;
-  margin-top:-20px;
+  margin-top: -20px;
   background-color: black;
 }
+
 .heading-lg {
   font-size: 60px;
   color: #ffffff;
-  background: rgba(0,0,0,.4);
+  background: rgba(0, 0, 0, .4);
   padding: 10px;
   font-weight: 200;
   text-align: center;
@@ -246,8 +247,12 @@ form .glyphicon-ok-circle {
 .heading-md {
   font-size: 40px;
   color: #ffffff;
-  background: rgba(0,0,0,.4);
+  background: rgba(0, 0, 0, .4);
   padding: 10px;
   font-weight: 200;
   text-align: center;
+}
+
+.icon-features {
+  max-width: 130px;
 }
