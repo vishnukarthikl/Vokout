@@ -6,7 +6,7 @@
         </div>
       </div>
       <div class="col-md-offset-5 col-xs-offset-4">Step 1</div>
-      <div class="col-md-offset-4 col-xs-offset-3"><span class="glyphicon glyphicon-home"></span> Facility</div>
+      <div class="col-md-offset-3 col-xs-offset-3"><span class="glyphicon glyphicon-home"></span> Gym Details</div>
     </div>
     <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='membership'}">
       <div class="progress">
@@ -39,7 +39,7 @@
 
           <!-- Text input-->
           <div forminput>
-            <label for="facilityName">Facility Name</label>
+            <label for="facilityName">Gym Name</label>
 
             <div class="col-md-4">
               <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" required/>
@@ -272,8 +272,13 @@
             <label for="memberOccupation">Occupation</label>
 
             <div class="col-md-4">
-              <input id="memberOccupation" ng-model="newMember.occupation" name="memberOccupation" type="text" placeholder="">
-
+                <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
+                	<option value="student">Student</option>
+                	<option value="working">Working</option>
+                	<option value="housewife">Housewife</option>
+                	<option value="business">Business</option>
+                	<option value="other">Other</option>
+                </select>
             </div>
           </div>
 
