@@ -138,7 +138,7 @@
                       class="btn btn-success btn-primary col-md-3">Add another
               </button>
               <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton"
-                      class="btn btn-primary col-md-3 col-md-offset-1">Next
+                      class="btn btn-primary col-md-3 col-md-offset-1">Step 3 <span class="glyphicon glyphicon-chevron-right"></span>
               </button>
             </div>
           </div>
@@ -291,7 +291,7 @@
           <div class="form-group">
 
             <div class="col-md-7 col-md-offset-3">
-              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">Subscription</button>
+              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1"><span class="glyphicon glyphicon-chevron-left"> Back</span></button>
               <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
               <a id="skipMemberButton" ng-disabled="facility.members.length == 0" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Dashboard</a>
             </div>
