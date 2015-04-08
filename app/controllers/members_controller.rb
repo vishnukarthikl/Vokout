@@ -70,9 +70,10 @@ class MembersController < ApplicationController
   end
 
   def revenue_form(subscription)
+    revenue_date = if subscription.start_date > Date.today then Date.today else subscription.start_date end
     Revenue.new({value: subscription.membership.cost,
                  category: 'membership',
-                 date: subscription.start_date,
+                 date: revenue_date,
                  member: @member,
                  facility: @facility})
   end

@@ -25,7 +25,7 @@ class FacilitiesController < ApplicationController
   end
 
   def show
-    @owner = Owner.eager_load(facility: [members: [subscriptions: :membership]]).find(@owner.id)
+    @owner = Owner.eager_load(facility: [members: [subscriptions: :membership], revenues: [], memberships: []]).find(@owner.id)
     @facility = @owner.facility
   end
 

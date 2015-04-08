@@ -8,8 +8,9 @@
     <div id="dashboard" ng-controller="DashboardCtrl">
       <div ng-controller="DashboardOverviewCtrl">
         <div class="row placeholders">
-          <div class="col-md-4">
-            Revenue this month = {{facilty.revenue}}
+          <div class="col-md-4 center">
+            <h3>Revenue this month</h3>
+            <h3>{{currentMonthRevenue()}}</h3>
 
           </div>
 

@@ -21,37 +21,14 @@
     $http.get('/facilities/show')
     .success (data) ->
       $scope.facility = data
-      $scope.calculateMembershipStats()
     .error (data, status, headers, config) ->
       console.log(status)
 
   $scope.refreshData()
-  colors = ['#5DA5DA', '#FAA43A', '#60BD68', '#DECF3F', '#F15854', '#9e9ac8']
-
-  $scope.calculateMembershipStats = ->
-    data = {}
-    i = 0
-    $scope.facility.members.map((x) ->
-      membership = $scope.latestSubscription(x).membership.name
-      if membership of data
-        data[membership].value += 1
-      else
-        data[membership] = {}
-        data[membership].label = membership
-        data[membership].value = 1
-        data[membership].color = colors[i]
-        i += 1
-    )
-    $scope.membershipStats = data
-    $scope.chartOptions =
-    {
-      multiTooltipTemplate: "<%= label %> (<%= (value) %>)",
-      onAnimationComplete: ->
-        @.showTooltip(@segments, true);
-      tooltipEvents: [],
-      animationEasing : "easeInQuint",
-      showTooltips: true
-    }
+  $scope.currentMonthRevenue = () ->
+    if $scope.facility
+      this_month = moment().format("MMMM YYYY")
+      $scope.facility.revenues.monthly_revenue[this_month]
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
   $scope.refreshData = ->
