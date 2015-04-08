@@ -4,4 +4,7 @@ unless @facility.nil?
   json.members @facility.members do |member|
     json.partial! 'members/member', member: member
   end
+  json.revenues @facility.revenues do |revenue|
+    json.partial! 'revenues/revenue', revenue: revenue
+  end
 end

@@ -1,20 +1,21 @@
-<div class="row">
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#">Dashboard</a></li>
-    <li><a href="dashboard-members">Members</a></li>
-  </ul>
+<div class="container">
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#">Dashboard</a></li>
+      <li><a href="dashboard-members">Members</a></li>
+    </ul>
 
-  <div id="dashboard" ng-controller="DashboardCtrl">
-    <div ng-controller="DashboardOverviewCtrl">
-      <div class="row placeholders">
-        <div class="col-md-4">
-          <span id="upcoming" class="glyphicon glyphicon-exclamation-sign"></span>
-          <span id="upcoming" class="glyphicon glyphicon-info-sign"></span>
+    <div id="dashboard" ng-controller="DashboardCtrl">
+      <div ng-controller="DashboardOverviewCtrl">
+        <div class="row placeholders">
+          <div class="col-md-4">
+            Revenue this month = {{facilty.revenue}}
+
+          </div>
 
         </div>
-
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

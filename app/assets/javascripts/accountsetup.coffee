@@ -8,7 +8,7 @@
     })
   Membership = $resource('/facilities/:facility_id/memberships/:id/', {facility_id: "@facility_id", id: "@id"})
 
-  $http.get('/setupstatus')
+  $http.get('/facilities/show')
   .success (data) ->
     $scope.facility = data
     if !$scope.facility.id?

@@ -18,7 +18,7 @@
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
   $scope.refreshData = ->
-    $http.get('/setupstatus')
+    $http.get('/facilities/show')
     .success (data) ->
       $scope.facility = data
       $scope.calculateMembershipStats()
@@ -55,7 +55,7 @@
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
   $scope.refreshData = ->
-    $http.get('/setupstatus')
+    $http.get('/facilities/show')
     .success (data) ->
       $scope.facility = data
     .error (data, status, headers, config) ->

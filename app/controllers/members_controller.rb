@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_facility, only: [:create, :update]
 
   def index
     if facility_id
@@ -20,13 +21,14 @@ class MembersController < ApplicationController
   end
 
   def create
-    @facility = Facility.find(facility_id)
     @member = @facility.members.build(member_params)
     subscription = subscription_for(subscription_params, @member)
+    revenue = revenue_form(subscription)
 
     respond_to do |format|
       if @member.save
         subscription.save if subscription
+        revenue.save if revenue
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @member }
       else
@@ -36,6 +38,7 @@ class MembersController < ApplicationController
     end
   end
 
+
   def subscription_for(subscription_params, member)
     membership = Membership.find(subscription_params[:membership_id])
     Subscription.new({member: member, membership: membership, start_date: subscription_params[:start_date]})
@@ -43,9 +46,11 @@ class MembersController < ApplicationController
 
   def update
     respond_to do |format|
-      newSubscription = renewedSubscription(@member)
+      new_subscription = renewed_subscription(@member)
+      revenue_for_renewal = revenue_form(new_subscription)
       if @member.update(member_params)
-        newSubscription.save if newSubscription
+        new_subscription.save if new_subscription
+        revenue_for_renewal.save if revenue_for_renewal
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @member }
       else
@@ -55,7 +60,7 @@ class MembersController < ApplicationController
     end
   end
 
-  def renewedSubscription(member)
+  def renewed_subscription(member)
     params.require(:subscriptions).each do |subscription|
       unless subscription[:id]
         membership = Membership.find(subscription[:membership_id])
@@ -63,6 +68,15 @@ class MembersController < ApplicationController
       end
     end
   end
+
+  def revenue_form(subscription)
+    Revenue.new({value: subscription.membership.cost,
+                 category: 'membership',
+                 date: subscription.start_date,
+                 member: @member,
+                 facility: @facility})
+  end
+
 
   def destroy
     @member.destroy
@@ -75,6 +89,11 @@ class MembersController < ApplicationController
   private
   def set_member
     @member = Member.includes(subscriptions: :membership).find(params[:id])
+  end
+
+  private
+  def set_facility
+    @facility = Facility.find(facility_id)
   end
 
   def member_params

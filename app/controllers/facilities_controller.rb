@@ -1,6 +1,11 @@
 class FacilitiesController < ApplicationController
 
+  before_action :set_owner, only: [:create, :show]
   before_filter :authenticate
+
+  def setup
+    render 'facilities/setup'
+  end
 
   def create
     @owner = current_owner
@@ -19,9 +24,14 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def show
+    @owner = Owner.eager_load(facility: [members: [subscriptions: :membership]]).find(@owner.id)
+    @facility = @owner.facility
+  end
+
   private
   def set_owner
-    @owner = Owner.find(params[:owner_id])
+    @owner = current_owner || Owner.find(params[:owner_id])
   end
 
   def facility_params

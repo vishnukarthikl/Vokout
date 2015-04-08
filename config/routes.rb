@@ -14,8 +14,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  get 'setup' => 'accountsetup#setup', as: 'setup'
-  get 'setupstatus' => 'accountsetup#setup_status', as: 'setup_status'
+  get 'setup' => 'facilities#setup', as: 'setup'
 
   get 'dashboard' => 'dashboard#overview', as: 'dashboard'
   get 'dashboard-members' => 'dashboard#members', as: 'dashboard_members'
