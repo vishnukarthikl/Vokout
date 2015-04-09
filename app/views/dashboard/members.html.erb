@@ -48,7 +48,7 @@
             </thead>
 
             <tbody>
-            <tr ng-class="{warning :subscriptionExpired(member) }" dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
+            <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}" dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
               <td>{{member.name}}</td>
               <td>{{member.phone_number}}</td>
               <td>{{latestSubscription(member).membership.name}}</td>
@@ -65,9 +65,13 @@
                     <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
                       <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
                         Renew</a></li>
-                    <li ng-click="deactivate(member)" role="presentation">
-                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Inactive</a>
-                    </li>
+                      <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
+                      </li>
+                      <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                      </li>
+
                   </ul>
                 </div>
               </td>

@@ -16,6 +16,9 @@
   $scope.orderBySubscriptionExpiry = (member) ->
     $scope.latestSubscription(member).days_left
 
+  $scope.deactivated = (member) ->
+    return member.inactive
+
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
   $scope.refreshData = ->
     $http.get('/facilities/show')
@@ -56,15 +59,23 @@
       $scope.renewStatus = renewedMember.name + " was renewed successfully"
     )
 
-  $scope.deactivate = (member) ->
+  changeInactiveStateTo = (member, inactive) ->
     memberService.get({facility_id: member.facility_id, id: member.id}, (data) ->
       member = data
-      member.inactive = true
+      member.inactive = inactive
       member.$update((data) ->
         $scope.refreshData()
-        $scope.renewStatus = member.name + " was deactivated"
+        status = if inactive then "Deactivated" else "Activated"
+        $scope.renewStatus = member.name + " was " + status
       )
     )
+
+
+  $scope.activate = (member) ->
+    changeInactiveStateTo(member, false)
+
+  $scope.deactivate = (member) ->
+    changeInactiveStateTo(member, true)
 
   $scope.filterMembers = (name, showInactive) ->
     (member) ->
