@@ -106,17 +106,30 @@
   afterMemberSave = (memberToSave, memberForm) ->
     () ->
       if memberToSave.id?
-        $scope.newMemberStatus = {text: memberToSave.name + " was successfully added. Add another or continue to dashboard", style: "success"}
-        $scope.newMember = {}
-        $scope.facility.members.push(memberToSave)
-        memberForm.$setUntouched() if memberForm
+        showMemberStatus(memberToSave.name + " was successfully added. Add another or continue to dashboard", "success")
+        addNewMember(memberToSave)
+        resetNewMember()
+        resetForm(memberForm)
+
+  resetForm = (form) ->
+    form.$setUntouched() if form
+
+  addNewMember = (memberToSave) ->
+    $scope.facility.members = [] if !$scope.facility.members
+    $scope.facility.members.push(memberToSave)
+
+  resetNewMember = ->
+    $scope.newMember = {}
+
+  showMemberStatus = (status, type) ->
+    $scope.newMemberStatus = {text: status, style: type}
 
   memberSaveFailureCallback = (err) ->
     console.log(err)
     reason = prettyError(err)
     status = "save failed"
     status += ": " + reason if reason
-    $scope.newMemberStatus = {text: status, style: "danger"}
+    showMemberStatus(status, 'danger')
 
   prettyError = (err) ->
     result = ""
