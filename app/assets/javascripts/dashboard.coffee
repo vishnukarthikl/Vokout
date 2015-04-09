@@ -30,7 +30,7 @@
       this_month = moment().format("MMMM YYYY")
       $scope.facility.revenues.monthly_revenue[this_month]
 
-@DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
+@DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window, memberService) ->
   $scope.refreshData = ->
     $http.get('/facilities/show')
     .success (data) ->
@@ -56,15 +56,29 @@
       $scope.renewStatus = renewedMember.name + " was renewed successfully"
     )
 
+  $scope.deactivate = (member) ->
+    memberService.get({facility_id: member.facility_id, id: member.id}, (data) ->
+      member = data
+      member.inactive = true
+      member.$update((data) ->
+        $scope.refreshData()
+        $scope.renewStatus = member.name + " was deactivated"
+      )
+    )
+
+  $scope.filterMembers = (name, showInactive) ->
+    (member) ->
+      return member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
+
+
+
 RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
-  $scope.member = memberToRenew
-  $scope.memberships = memberships
   $scope.renewMembership = {}
   $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
 
   $scope.submitRenewal = ->
-    newSubscription = {membership_id: $scope.renewMembership.membership_id, start_date: $scope.renewMembership.start_date}
-    memberService.get({facility_id: $scope.member.facility_id, id: $scope.member.id}, (data) ->
+    newSubscription = {membership_id: memberToRenew.membership_id, start_date: $scope.renewMembership.start_date}
+    memberService.get({facility_id: memberToRenew.facility_id, id: memberToRenew.id}, (data) ->
       member = data
       member.subscriptions.push(newSubscription)
       member.$update((data) ->

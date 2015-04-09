@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408054525) do
+ActiveRecord::Schema.define(version: 20150409071417) do
 
   create_table "facilities", force: true do |t|
     t.string   "name"
@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(version: 20150408054525) do
     t.text     "address"
     t.string   "pincode"
     t.string   "emergency_number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "facility_id"
+    t.boolean  "inactive",         default: false
   end
 
   add_index "members", ["facility_id"], name: "index_members_on_facility_id"

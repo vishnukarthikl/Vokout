@@ -1,4 +1,4 @@
-json.extract! member, :id, :name, :phone_number, :email, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id
+json.extract! member, :id, :name, :phone_number, :email, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id, :inactive
 json.subscriptions member.subscriptions do |subscription|
   if subscription
     json.extract! subscription, :id, :start_date

@@ -22,5 +22,6 @@
 //= require Chart.js/Chart.js
 //= require tc-angular-chartjs
 //= require angular-rails-templates
+//= require angular-toggle-switch
 //= require_tree ./templates
 //= require_tree .

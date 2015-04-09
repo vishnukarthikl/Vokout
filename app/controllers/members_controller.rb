@@ -47,7 +47,7 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       new_subscription = renewed_subscription(@member)
-      revenue_for_renewal = revenue_form(new_subscription)
+      revenue_for_renewal = revenue_form(new_subscription) if new_subscription
       if @member.update(member_params)
         new_subscription.save if new_subscription
         revenue_for_renewal.save if revenue_for_renewal
@@ -67,10 +67,15 @@ class MembersController < ApplicationController
         return Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
       end
     end
+    nil
   end
 
   def revenue_form(subscription)
-    revenue_date = if subscription.start_date > Date.today then Date.today else subscription.start_date end
+    revenue_date = if subscription.start_date > Date.today then
+                     Date.today
+                   else
+                     subscription.start_date
+                   end
     Revenue.new({value: subscription.membership.cost,
                  category: 'membership',
                  date: revenue_date,
@@ -98,7 +103,7 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    params.require(:member).permit([:name, :email, :phone_number, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
+    params.require(:member).permit([:name, :email, :phone_number, :is_male, :inactive, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
   end
 
   def subscription_params
