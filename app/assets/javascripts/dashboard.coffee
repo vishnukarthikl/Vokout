@@ -19,6 +19,23 @@
   $scope.deactivated = (member) ->
     return member.inactive
 
+  changeInactiveStateTo = (member, inactive) ->
+    memberService.get({facility_id: member.facility_id, id: member.id}, (data) ->
+      member = data
+      member.inactive = inactive
+      member.$update((data) ->
+        $scope.refreshData()
+        status = if inactive then "Deactivated" else "Activated"
+        $scope.renewStatus = member.name + " was " + status
+      )
+    )
+
+  $scope.activate = (member) ->
+    changeInactiveStateTo(member, false)
+
+  $scope.deactivate = (member) ->
+    changeInactiveStateTo(member, true)
+
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
   $scope.refreshData = ->
     $http.get('/facilities/show')
@@ -59,37 +76,26 @@
       $scope.renewStatus = renewedMember.name + " was renewed successfully"
     )
 
-  changeInactiveStateTo = (member, inactive) ->
-    memberService.get({facility_id: member.facility_id, id: member.id}, (data) ->
-      member = data
-      member.inactive = inactive
-      member.$update((data) ->
-        $scope.refreshData()
-        status = if inactive then "Deactivated" else "Activated"
-        $scope.renewStatus = member.name + " was " + status
-      )
-    )
-
-
-  $scope.activate = (member) ->
-    changeInactiveStateTo(member, false)
-
-  $scope.deactivate = (member) ->
-    changeInactiveStateTo(member, true)
-
   $scope.filterMembers = (name, showInactive) ->
     (member) ->
-      return member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
+      member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
 
 
 
 RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
+  $scope.member = memberToRenew
+  $scope.memberships = memberships
   $scope.renewMembership = {}
   $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
 
+  $scope.open = ($event) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
+
   $scope.submitRenewal = ->
-    newSubscription = {membership_id: memberToRenew.membership_id, start_date: $scope.renewMembership.start_date}
-    memberService.get({facility_id: memberToRenew.facility_id, id: memberToRenew.id}, (data) ->
+    newSubscription = {membership_id: $scope.renewMembership.membership_id, start_date: $scope.renewMembership.start_date}
+    memberService.get({facility_id: $scope.member.facility_id, id: $scope.member.id}, (data) ->
       member = data
       member.subscriptions.push(newSubscription)
       member.$update((data) ->
