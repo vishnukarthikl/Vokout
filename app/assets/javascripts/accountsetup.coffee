@@ -36,7 +36,7 @@
       $scope.facility.memberships = []
 
   resetMembership = (membershipForm)->
-    membershipForm.$setUntouched() if membershipForm
+    resetForm(membershipForm)
     $scope.newMembership = {}
     $scope.newMembership.duration_type = $scope.durationTypes[1]
 
@@ -84,10 +84,7 @@
 
   $scope.setupMember = (membershipForm) ->
     $scope.saveMembership() if membershipForm and membershipForm.$valid
-
-    $scope.newMember = {}
-    $scope.newMember.subscription = {}
-    $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
+    resetNewMember()
     $scope.status = "member"
     $scope.setProgress(3)
 
@@ -122,6 +119,8 @@
 
   resetNewMember = ->
     $scope.newMember = {}
+    $scope.newMember.subscription = {}
+    $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
 
   showMemberStatus = (status, type) ->
     $scope.newMemberStatus = {text: status, style: type}
