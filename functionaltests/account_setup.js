@@ -1,7 +1,7 @@
 describe('Account setup', function () {
 
     it('should sign up', function () {
-        browser.get('http://localhost:3000');
+        browser.get('');
 
         element(by.id('signup')).click();
         name = Math.random().toString(36).substring(7);
