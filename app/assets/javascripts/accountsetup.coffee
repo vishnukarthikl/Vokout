@@ -35,9 +35,13 @@
       $scope.facility = facilityToSave
       $scope.facility.memberships = []
 
-  $scope.setupMembership = ->
+  resetMembership = (membershipForm)->
+    membershipForm.$setUntouched() if membershipForm
     $scope.newMembership = {}
     $scope.newMembership.duration_type = $scope.durationTypes[1]
+
+  $scope.setupMembership = ->
+    resetMembership()
     $scope.status = "membership"
     $scope.setProgress(2)
 
@@ -49,9 +53,7 @@
       if membershipToSave.id?
         $scope.facility.memberships.push(membershipToSave)
         $scope.newMembershipStatus = {text: membershipToSave.name + " added successfully, Add another or continue with setup", style: "success"}
-
-        membershipForm.$setUntouched() if membershipForm
-        $scope.setupMembership()
+        resetMembership(membershipForm)
 
   membershipSaveFailureCallback = (err) ->
     reason = err.data
