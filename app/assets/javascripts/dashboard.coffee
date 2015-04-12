@@ -1,7 +1,14 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-@DashboardCtrl = ($scope, $resource, $http) ->
+@DashboardCtrl = ($scope, $resource, $http, memberService) ->
+  $scope.refreshData = ->
+    $http.get('/facilities/show')
+    .success (data) ->
+      $scope.facility = data
+    .error (data, status, headers, config) ->
+      console.log(status)
+
   $scope.latestSubscription = (member)->
     member.subscriptions.reduce((latestSubscription, currentSubscription) ->
       if currentSubscription.days_left > latestSubscription.days_left
@@ -37,12 +44,6 @@
     changeInactiveStateTo(member, true)
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
-  $scope.refreshData = ->
-    $http.get('/facilities/show')
-    .success (data) ->
-      $scope.facility = data
-    .error (data, status, headers, config) ->
-      console.log(status)
 
   $scope.refreshData()
   $scope.currentMonthRevenue = () ->
@@ -50,13 +51,7 @@
       this_month = moment().format("MMMM YYYY")
       $scope.facility.revenues.monthly_revenue[this_month]
 
-@DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window, memberService) ->
-  $scope.refreshData = ->
-    $http.get('/facilities/show')
-    .success (data) ->
-      $scope.facility = data
-    .error (data, status, headers, config) ->
-      console.log(status)
+@DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
 
   $scope.refreshData()
 

@@ -65,12 +65,12 @@
                     <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
                       <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
                         Renew</a></li>
-                      <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
-                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
-                      </li>
-                      <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
-                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
-                      </li>
+                    <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
+                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
+                    </li>
+                    <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
+                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                    </li>
 
                   </ul>
                 </div>
@@ -84,6 +84,9 @@
         <dir-pagination-controls></dir-pagination-controls>
       </div>
 
+      <div class="col-md-4">
+        <a href="facilities/{{facility.id}}/members/new" id="add-member-button" class="btn btn-primary">Add new member</a>
+      </div>
     </div>
   </div>
 </div>

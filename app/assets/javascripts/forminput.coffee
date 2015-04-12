@@ -64,5 +64,6 @@
   }
   link: (scope, elem, attr, ctrl) ->
     ctrl.$validators.unique = (modelValue, viewValue) ->
-      scope.items().indexOf(viewValue) == -1
+      items = scope.items()
+      items.indexOf(viewValue) == -1 if items
   }

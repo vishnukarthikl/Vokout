@@ -1,27 +1,137 @@
-<h1>New Member</h1>
+<div ng-controller="NewMemberCtrl">
+  <h1>Registration</h1>
 
-<div class="col-md-6 col-md-offset-3">
-  <%= simple_form_for(@member) do |f| %>
-      <%= f.error_notification %>
+  <div class="container">
+    <form class="row form-horizontal" name="memberForm" novalidate>
+      <fieldset>
 
-      <div class="form-inputs">
-        <%= f.input :name %><br>
-        <%= f.input :email %><br>
-        <%= f.input :phone_number %><br>
-        <%= f.input :is_male, collection: [:male, :female], label: 'Sex' %> <br>
-        <%= f.input :date_of_birth, as: :date, html5: true, label: 'Date of Birth' %>
-        <%= f.input :occupation %><br>
-        <%= f.input :address %><br>
-        <%= f.input :pincode %><br>
-        <%= hidden_field_tag 'facility_id', @facility.id %>
-      </div>
+        <!-- Form Name -->
+        <legend>Add Members</legend>
 
-      <div class="form-actions">
-        <%= f.submit 'Add', class: 'btn btn-primary' %>
-      </div>
-  <% end %>
-  <br>
-  <%= link_to 'Back', members_path %>
+        <!-- Text input-->
+        <div forminput>
+          <label for="memberName">Name</label>
 
+          <div class="col-md-4">
+            <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
 
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div forminput>
+          <label for="memberSex">Sex</label>
+
+          <div class="col-md-4">
+            <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
+              <option value="true">Male</option>
+              <option value="false">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div forminput>
+          <label for="memberMembership">Membership</label>
+
+          <div class="col-md-4">
+            <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
+                    ng-options="membership.id as membership.name for membership in facility.memberships" required>
+            </select>
+          </div>
+        </div>
+
+        <div forminput>
+          <label for="memberMembershipDate">Membership start date</label>
+
+          <div class="col-md-4">
+            <p class="input-group">
+              <input id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
+                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.subscription.start_date" is-open="start_date_opened" close-text="Close" ng-required="true"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'start_date_opened')">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div forminput>
+          <label for="memberPhone">Phone</label>
+
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon">+91</span>
+              <input unique-items items="getMembersPhone()" id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div forminput>
+          <label for="memberEmail">E mail</label>
+
+          <div class="col-md-4">
+            <input id="memberEmail" ng-model="newMember.email" name="memberEmail" placeholder="" type="email">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div forminput>
+          <label for="memberDob">Date of Birth</label>
+
+          <div class="col-md-4">
+            <p class="input-group">
+              <input id="memberDob" name="memberDob" type="text" class="form-control"
+                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.date_of_birth" is-open="dob_opened" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'dob_opened')">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div forminput>
+          <label for="memberOccupation">Occupation</label>
+
+          <div class="col-md-4">
+            <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
+              <option value="student">Student</option>
+              <option value="working">Working</option>
+              <option value="housewife">Housewife</option>
+              <option value="business">Business</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div forminput>
+          <label for="memberAddress">Address</label>
+
+          <div class="col-md-4">
+            <textarea class="form-control" id="memberAddress" ng-model="newMember.address" name="memberAddress"></textarea>
+          </div>
+        </div>
+
+        <br/>
+        <!-- Button (Double) -->
+        <div class="form-group">
+
+          <div class="col-md-7 col-md-offset-3">
+            <a href="/dashboard-members" id="setupMembershipBack" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">
+              <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
+            <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
+          </div>
+        </div>
+
+      </fieldset>
+      <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
+    </form>
+  </div>
 </div>
