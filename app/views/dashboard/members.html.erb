@@ -10,9 +10,15 @@
     <div id="dashboard-members" ng-controller="DashboardMembersCtrl">
 
       <div class="row">
-        <div class="col-md-4">
-          <label for="search">Search:</label>
-          <input ng-model="q" id="search" class="form-control" placeholder="customer name" ng-init="q=''">
+        <div class="col-xs-6 col-md-4">
+          <p>
+            <label for="search">Search:</label>
+            <input ng-model="q" id="search" class="form-control" placeholder="customer name" ng-init="q=''">
+          </p>
+        </div>
+        <div class="pull-right">
+          <a href="facilities/{{facility.id}}/members/new" id="add-member-button" class="btn btn-primary">Add new
+            member</a>
         </div>
       </div>
       <div class="row">
@@ -37,19 +43,19 @@
         <div class="panel panel-default" ng-show="facility.members.length > 0">
 
           <div class="panel-heading">List of all members</div>
-          <table class="table table-bordered table-hover">
+          <table class="table table-condensed table-hover center">
             <thead>
             <tr>
-              <th>Name</th>
-              <th>Phone no</th>
-              <th>Subscription</th>
-              <th>Days left for renewal</th>
+              <th class="center">Name</th>
+              <th class="center">Phone no</th>
+              <th class="center">Subscription</th>
+              <th class="center">Days left for renewal</th>
             </tr>
             </thead>
 
             <tbody>
             <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}" dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
-              <td>{{member.name}}</td>
+              <td><a href="/members/{{member.id}}">{{member.name}}</a></td>
               <td>{{member.phone_number}}</td>
               <td>{{latestSubscription(member).membership.name}}</td>
               <td>{{ !subscriptionExpired(member) ? latestSubscription(member).days_left_words : "Expired since "
@@ -84,9 +90,6 @@
         <dir-pagination-controls></dir-pagination-controls>
       </div>
 
-      <div class="col-md-4">
-        <a href="facilities/{{facility.id}}/members/new" id="add-member-button" class="btn btn-primary">Add new member</a>
-      </div>
     </div>
   </div>
 </div>
