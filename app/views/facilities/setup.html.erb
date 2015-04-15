@@ -138,7 +138,8 @@
                       class="btn btn-success btn-primary col-md-3">Add another
               </button>
               <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton"
-                      class="btn btn-primary col-md-3 col-md-offset-1">Step 3 <span class="glyphicon glyphicon-chevron-right"></span>
+                      class="btn btn-primary col-md-3 col-md-offset-1">Step 3
+                <span class="glyphicon glyphicon-chevron-right"></span>
               </button>
             </div>
           </div>
@@ -176,6 +177,14 @@
     </div>
 
     <div class="row" ng-switch-when="member">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-4">
+          <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default btn-warning col-md-2 col-md-offset-1">
+            <span class="glyphicon glyphicon-chevron-left"> Back</span></button>
+          <a id="skipMemberButton" ng-disabled="facility.members.length == 0" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Dashboard</a>
+        </div>
+      </div>
+
       <form class="row form-horizontal" name="memberForm" novalidate>
         <fieldset>
 
@@ -219,10 +228,11 @@
 
             <div class="col-md-4">
               <p class="input-group">
-              <input id="memberMembershipDate"  name="memberMembershipDate" type="text" class="form-control"
-                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.subscription.start_date" is-open="$parent.start_date_opened" close-text="Close" ng-required="true" />
+                <input id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
+                       datepicker-popup="dd/MM/yyyy" ng-model="newMember.subscription.start_date" is-open="$parent.start_date_opened" close-text="Close" ng-required="true"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,'start_date_opened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="open($event,'start_date_opened')">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
               </span>
               </p>
             </div>
@@ -257,10 +267,11 @@
 
             <div class="col-md-4">
               <p class="input-group">
-                <input id="memberDob"  name="memberDob" type="text" class="form-control"
-                       datepicker-popup="dd/MM/yyyy" ng-model="newMember.date_of_birth" is-open="$parent.dob_opened" close-text="Close" />
+                <input id="memberDob" name="memberDob" type="text" class="form-control"
+                       datepicker-popup="dd/MM/yyyy" ng-model="newMember.date_of_birth" is-open="$parent.dob_opened" close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,'dob_opened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="open($event,'dob_opened')">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
               </span>
               </p>
 
@@ -272,13 +283,13 @@
             <label for="memberOccupation">Occupation</label>
 
             <div class="col-md-4">
-                <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
-                	<option value="student">Student</option>
-                	<option value="working">Working</option>
-                	<option value="housewife">Housewife</option>
-                	<option value="business">Business</option>
-                	<option value="other">Other</option>
-                </select>
+              <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
+                <option value="student">Student</option>
+                <option value="working">Working</option>
+                <option value="housewife">Housewife</option>
+                <option value="business">Business</option>
+                <option value="other">Other</option>
+              </select>
             </div>
           </div>
 
@@ -296,7 +307,8 @@
           <div class="form-group">
 
             <div class="col-md-7 col-md-offset-3">
-              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1"><span class="glyphicon glyphicon-chevron-left"> Back</span></button>
+              <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default btn-warning col-md-2 col-md-offset-1">
+                <span class="glyphicon glyphicon-chevron-left"> Back</span></button>
               <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
               <a id="skipMemberButton" ng-disabled="facility.members.length == 0" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-1">Dashboard</a>
             </div>
