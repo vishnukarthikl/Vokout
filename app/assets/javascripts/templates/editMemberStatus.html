@@ -1,0 +1,15 @@
+<div class="modal-header center" ng-class="'btn-'+status.style">
+    <h3 ng-show="status.style=='success'">Success</h3>
+
+    <h3 ng-show="status.style=='danger'">Failure</h3>
+</div>
+<div class="modal-body">
+    <h3> {{status.text}}</h3>
+
+    <div>
+        <a href="/members/{{member.id}}" class="btn btn-warning" ng-show="status.style=='success'">Profile</a>
+        <a href="/dashboard-members" class="btn btn-primary" ng-show="status.style=='success'">Dashboard</a>
+        <button class="btn btn-primary" ng-show="status.style=='danger'" ng-click="retry()">Retry</button>
+    </div>
+
+</div>

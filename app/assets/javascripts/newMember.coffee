@@ -62,8 +62,8 @@
 
   showModalWithStatus = (status) ->
     modalInstance = $modal.open({
-      templateUrl: 'saveMember.html',
-      controller: saveMemberCtrl,
+      templateUrl: 'saveMemberStatus.html',
+      controller: saveMemberStatusCtrl,
       scope: $scope,
       size: 'md',
       resolve:
@@ -75,7 +75,7 @@
         $scope.setupMember()
     )
 
-saveMemberCtrl = ($scope, $modalInstance, status) ->
+saveMemberStatusCtrl = ($scope, $modalInstance, status) ->
   $scope.status = status
 
   $scope.retry = ->
