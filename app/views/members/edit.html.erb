@@ -92,6 +92,36 @@
           </div>
         </div>
 
+
+        <div style="border: solid;padding: 10px;background-color: aliceblue">
+          <div forminput>
+            <label for="memberSubscription">Subscription</label>
+
+            <div class="col-md-4">
+              <select ng-model="member.latest_subscription.membership.id" id="memberSubscription" name="memberSubscription" class="form-control"
+                      ng-options="membership.id as membership.name for membership in memberships" required>
+              </select>
+            </div>
+          </div>
+
+          <div forminput>
+            <label for="memberSubscriptionDate">Subscription start date</label>
+
+            <div class="col-md-4">
+              <p class="input-group">
+                <input id="memberSubscriptionDate" name="memberSubscriptionDate" type="text" class="form-control"
+                       datepicker-popup="dd/MM/yyyy" ng-model="member.latest_subscription.start_date" is-open="start_date_opened" close-text="Close" ng-required="true"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'start_date_opened')">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
+            </div>
+          </div>
+
+          <span class="col-md-offset-4">* Changing subscription will also change the revenue</span>
+        </div>
+
         <br/>
         <!-- Button (Double) -->
         <div class="form-group">
@@ -99,7 +129,7 @@
           <div class="col-md-7 col-md-offset-3">
             <a href="/members/{{member.id}}" class="btn btn-default col-md-2 col-md-offset-1">
               <span class="glyphicon glyphicon-chevron-left"> Cancel</span></a>
-            <button id="editMemberButton" ng-disabled="memberForm.$invalid" ng-click="updateMember()" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Update</button>
+            <button id="editMemberButton" ng-disabled="memberForm.$invalid" ng-click="updateMember()" name="editMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Update</button>
           </div>
         </div>
 

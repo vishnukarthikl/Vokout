@@ -10,6 +10,10 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
     $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"},
             {update: {method: "PUT"}}, isArray: true)
 )
+.factory('membershipService', ($resource)->
+    $resource('/facilities/:facility_id/memberships/:id', {facility_id: "@facility_id", id: "@id"},
+            {update: {method: "PUT"}}, isArray: true)
+)
 .config ["$httpProvider", ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
     $httpProvider.defaults.headers.common.Accept = 'application/json'

@@ -48,7 +48,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       new_subscription = renewed_subscription(@member)
       revenue_for_renewal = revenue_form(new_subscription) if new_subscription
-      if @member.update(member_params)
+      if @member.update(member_params) && update_latest_subscription()
         new_subscription.save if new_subscription
         revenue_for_renewal.save if revenue_for_renewal
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -59,6 +59,15 @@ class MembersController < ApplicationController
       end
     end
   end
+
+  def update_latest_subscription
+    latest_subscription = params.require(:latest_subscription)
+    found_subscription = Subscription.find(latest_subscription[:id])
+    membership = latest_subscription.require(:membership)
+    found_subscription.update({start_date: latest_subscription[:start_date], membership_id: membership[:id]})
+    @member.reload
+  end
+
 
   def renewed_subscription(member)
     params.require(:subscriptions).each do |subscription|
@@ -113,4 +122,5 @@ class MembersController < ApplicationController
   def facility_id
     params[:facility_id]
   end
+
 end

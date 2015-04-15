@@ -31,8 +31,7 @@
         </div>
 
         <div forminput>
-          <label for="memberMembership">Membership</label>
-
+          <label for="memberMembership">Subscription</label>
           <div class="col-md-4">
             <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
                     ng-options="membership.id as membership.name for membership in facility.memberships" required>
@@ -41,8 +40,7 @@
         </div>
 
         <div forminput>
-          <label for="memberMembershipDate">Membership start date</label>
-
+          <label for="memberMembershipDate">Subscription start date</label>
           <div class="col-md-4">
             <p class="input-group">
               <input id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
