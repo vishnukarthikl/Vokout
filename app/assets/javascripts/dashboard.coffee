@@ -9,19 +9,11 @@
     .error (data, status, headers, config) ->
       console.log(status)
 
-  $scope.latestSubscription = (member)->
-    member.subscriptions.reduce((latestSubscription, currentSubscription) ->
-      if currentSubscription.days_left > latestSubscription.days_left
-        currentSubscription
-      else
-        latestSubscription
-    , member.subscriptions[0])
-
   $scope.subscriptionExpired = (member) ->
-    $scope.latestSubscription(member).days_left <= 0
+    member.latest_subscription.expired
 
   $scope.orderBySubscriptionExpiry = (member) ->
-    $scope.latestSubscription(member).days_left
+    member.latest_subscription.days_left
 
   $scope.deactivated = (member) ->
     return member.inactive

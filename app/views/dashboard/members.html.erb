@@ -54,12 +54,14 @@
             </thead>
 
             <tbody>
-            <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}" dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
+            <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}"
+                dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
               <td><a href="/members/{{member.id}}">{{member.name}}</a></td>
               <td>{{member.phone_number}}</td>
-              <td>{{latestSubscription(member).membership.name}}</td>
-              <td>{{ !subscriptionExpired(member) ? latestSubscription(member).days_left_words : "Expired since "
-                +latestSubscription(member).days_left_words }}
+              <td>{{member.latest_subscription.membership.name}}</td>
+              <td>{{ !subscriptionExpired(member) ?
+                member.latest_subscription.days_left_words : "Expired "
+                +member.latest_subscription.days_left_words +" ago" }}
               </td>
               <td>
                 <div class="dropdown">
