@@ -1,7 +1,7 @@
 json.extract! member, :id, :name, :phone_number, :email, :is_male, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id, :inactive
 
 def get_latest_subscription(subscriptions)
-  subscriptions.max { |s| find_subscription_end_date(s) }
+  subscriptions.max { |s| s.subscription_end }
 end
 
 json.subscriptions member.subscriptions do |subscription|
