@@ -6,20 +6,19 @@ class Subscription < ActiveRecord::Base
   belongs_to :membership
   has_one :revenue, as: :purchasable
 
-  def subscription_end
+  def end_date
     self.start_date.plus_with_duration(self.membership.duration_in_days)
   end
 
   def days_left
-    (subscription_end - Date.today).floor
+    (end_date - Date.today).floor
   end
 
   def days_left_words
-    time_ago_in_words(subscription_end)
+    time_ago_in_words(end_date)
   end
 
   def expired
     days_left < 0
   end
-
 end

@@ -36,7 +36,6 @@
     changeInactiveStateTo(member, true)
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
-
   $scope.refreshData()
   $scope.currentMonthRevenue = () ->
     if $scope.facility
@@ -44,7 +43,6 @@
       $scope.facility.revenues.monthly_revenue[this_month]
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
-
   $scope.refreshData()
 
 
@@ -73,7 +71,10 @@ RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) 
   $scope.member = memberToRenew
   $scope.memberships = memberships
   $scope.renewMembership = {}
-  $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
+  if memberToRenew.latest_subscription
+    $scope.renewMembership.start_date = moment(memberToRenew.latest_subscription.end_date).add(1, 'days').format('DD/MM/YYYY')
+  else
+    $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
 
   $scope.open = ($event) ->
     $event.preventDefault();
