@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409071417) do
+ActiveRecord::Schema.define(version: 20150416070321) do
 
   create_table "facilities", force: true do |t|
     t.string   "name"
@@ -66,17 +66,19 @@ ActiveRecord::Schema.define(version: 20150409071417) do
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true
 
   create_table "revenues", force: true do |t|
-    t.string   "category"
     t.decimal  "value"
     t.date     "date"
     t.integer  "facility_id"
     t.integer  "member_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "purchasable_id"
+    t.string   "purchasable_type"
   end
 
   add_index "revenues", ["facility_id"], name: "index_revenues_on_facility_id"
   add_index "revenues", ["member_id"], name: "index_revenues_on_member_id"
+  add_index "revenues", ["purchasable_id", "purchasable_type"], name: "index_revenues_on_purchasable_id_and_purchasable_type"
 
   create_table "subscriptions", force: true do |t|
     t.date     "start_date"

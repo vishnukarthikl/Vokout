@@ -4,6 +4,7 @@ class Subscription < ActiveRecord::Base
 
   belongs_to :member
   belongs_to :membership
+  has_one :revenue, as: :purchasable
 
   def subscription_end
     self.start_date.plus_with_duration(self.membership.duration_in_days)

@@ -336,7 +336,7 @@
           <tr ng-repeat="member in facility.members">
             <td>{{member.name}}</td>
             <td>{{member.phone_number}}</td>
-            <td>{{member.subscriptions[0].membership.name}}</td>
+            <td>{{member.latest_subscription.membership.name}}</td>
           </tr>
           </tbody>
         </table>

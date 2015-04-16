@@ -85,11 +85,10 @@ class MembersController < ApplicationController
                    else
                      subscription.start_date
                    end
-    Revenue.new({value: subscription.membership.cost,
-                 category: 'membership',
-                 date: revenue_date,
-                 member: @member,
-                 facility: @facility})
+    subscription.build_revenue({value: subscription.membership.cost,
+                                date: revenue_date,
+                                member: @member,
+                                facility: @facility})
   end
 
 

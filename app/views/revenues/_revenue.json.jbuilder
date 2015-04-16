@@ -1,1 +1,1 @@
-json.extract! revenue, :value, :category, :date
+json.extract! revenue, :value, :date
