@@ -10,4 +10,8 @@ class Member < ActiveRecord::Base
             format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}, :allow_blank => true
   validates :phone_number, numericality: true, :allow_blank => true, uniqueness: true
   validates :facility_id, presence: true
+
+  def latest_subscription
+    self.subscriptions.max { |s| s.end_date }
+  end
 end

@@ -8,12 +8,24 @@
     <div id="dashboard" ng-controller="DashboardCtrl">
       <div ng-controller="DashboardOverviewCtrl">
         <div class="row placeholders">
-          <div class="col-md-4 center">
-            <h3>Revenue this month</h3>
-            <h3>{{currentMonthRevenue()}}</h3>
-
+          <div class="col-md-4 col-xs-12">
+            <h3>Revenue</h3>
+            <table class="table lead table">
+              <tr>
+                <td>So far this month</td>
+                <td>{{facility.revenues.this_month_revenue | number}} </td>
+              </tr>
+              <tr>
+                <td>By this month end</td>
+                <td>{{facility.revenues.this_month_revenue + facility.revenues.expected_revenue_by_month_end | number}} *</td>
+              </tr>
+              <tr>
+                <td>Expected next month</td>
+                <td>{{facility.revenues.next_month_revenue | number }} *</td>
+              </tr>
+            </table>
+            * If all active members renew their membership
           </div>
-
         </div>
       </div>
     </div>

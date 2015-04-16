@@ -1,11 +1,3 @@
-def calculate_monthly_revenue(revenues)
-  revenues = revenues.sort { |r1, r2| r1.date <=> r2.date }
-  revenues_map = revenues.map do |r|
-    {time_frame: r.date.strftime('%B')+ ' '+ r.date.strftime('%Y'), value: r.value}
-  end
-  revenues_map.inject(Hash.new(0)) { |h, e| h[e[:time_frame]] += e[:value]; h }
-end
-
 unless @facility.nil?
   json.extract! @facility, :id, :name, :address, :phone
   json.memberships @facility.memberships, :id, :name, :duration, :duration_type, :duration_in_days, :cost
@@ -13,11 +5,13 @@ unless @facility.nil?
     json.partial! 'members/member', member: member, show_subscription_history: false
   end
   json.revenues do
-    json.monthly_revenue calculate_monthly_revenue(@facility.revenues)
+    json.monthly_revenue @facility.calculate_monthly_revenue
+    json.this_month_revenue @facility.calculate_this_month_revenue.to_i
+    json.expected_revenue_by_month_end @facility.calculate_expected_revenue(Date.today).to_i
+    json.next_month_revenue @facility.calculate_expected_revenue(Date.today.advance(months: 1)).to_i
 
     json.all @facility.revenues do |revenue|
       json.partial! 'revenues/revenue', revenue: revenue
     end
   end
-
 end
