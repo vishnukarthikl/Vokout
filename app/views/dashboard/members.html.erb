@@ -6,92 +6,94 @@
     </ul>
   </div>
 
-  <div ng-controller="DashboardCtrl">
-    <div id="dashboard-members" ng-controller="DashboardMembersCtrl">
+  <div ng-controller="MemberCtrl">
+    <div ng-controller="DashboardCtrl">
+      <div id="dashboard-members" ng-controller="DashboardMembersCtrl">
 
-      <div class="row">
-        <div class="col-xs-6 col-md-4">
-          <p>
-            <label for="search">Search:</label>
-            <input ng-model="q" id="search" class="form-control" placeholder="customer name" ng-init="q=''">
-          </p>
-        </div>
-        <div class="pull-right">
-          <a href="facilities/{{facility.id}}/members/new" id="add-member-button" class="btn btn-primary">Add new
-            member</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <label for="search">Show inactive:</label>
-
-          <div>
-            <toggle-switch ng-model="shouldShowInactive">
-              <toggle-switch>
+        <div class="row">
+          <div class="col-xs-6 col-md-4">
+            <p>
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="customer name" ng-init="q=''">
+            </p>
+          </div>
+          <div class="pull-right">
+            <a href="facilities/{{facility.id}}/members/new" id="add-member-button" class="btn btn-primary">Add new
+              member</a>
           </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="search">Show inactive:</label>
 
-
-      <div class="row" ng-show="renewStatus">
-        <div class="alert alert-success" role="alert">
-          {{renewStatus}}
+            <div>
+              <toggle-switch ng-model="shouldShowInactive">
+                <toggle-switch>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="panel panel-default" ng-show="facility.members.length > 0">
 
-          <div class="panel-heading">List of all members</div>
-          <table class="table table-condensed table-hover center">
-            <thead>
-            <tr>
-              <th class="center">Name</th>
-              <th class="center">Phone no</th>
-              <th class="center">Subscription</th>
-              <th class="center">Days left for renewal</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}"
-                dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
-              <td><a href="/members/{{member.id}}">{{member.name}}</a></td>
-              <td>{{member.phone_number}}</td>
-              <td>{{member.latest_subscription.membership.name}}</td>
-              <td>{{ !subscriptionExpired(member) ?
-                member.latest_subscription.days_left_words : "Expired "
-                +member.latest_subscription.days_left_words +" ago" }}
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="takeAction" data-toggle="dropdown">
-                    Take Action
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
-                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
-                        Renew</a></li>
-                    <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
-                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
-                    </li>
-                    <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
-                      <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
-                    </li>
-
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="row" ng-show="renewStatus">
+          <div class="alert alert-success" role="alert">
+            {{renewStatus}}
+          </div>
         </div>
-      </div>
-      <div class="center">
-        <dir-pagination-controls></dir-pagination-controls>
-      </div>
 
+        <div class="row">
+          <div class="panel panel-default" ng-show="facility.members.length > 0">
+
+            <div class="panel-heading">List of all members</div>
+            <table class="table table-condensed table-hover center">
+              <thead>
+              <tr>
+                <th class="center">Name</th>
+                <th class="center">Phone no</th>
+                <th class="center">Subscription</th>
+                <th class="center">Days left for renewal</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr ng-class="{warning :subscriptionExpired(member) ,danger: deactivated(member)}"
+                  dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
+                <td><a href="/members/{{member.id}}">{{member.name}}</a></td>
+                <td>{{member.phone_number}}</td>
+                <td>{{member.latest_subscription.membership.name}}</td>
+                <td>{{ !subscriptionExpired(member) ?
+                  member.latest_subscription.days_left_words : "Expired "
+                  +member.latest_subscription.days_left_words +" ago" }}
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="takeAction" data-toggle="dropdown">
+                      Take Action
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                      <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
+                          Renew</a></li>
+                      <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
+                      </li>
+                      <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                      </li>
+
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="center">
+          <dir-pagination-controls></dir-pagination-controls>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

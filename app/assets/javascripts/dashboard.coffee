@@ -9,31 +9,30 @@
     .error (data, status, headers, config) ->
       console.log(status)
 
-  $scope.subscriptionExpired = (member) ->
-    member.latest_subscription.expired
-
-  $scope.orderBySubscriptionExpiry = (member) ->
-    member.latest_subscription.days_left
-
-  $scope.deactivated = (member) ->
-    return member.inactive
-
-  changeInactiveStateTo = (member, inactive) ->
-    memberService.get({facility_id: member.facility_id, id: member.id}, (data) ->
-      member = data
-      member.inactive = inactive
-      member.$update((data) ->
-        $scope.refreshData()
-        status = if inactive then "Deactivated" else "Activated"
-        $scope.renewStatus = member.name + " was " + status
-      )
+  $scope.renew = (member)->
+    $scope.$parent.renewModalResult(member, $scope.facility.memberships).then((renewedMember)->
+      $scope.renewStatus = renewedMember.name + " was renewed successfully"
+      $scope.refreshData()
     )
 
   $scope.activate = (member) ->
-    changeInactiveStateTo(member, false)
+    memberService.get({facility_id: $scope.facility.id, id: member.id},
+      (member) ->
+        $scope.$parent.changeInactiveStateTo(member, false).then((member)->
+          $scope.renewStatus = member.name + " was activated"
+          $scope.refreshData()
+        )
+    )
 
   $scope.deactivate = (member) ->
-    changeInactiveStateTo(member, true)
+    memberService.get({facility_id: $scope.facility.id, id: member.id},
+      (member) ->
+        $scope.$parent.changeInactiveStateTo(member, true).then((member)->
+          $scope.renewStatus = member.name + " was deactivated"
+          $scope.refreshData()
+        )
+    )
+
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
   $scope.refreshData()
@@ -44,52 +43,3 @@
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
   $scope.refreshData()
-
-
-  $scope.renew = (member) ->
-    modalInstance = $modal.open({
-      templateUrl: 'renewMembership.html',
-      controller: RenewCtrl,
-      scope: $scope,
-      size: 'md',
-      resolve:
-        memberToRenew: -> member
-        memberships: -> $scope.facility.memberships
-    })
-    modalInstance.result.then((renewedMember) ->
-      $scope.refreshData()
-      $scope.renewStatus = renewedMember.name + " was renewed successfully"
-    )
-
-  $scope.filterMembers = (name, showInactive) ->
-    (member) ->
-      member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
-
-
-
-RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
-  $scope.member = memberToRenew
-  $scope.memberships = memberships
-  $scope.renewMembership = {}
-  if memberToRenew.latest_subscription
-    $scope.renewMembership.start_date = moment(memberToRenew.latest_subscription.end_date).add(1, 'days').format('DD/MM/YYYY')
-  else
-    $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
-
-  $scope.open = ($event) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.opened = true;
-
-  $scope.submitRenewal = ->
-    newSubscription = {membership_id: $scope.renewMembership.membership_id, start_date: $scope.renewMembership.start_date}
-    memberService.get({facility_id: $scope.member.facility_id, id: $scope.member.id}, (data) ->
-      member = data
-      member.subscriptions.push(newSubscription)
-      member.$update((data) ->
-        $modalInstance.close(member)
-      )
-    )
-
-  $scope.cancel = ->
-    $modalInstance.dismiss('cancel')
