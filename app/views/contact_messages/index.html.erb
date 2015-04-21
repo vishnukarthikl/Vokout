@@ -1,0 +1,31 @@
+<div class="container"><p id="notice"><%= notice %></p>
+
+  <h1>Contact Messages</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Message</th>
+      <th>Submitted on</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @contact_messages.each do |contact_message| %>
+        <tr>
+          <td><%= contact_message.name %></td>
+          <td><%= contact_message.phone %></td>
+          <td><%= contact_message.email %></td>
+          <td width="50%"><%= contact_message.message %></td>
+          <td><%= contact_message.created_at %></td>
+          <td><%= link_to 'Delete', contact_message, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br></div>
