@@ -7,6 +7,8 @@
         <thead>
         <tr>
           <th>Name</th>
+          <th>Gym</th>
+          <th>Phone</th>
           <th>Email</th>
           <th colspan="2"></th>
         </tr>
@@ -16,9 +18,11 @@
         <% @owners.each do |owner| %>
             <tr>
               <td><%= owner.name %></td>
+              <td><%= owner.facility.name %></td>
+              <td><%= owner.facility.phone %></td>
               <td><%= owner.email %></td>
               <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
-              <td><%= link_to 'Destroy', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+              <td><%= link_to 'Delete', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
             </tr>
         <% end %>
         </tbody>
