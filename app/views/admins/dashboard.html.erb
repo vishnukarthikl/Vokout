@@ -1,0 +1,30 @@
+<div class="container">
+  <% if @owners.length == 0 %>
+      <h3>No owners</h3>
+  <% else %>
+      <h1>Owners</h1>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th colspan="2"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @owners.each do |owner| %>
+            <tr>
+              <td><%= owner.name %></td>
+              <td><%= owner.email %></td>
+              <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
+              <td><%= link_to 'Destroy', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+  <%= render 'contact_messages/index.html' %>
+
+  <%= link_to "Log out", destroy_admin_session_path, method: "delete" %>
+</div>

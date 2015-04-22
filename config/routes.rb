@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :contact_messages
+  devise_for :admins
 
   resources :members
 
@@ -31,4 +32,6 @@ Rails.application.routes.draw do
     resources :memberships
     resources :members
   end
+
+  get 'admin-dashboard' => 'admins#dashboard', as: 'admin_dashboard'
 end

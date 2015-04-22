@@ -1,6 +1,7 @@
-<div class="container"><p id="notice"><%= notice %></p>
-
-  <h1>Contact Messages</h1>
+<% if @contact_messages.length == 0 %>
+    No messages
+<% else %>
+<h1>Contact Messages</h1>
 
   <table class="table">
     <thead>
@@ -28,4 +29,5 @@
     </tbody>
   </table>
 
-  <br></div>
+  <br>
+<% end %>

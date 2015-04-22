@@ -1,6 +1,6 @@
 class ContactMessagesController < ApplicationController
-  before_action :set_contact_message, only: [:show, :destroy]
-
+  before_action :set_contact_message, only: [:destroy]
+  before_action :authenticate_admin!, only: [:index, :destroy]
   respond_to :html
 
   def index

@@ -16,6 +16,7 @@ gem 'foreman'
 gem 'angular-rails-templates'
 gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'master'
 gem 'puma'
+gem 'devise'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

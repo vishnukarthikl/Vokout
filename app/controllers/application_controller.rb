@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   def root
     if logged_in?
       redirect_to dashboard_path
+    elsif admin_signed_in?
+      redirect_to admin_dashboard_path
     else
       redirect_to home_path
     end
