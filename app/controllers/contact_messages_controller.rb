@@ -26,7 +26,7 @@ class ContactMessagesController < ApplicationController
 
   def destroy
     @contact_message.destroy
-    respond_with(@contact_message)
+    redirect_to :back, notice: 'Message was deleted'
   end
 
   private
