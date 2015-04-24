@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421060028) do
+ActiveRecord::Schema.define(version: 20150424071912) do
 
   create_table "admins", force: true do |t|
     t.string   "email",              default: "", null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150421060028) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "deactivated"
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true

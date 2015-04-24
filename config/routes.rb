@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     resources :facilities
   end
 
+  post 'owner/:id/deactivate' => 'owners#deactivate', as: 'deactivate_owner'
+  post 'owner/:id/activate' => 'owners#activate', as: 'activate_owner'
+  get 'deactivated' => 'owners#deactivated', as: 'deactivated_owner'
+
   resources :facilities do
     resources :memberships
     resources :members

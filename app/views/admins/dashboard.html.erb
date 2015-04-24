@@ -18,12 +18,30 @@
         <% @owners.each do |owner| %>
             <tr>
               <td><%= owner.name %></td>
-              <td><%= owner.facility.name %></td>
-              <td><%= owner.facility.phone %></td>
-              <td><%= owner.email %></td>
-              <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
-              <td><%= link_to 'Delete', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-            </tr>
+              <td>
+                <% if owner.facility %>
+                    <%= owner.facility.name %>
+                <% else %>
+                    <%= '-' %>
+                <% end %>
+              </td>
+              <td>
+                <% if owner.facility %>
+                    <%= owner.facility.phone %>
+                <% else %>
+                    <%= '-' %></td>
+                <% end %>
+                <td><%= owner.email %></td>
+                <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
+                <td>
+                  <% if !owner.deactivated %>
+                      <%= link_to 'Deactivate', deactivate_owner_path(owner), method: :post %>
+                  <% else %>
+                      <%= link_to 'Activate', activate_owner_path(owner), method: :post %>
+                  <% end %>
+                </td>
+                <td><%= link_to 'Delete', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                </tr>
         <% end %>
         </tbody>
       </table>

@@ -1,7 +1,7 @@
 class OwnersController < ApplicationController
   before_filter :authenticate, unless: [:new]
 
-  before_action :set_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_owner, only: [:show, :edit, :update, :destroy,:deactivate,:activate]
 
   respond_to :json
 
@@ -63,6 +63,49 @@ class OwnersController < ApplicationController
       end
     end
   end
+
+  def deactivate
+    @owner.deactivated = true
+    respond_to do |format|
+      if @owner.save
+        format.html {
+          flash[:success] = "#{@owner.name} was deactivated"
+          redirect_to :back
+        }
+        format.json { render :show, status: :ok, location: @owner }
+      else
+        format.html {
+          flash[:danger] = "#{@owner.errors.as_json} was not deactivated"
+          redirect_to :back
+        }
+        format.json { render json: @owner.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def deactivated
+
+  end
+
+  def activate
+    @owner.deactivated = false
+    respond_to do |format|
+      if @owner.save
+        format.html {
+          flash[:success] = "#{@owner.name} was activated"
+          redirect_to :back
+        }
+        format.json { render :show, status: :ok, location: @owner }
+      else
+        format.html {
+          flash[:danger] = "#{@owner.name} was not activated"
+          redirect_to :back
+        }
+        format.json { render json: @owner.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # DELETE /owners/1
   # DELETE /owners/1.json
