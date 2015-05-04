@@ -3,6 +3,7 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="active"><a href="#">Dashboard</a></li>
       <li><a href="dashboard-members">Members</a></li>
+      <li><a href="dashboard-memberships">Memberships</a></li>
     </ul>
 
     <div id="dashboard" ng-controller="DashboardCtrl">
@@ -10,7 +11,7 @@
         <div class="row placeholders">
           <div class="col-md-4 col-xs-12">
             <h3>Revenue</h3>
-            <table class="table lead table">
+            <table class="table lead">
               <tr>
                 <td>So far this month</td>
                 <td>{{facility.revenues.this_month_revenue | number}} </td>

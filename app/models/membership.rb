@@ -6,8 +6,8 @@ class Membership < ActiveRecord::Base
   belongs_to :facility
   has_many :subscriptions
   validates :facility_id, presence: true
-  validates :cost, presence: true
-  validates :duration, presence: true
+  validates :cost, presence: true,:numericality => { :greater_than => 0, :less_than => 100000 }
+  validates :duration, presence: true,:numericality => { :greater_than => 0, :less_than => 1000 }
   validates_inclusion_of :duration_type, :in => DURATION_TYPES.keys.map { |x| x.to_s }
   validates :name, presence: true
   after_validation :calculate_duration_in_days

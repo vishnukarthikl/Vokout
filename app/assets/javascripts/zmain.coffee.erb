@@ -6,6 +6,7 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
 .controller('MemberCtrl', @MemberCtrl)
 .controller('NewMemberCtrl', @NewMemberCtrl)
 .controller('EditMemberCtrl', @EditMemberCtrl)
+.controller('MembershipCtrl', @MembershipCtrl)
 .factory('memberService', ($resource) ->
     $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"},
             {update: {method: "PUT"}}, isArray: true)

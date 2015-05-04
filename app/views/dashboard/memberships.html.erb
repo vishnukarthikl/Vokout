@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li><a href="dashboard">Dashboard</a></li>
+      <li><a href="dashboard-members">Members</a></li>
+      <li class="active"><a href="#">Memberships</a></li>
+    </ul>
+  </div>
+  <div ng-controller="MembershipCtrl">
+    <div id="data" data-facility-id="<%= @facility.id %>"></div>
+
+    <div class="row col-md-8">
+      <h3>All Memberships</h3>
+      <table class="table lead">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Duration</th>
+          <th>Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="membership in memberships">
+          <td>
+            <span ng-show="!editing[$index]">{{membership.name}}</span><input type="text" class="form-control" ng-init="editName=membership.name" ng-model="editName" ng-show="editing[$index]">
+          </td>
+          <td>
+            <span ng-show="!editing[$index]">{{membership.duration}}</span><span><input type="text" class="form-control" ng-init="editDuration=membership.duration" ng-model="editDuration" ng-show="editing[$index]">
+            <select ng-show="editing[$index]" ng-model="editDurationType" ng-init="editDurationType=membership.duration_type" ng-options="duration for duration in durationTypes">
+            </select>
+              </span>
+          </td>
+          <td>
+            <span ng-show="!editing[$index]">{{membership.cost}}</span><input type="text" class="form-control" ng-init="editCost=membership.cost" ng-model="editCost" ng-show="editing[$index]">
+          </td>
+          <td>
+            <input ng-show="!editing[$index]" type="button" class="btn btn-primary" value="Edit" ng-click="editing[$index]=true" ng-init="editId=membership.id"/>
+
+            <div class="btn-group btn-group-vertical">
+              <input ng-show="editing[$index]" type="button" class="btn btn-success" value="Update" ng-click="updateMembership(editId,editName,editDuration,editDurationType,editCost,$index  )"/>
+              <input ng-show="editing[$index]" type="button" class="btn btn-default" value="Cancel" ng-click="editing=false"/>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#overview', as: 'dashboard'
   get 'dashboard-members' => 'dashboard#members', as: 'dashboard_members'
+  get 'dashboard-memberships' => 'dashboard#memberships', as: 'dashboard_memberships'
 
   get 'contact' => 'contact_messages#new', as: 'contact'
   post 'contact' => 'contact_messages#create', as: 'post_contact'

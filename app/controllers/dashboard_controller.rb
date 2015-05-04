@@ -14,6 +14,9 @@ class DashboardController < ApplicationController
   def members
   end
 
+  def memberships
+  end
+
   private
   def set_owner_facility
     @owner = current_owner
