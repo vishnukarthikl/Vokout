@@ -10,8 +10,67 @@
     <div id="data" data-facility-id="<%= @facility.id %>"></div>
 
     <div class="row col-md-8">
-      <h3>All Memberships</h3>
-      <table class="table lead">
+      <h3>All Memberships
+        <button class="btn btn-primary pull-right" ng-click="addNew()">Add new</button>
+      </h3>
+      <form ng-show="showAddNew" name="membershipForm" class="row form-horizontal" novalidate>
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Add New</legend>
+
+          <!-- Text input-->
+          <div forminput>
+            <label for="newMembershipName">Name</label>
+
+            <div class="col-md-3">
+              <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
+            </div>
+          </div>
+
+          <!-- Appended Input-->
+          <div forminput>
+            <label for="newMembershipDuration">Duration</label>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" required>
+
+                <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
+                        ng-model="newMembership.duration_type"
+                        ng-options="duration for duration in durationTypes">
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <!-- Prepended text-->
+          <div forminput>
+            <label for="newMembershipCost">Cost</label>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-addon">₹</span>
+                <input type="number" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
+              </div>
+
+            </div>
+          </div>
+
+          <br/>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="membershipSave"></label>
+
+            <div class="col-md-6 col-md-offset-4">
+              <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave"
+                      class="btn btn-success btn-primary col-md-3">Add</button>
+              <button class="btn btn-warning col-md-3 col-md-offset-1" ng-click="cancelAdd()">Cancel</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      <table class="table">
         <thead>
         <tr>
           <th>Name</th>
@@ -25,10 +84,10 @@
             <span ng-show="!editing[$index]">{{membership.name}}</span><input type="text" class="form-control" ng-init="editName=membership.name" ng-model="editName" ng-show="editing[$index]">
           </td>
           <td>
-            <span ng-show="!editing[$index]">{{membership.duration}}</span><span><input type="text" class="form-control" ng-init="editDuration=membership.duration" ng-model="editDuration" ng-show="editing[$index]">
-            <select ng-show="editing[$index]" ng-model="editDurationType" ng-init="editDurationType=membership.duration_type" ng-options="duration for duration in durationTypes">
-            </select>
-              </span>
+            <span ng-show="!editing[$index]">{{membership.duration}}</span>
+            <input type="text" class="form-control" ng-init="editDuration=membership.duration" ng-model="editDuration" ng-show="editing[$index]">
+            <span ng-show="!editing[$index]">{{membership.duration_type}}</span>
+            <select ng-show="editing[$index]" ng-model="editDurationType" ng-init="editDurationType=membership.duration_type" ng-options="duration for duration in durationTypes"></select>
           </td>
           <td>
             <span ng-show="!editing[$index]">{{membership.cost}}</span><input type="text" class="form-control" ng-init="editCost=membership.cost" ng-model="editCost" ng-show="editing[$index]">
@@ -38,7 +97,8 @@
 
             <div class="btn-group btn-group-vertical">
               <input ng-show="editing[$index]" type="button" class="btn btn-success" value="Update" ng-click="updateMembership(editId,editName,editDuration,editDurationType,editCost,$index  )"/>
-              <input ng-show="editing[$index]" type="button" class="btn btn-default" value="Cancel" ng-click="editing=false"/>
+              <input ng-show="editing[$index]" type="button" class="btn btn-default" value="Cancel"
+                     ng-click="editing=false;editName=membership.name;editDuration=membership.duration;editDurationType=membership.duration_type;editCost=membership.cost"/>
             </div>
           </td>
         </tr>
