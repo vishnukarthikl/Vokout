@@ -12,6 +12,14 @@ class Member < ActiveRecord::Base
   validates :facility_id, presence: true
 
   def latest_subscription
-    self.subscriptions.max { |s| s.end_date }
+    min_date = Date.new
+    min_subscription = nil
+    self.subscriptions.each do |subscription|
+      if subscription.end_date > min_date
+        min_date = subscription.end_date
+        min_subscription = subscription
+      end
+    end
+    min_subscription
   end
 end
