@@ -14,11 +14,13 @@
             <table class="table lead">
               <tr>
                 <td>So far this month</td>
-                <td>{{facility.revenues.this_month_revenue | number}} </td>
+                <td>{{facility.revenues.this_month_revenue | number}}</td>
               </tr>
               <tr>
                 <td>By this month end</td>
-                <td>{{facility.revenues.this_month_revenue + facility.revenues.expected_revenue_by_month_end | number}} *</td>
+                <td>{{facility.revenues.this_month_revenue + facility.revenues.expected_revenue_by_month_end | number}}
+                  *
+                </td>
               </tr>
               <tr>
                 <td>Expected next month</td>
@@ -26,6 +28,24 @@
               </tr>
             </table>
             * If all active members renew their membership
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-6 bordered">
+            <canvas class="col-md-12" tc-chartjs chart-type="bar" chart-data="revenueData"></canvas>
+            <div class="form-group">
+              <label for="showRevenueForMonths" class="col-sm-3 control-label">last months:</label>
+
+              <div class="col-sm-2">
+                <select name="name" id="showRevenueForMonths" class="form-control" ng-model="showRevenueForMonths" ng-init="showRevenueForMonths=6">
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
