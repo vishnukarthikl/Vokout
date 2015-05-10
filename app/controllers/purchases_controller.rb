@@ -9,6 +9,11 @@ class PurchasesController < ApplicationController
   def create
     @purchase = @member.purchases.create(purchase_params)
     if @purchase.save
+      @purchase.create_revenue({value: @purchase.cost,
+                     date: @purchase.date,
+                     member: @member,
+                     facility: @facility})
+      
       @member.reload
       render :show, status: :created, location: member_purchase_url(@member,@purchase)
     else
@@ -21,6 +26,7 @@ class PurchasesController < ApplicationController
   private
   def set_entities
     @owner = current_owner
+    @facility = @owner.facility
     @member = Member.find(params[:member_id])
   end
 
