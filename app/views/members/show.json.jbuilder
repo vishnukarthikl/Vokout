@@ -1,1 +1,1 @@
-json.partial! 'members/member', member: @member, show_subscription_history: true
+json.partial! 'members/member', member: @member, show_extra_details: true

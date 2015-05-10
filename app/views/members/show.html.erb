@@ -28,6 +28,10 @@
             <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
               <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
             </li>
+            <li ng-click="addPurchase(member)" role="presentation">
+              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
+                Purchase</a>
+            </li>
 
           </ul>
         </span>
@@ -36,9 +40,9 @@
 
       </div>
     </div>
-    <div class="row" ng-show="renewStatus">
+    <div class="row center bold" ng-show="result">
       <div class="alert alert-success" role="alert">
-        {{renewStatus}}
+        {{result}}
       </div>
     </div>
     <div class="row">
@@ -69,6 +73,29 @@
             <td>Email</td>
             <td>{{member.email}}</td>
 
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"><h4>Purchase History</h4>
+
+        <div class="lead">Total Purchases: {{member.purchases.length}}
+          <br/>
+          Total Cost: {{getTotalCost(member.purchases)}}
+        </div>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Type</th>
+            <th>Date</th>
+          </tr>
+          <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
+            <td>{{purchase.name}}</td>
+            <td>{{purchase.cost}}</td>
+            <td>{{purchase.purchase_type}}</td>
+            <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
           </tr>
         </table>
       </div>

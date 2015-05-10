@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424071912) do
+ActiveRecord::Schema.define(version: 20150509154028) do
 
   create_table "admins", force: true do |t|
     t.string   "email",              default: "", null: false
@@ -89,6 +89,18 @@ ActiveRecord::Schema.define(version: 20150424071912) do
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true
+
+  create_table "purchases", force: true do |t|
+    t.string   "name"
+    t.integer  "cost"
+    t.date     "date"
+    t.string   "purchase_type"
+    t.integer  "member_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "purchases", ["member_id"], name: "index_purchases_on_member_id"
 
   create_table "revenues", force: true do |t|
     t.decimal  "value"

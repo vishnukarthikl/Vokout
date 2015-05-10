@@ -25,12 +25,12 @@
 
   $scope.activate = (member) ->
     $scope.changeInactiveStateTo(member, false).then((member)->
-      $scope.renewStatus = member.name + " was activated"
+      $scope.result = member.name + " was activated"
     )
 
   $scope.deactivate = (member) ->
     $scope.changeInactiveStateTo(member, true).then((member)->
-      $scope.renewStatus = member.name + " was deactivated"
+      $scope.result = member.name + " was deactivated"
     )
 
   $scope.renew = (member, memberships) ->
@@ -39,7 +39,7 @@
 
     $scope.renewModalResult(member, memberships).then((renewedMember) ->
       $scope.member = renewedMember
-      $scope.renewStatus = renewedMember.name + " was renewed successfully"
+      $scope.result = renewedMember.name + " was renewed successfully"
     )
 
   $scope.renewModalResult = (member, memberships) ->
@@ -58,6 +58,26 @@
     (member) ->
       member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
 
+  $scope.addPurchase = (member) ->
+    $scope.addPurchaseWithResult(member).then((purchase) ->
+      $scope.result = purchase.name + " was addded with cost " + purchase.cost
+    )
+
+  $scope.addPurchaseWithResult = (member) ->
+    modalInstance = $modal.open({
+      templateUrl: 'addPurchase.html',
+      controller: PurchaseCtrl,
+      scope: $scope,
+      size: 'lg',
+      resolve:
+        member: -> member
+    })
+    modalInstance.result
+
+  $scope.getTotalCost = (purchases) ->
+    purchases.reduce((prev, current) ->
+      prev + current.cost
+    , 0) if purchases
 
 
 RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
@@ -86,6 +106,27 @@ RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) 
         $modalInstance.close(member)
       )
     )
+
+  $scope.cancel = ->
+    $modalInstance.dismiss('cancel')
+
+PurchaseCtrl = ($scope, $modalInstance, member, purchaseService) ->
+  $scope.purchase = {}
+  $scope.purchase.date = moment().format('DD/MM/YYYY')
+  $scope.purchaseTypes = ['Registration Fee', 'Supplements', 'Events', 'Merchandises', 'Other']
+
+  $scope.submitPurchase = ->
+    $scope.purchase.member_id = member.id
+    purchaseToAdd = new purchaseService($scope.purchase)
+    purchaseToAdd.$save (addedPurchase) ->
+      member.purchases.push(addedPurchase)
+      $modalInstance.close(addedPurchase)
+
+
+  $scope.open = ($event) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')

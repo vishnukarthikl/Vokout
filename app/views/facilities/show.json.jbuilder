@@ -2,7 +2,7 @@ unless @facility.nil?
   json.extract! @facility, :id, :name, :address, :phone
   json.memberships @facility.memberships, :id, :name, :duration, :duration_type, :duration_in_days, :cost
   json.members @facility.members do |member|
-    json.partial! 'members/member', member: member, show_subscription_history: false
+    json.partial! 'members/member', member: member, show_extra_details: false
   end
   json.revenues do
     json.monthly_revenue @facility.calculate_monthly_revenue

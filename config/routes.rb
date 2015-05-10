@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :contact_messages
   devise_for :admins
 
-  resources :members
+  resources :members do
+    resources :purchases
+  end
 
   root 'application#root'
   get 'home' => 'static#home'
