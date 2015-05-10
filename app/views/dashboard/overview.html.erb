@@ -9,7 +9,7 @@
     <div id="dashboard" ng-controller="DashboardCtrl">
       <div ng-controller="DashboardOverviewCtrl">
         <div class="row placeholders">
-          <div class="col-md-4 col-xs-12">
+          <div class="col-md-6 col-xs-12">
             <h3>Revenue</h3>
             <table class="table lead">
               <tr>
@@ -28,6 +28,19 @@
               </tr>
             </table>
             * If all active members renew their membership
+          </div>
+          <div class="col-md-6">
+            <h3>Customers</h3>
+            <table class="table lead">
+              <tr>
+                <td>Active Customers</td>
+                <td>{{getTotalActiveCustomers(facility.members)}}</td>
+              </tr>
+              <tr>
+                <td>Total Customers</td>
+                <td>{{facility.members.length}}</td>
+              </tr>
+            </table>
           </div>
         </div>
         <div class="row">

@@ -15,6 +15,13 @@
       $scope.refreshData()
     )
 
+  $scope.getTotalActiveCustomers = (members) ->
+    members.reduce((prev, curr) ->
+      if !curr.inactive
+        return prev + 1
+      return prev
+    , 0) if members
+
   $scope.activate = (member) ->
     memberService.get({facility_id: $scope.facility.id, id: member.id},
       (member) ->
