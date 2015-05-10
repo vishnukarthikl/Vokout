@@ -104,27 +104,33 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6"><h4>Purchase History</h4>
+      <div class="col-md-6">
+        <h4>Purchase History</h4>
 
-        <div class="lead">
-          Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
-          <br/>
-          Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
+        <div ng-if="!member.purchases">
+          No purchases present
         </div>
-        <table class="table">
-          <tr>
-            <th>Name</th>
-            <th>Cost</th>
-            <th>Type</th>
-            <th>Date</th>
-          </tr>
-          <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
-            <td>{{purchase.name}}</td>
-            <td>{{purchase.cost}}</td>
-            <td>{{purchase.purchase_type}}</td>
-            <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
-          </tr>
-        </table>
+        <div ng-if="member.purchases">
+          <div class="lead">
+            Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
+            <br/>
+            Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
+          </div>
+          <table class="table">
+            <tr>
+              <th>Name</th>
+              <th>Cost</th>
+              <th>Type</th>
+              <th>Date</th>
+            </tr>
+            <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
+              <td>{{purchase.name}}</td>
+              <td>{{purchase.cost}}</td>
+              <td>{{purchase.purchase_type}}</td>
+              <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
 
