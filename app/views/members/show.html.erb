@@ -77,13 +77,39 @@
         </table>
       </div>
     </div>
+    <div class="row center alert alert-info">
+      <div class="lead">Total Revenue : <span class="stat-highlight">{{getTotalRevenue(member) | number}}</span></div>
+    </div>
     <div class="row">
+      <div class="col-md-6">
+        <h4>Subscription History</h4>
+
+        <div class="lead">
+          Past Subscriptions: <span class="stat-highlight">{{member.subscriptions.length}}</span>
+          <br/>
+          Cost: <span class="stat-highlight">{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+          <tr ng-repeat="subscriptions in member.subscriptions | orderBy:'end_date':true">
+            <td>{{subscriptions.membership.name}}</td>
+            <td>{{subscriptions.membership.cost}}</td>
+            <td>{{subscriptions.start_date | date:"dd/MM/yyyy"}}</td>
+            <td>{{subscriptions.end_date | date:"dd/MM/yyyy"}}</td>
+          </tr>
+        </table>
+      </div>
       <div class="col-md-6"><h4>Purchase History</h4>
 
         <div class="lead">
           Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
-          <br />
-          Cost: <span class="stat-highlight">{{getTotalCost(member.purchases) | number}} </span>
+          <br/>
+          Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
         </div>
         <table class="table">
           <tr>

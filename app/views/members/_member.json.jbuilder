@@ -3,7 +3,7 @@ json.extract! member, :id, :name, :phone_number, :email, :is_male, :date_of_birt
 if show_extra_details
   json.subscriptions member.subscriptions do |subscription|
     if subscription
-      json.partial! 'subscriptions/subscription', subscription: subscription, show_membership: false
+      json.partial! 'subscriptions/subscription', subscription: subscription, show_membership: true
     end
   end
   json.purchases member.purchases do |purchase|

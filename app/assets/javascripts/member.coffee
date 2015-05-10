@@ -74,10 +74,18 @@
     })
     modalInstance.result
 
-  $scope.getTotalCost = (purchases) ->
+  $scope.getTotalRevenue = (member) ->
+    $scope.getTotalPurchasesCost(member.purchases) + $scope.getTotalSubscriptionsCost(member.subscriptions) if member
+
+  $scope.getTotalPurchasesCost = (purchases) ->
     purchases.reduce((prev, current) ->
       prev + current.cost
     , 0) if purchases
+
+  $scope.getTotalSubscriptionsCost = (subscriptions) ->
+    subscriptions.reduce((prev, current) ->
+      prev + current.membership.cost
+    , 0) if subscriptions
 
 
 RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) ->
