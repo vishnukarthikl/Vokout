@@ -60,7 +60,7 @@
 
   $scope.getRevenueByMonth = ->
     if $scope.facility
-      revenueByMonth = $scope.generateMonths().map ((month)->
+      revenueByMonth = ($scope.generateMonths().map ((month)->
         revenueThatMonth = $scope.facility.revenues.monthly_revenue[month]
         if !revenueThatMonth
           revenueThatMonth = 0
@@ -68,13 +68,13 @@
         month: month
         value: revenueThatMonth
         }
-      )
+      )).reverse()
       labels = revenueByMonth.map((r) ->
         r.month
       )
       data = revenueByMonth.map((r)->
         r.value
-      ).reverse()
+      )
       datasets = []
       datasets[0] = {
         label: "Revenue",
