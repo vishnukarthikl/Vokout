@@ -83,7 +83,7 @@
         <div class="lead">
           Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
           <br />
-          Cost: <span class="stat-highlight">{{getTotalCost(member.purchases)}}</span>
+          Cost: <span class="stat-highlight">{{getTotalCost(member.purchases) | number}} </span>
         </div>
         <table class="table">
           <tr>
