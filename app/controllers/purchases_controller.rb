@@ -13,7 +13,7 @@ class PurchasesController < ApplicationController
                      date: @purchase.date,
                      member: @member,
                      facility: @facility})
-      
+
       @member.reload
       render :show, status: :created, location: member_purchase_url(@member,@purchase)
     else

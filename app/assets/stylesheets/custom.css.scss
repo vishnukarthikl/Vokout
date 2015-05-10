@@ -294,3 +294,19 @@ form .glyphicon-ok-circle {
   width: 100%;
   height: 100%;
 }
+
+.alert-success {
+  background-color: #43AC6A;
+  border-color: #3a945b;
+  color: #FFFFFF;
+}
+.alert-danger {
+  background-color: #f04124;
+  border-color: #de2d0f;
+  color: #FFFFFF;
+}
+.stat-highlight {
+  @extend .btn-warning;
+  border-radius: 5px;
+  padding: 2px;
+}

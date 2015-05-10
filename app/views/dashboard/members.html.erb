@@ -35,9 +35,9 @@
         </div>
 
 
-        <div class="row" ng-show="renewStatus">
+        <div class="row center" ng-show="result">
           <div class="alert alert-success" role="alert">
-            {{renewStatus}}
+            {{result}}
           </div>
         </div>
 
@@ -80,6 +80,10 @@
                       </li>
                       <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
                         <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                      </li>
+                      <li ng-click="addPurchase(member)" role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
+                          Purchase</a>
                       </li>
 
                     </ul>

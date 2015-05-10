@@ -119,7 +119,7 @@ PurchaseCtrl = ($scope, $modalInstance, member, purchaseService) ->
     $scope.purchase.member_id = member.id
     purchaseToAdd = new purchaseService($scope.purchase)
     purchaseToAdd.$save (addedPurchase) ->
-      member.purchases.push(addedPurchase)
+      member.purchases.push(addedPurchase) if member.purchases
       $modalInstance.close(addedPurchase)
 
 

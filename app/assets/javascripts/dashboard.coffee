@@ -11,7 +11,7 @@
 
   $scope.renew = (member)->
     $scope.$parent.renewModalResult(member, $scope.facility.memberships).then((renewedMember)->
-      $scope.renewStatus = renewedMember.name + " was renewed successfully"
+      $scope.result = renewedMember.name + " was renewed successfully"
       $scope.refreshData()
     )
 
@@ -19,7 +19,7 @@
     memberService.get({facility_id: $scope.facility.id, id: member.id},
       (member) ->
         $scope.$parent.changeInactiveStateTo(member, false).then((member)->
-          $scope.renewStatus = member.name + " was activated"
+          $scope.result = member.name + " was activated"
           $scope.refreshData()
         )
     )
@@ -28,7 +28,7 @@
     memberService.get({facility_id: $scope.facility.id, id: member.id},
       (member) ->
         $scope.$parent.changeInactiveStateTo(member, true).then((member)->
-          $scope.renewStatus = member.name + " was deactivated"
+          $scope.result = member.name + " was deactivated"
           $scope.refreshData()
         )
     )
