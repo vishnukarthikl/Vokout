@@ -305,6 +305,13 @@ form .glyphicon-ok-circle {
   border-color: #de2d0f;
   color: #FFFFFF;
 }
+
+.alert-notice, .alert-alert {
+  background-color: #a0d3e8;
+  border-color: #74bfdd;
+  color: #4f4f4f;
+}
+
 .stat-highlight {
   @extend .btn-warning;
   border-radius: 5px;

@@ -53,6 +53,7 @@ GEM
     bcrypt (3.1.7)
     binding_of_caller (0.7.3.pre1)
       debug_inspector (>= 0.0.1)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (3.4.0)
       columnize (~> 0.8)
@@ -189,6 +190,7 @@ PLATFORMS
 DEPENDENCIES
   angular-rails-templates
   bcrypt (= 3.1.7)
+  bootstrap_form
   byebug (= 3.4.0)
   coffee-rails
   devise

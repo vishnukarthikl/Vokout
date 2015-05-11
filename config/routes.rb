@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :password_resets
   resources :contact_messages
   devise_for :admins
 
