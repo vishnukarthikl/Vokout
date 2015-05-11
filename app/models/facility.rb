@@ -61,7 +61,7 @@ class Facility < ActiveRecord::Base
     purchasable = revenue.purchasable
     (revenue.purchasable_type == 'Purchase') ?
         {category: purchasable.purchase_type, value: purchasable.cost} :
-        {category: purchasable.membership.name, value: purchasable.membership.cost}
+        {category: purchasable.membership.name, value: revenue.value}
   end
 
   def calculate_monthly_revenue
