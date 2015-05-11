@@ -9,6 +9,9 @@ unless @facility.nil?
     json.this_month_revenue @facility.calculate_this_month_revenue.to_i
     json.expected_revenue_by_month_end @facility.calculate_expected_revenue(Date.today).to_i
     json.next_month_revenue @facility.calculate_expected_revenue(Date.today.advance(months: 1)).to_i
+    json.categorized_monthly @facility.calculate_revenue_split_monthly
+    json.categorized_all @facility.calculate_revenue_split
+
 
     json.all @facility.revenues do |revenue|
       json.partial! 'revenues/revenue', revenue: revenue

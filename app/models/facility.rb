@@ -26,8 +26,45 @@ class Facility < ActiveRecord::Base
     month_revenue
   end
 
+  def calculate_revenue_split
+    revenues.inject(Hash.new(0)) do |h, r|
+      revenue_type_cost = revenue_type_cost(r)
+      h[revenue_type_cost[:category]] += revenue_type_cost[:value]
+      h
+    end
+  end
+
+  def calculate_revenue_split_monthly
+    revenues_map = revenues.map do |r|
+      {time_frame: r.date.strftime('%B')+ ' '+ r.date.strftime('%Y'), revenue: r}
+    end
+    monthly_split = revenues_map.inject(Hash.new) do |hash, revenue|
+      unless hash[revenue[:time_frame]]
+        hash[revenue[:time_frame]] = []
+      end
+      hash[revenue[:time_frame]] << revenue[:revenue]
+      hash
+    end
+    monthly_type_split = Hash.new
+    monthly_split.each { |month, revenues|
+      revenue_types = revenues.inject(Hash.new(0)) do |h, r|
+        revenue_type_cost = revenue_type_cost(r)
+        h[revenue_type_cost[:category]] += revenue_type_cost[:value]
+        h
+      end
+      monthly_type_split[month] = revenue_types
+    }
+    monthly_type_split
+  end
+
+  def revenue_type_cost(revenue)
+    purchasable = revenue.purchasable
+    (revenue.purchasable_type == 'Purchase') ?
+        {category: purchasable.purchase_type, value: purchasable.cost} :
+        {category: purchasable.membership.name, value: purchasable.membership.cost}
+  end
+
   def calculate_monthly_revenue
-    revenues = self.revenues.sort { |r1, r2| r1.date <=> r2.date }
     revenues_map = revenues.map do |r|
       {time_frame: r.date.strftime('%B')+ ' '+ r.date.strftime('%Y'), value: r.value}
     end

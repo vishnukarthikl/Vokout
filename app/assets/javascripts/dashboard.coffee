@@ -42,11 +42,20 @@
 
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
+  colors = ['#5DA5DA', '#FAA43A', '#60BD68', '#DECF3F', '#F15854', '#9e9ac8']
+  $scope.options = {
+    segmentShowStroke: false,
+    animateRotate: true,
+    animateScale: false,
+    percentageInnerCutout: 50,
+  }
+
   $scope.refreshData = ->
     $http.get('/facilities/show')
     .success (data) ->
       $scope.facility = data
       $scope.revenueData = $scope.getRevenueByMonth()
+      $scope.revenueSplitData = $scope.getRevenueSplit()
     .error (data, status, headers, config) ->
       console.log(status)
 
@@ -64,6 +73,19 @@
   $scope.$watch('showRevenueForMonths', () ->
     $scope.revenueData = $scope.getRevenueByMonth()
   )
+
+  $scope.getRevenueSplit = ->
+    if $scope.facility
+      revenue_split = $scope.facility.revenues.categorized_all
+      i = -1
+      for own key, value of revenue_split
+        i = i + 1
+        {
+        value: value
+        label: key
+        color: colors[i]
+        }
+
 
   $scope.getRevenueByMonth = ->
     if $scope.facility
