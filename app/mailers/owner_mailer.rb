@@ -8,7 +8,11 @@ class OwnerMailer < ApplicationMailer
   #
   def password_reset(owner)
     @owner = owner
-    mail to: owner.email, subject: "Password Reset"
+    mail to: @owner.email, subject: "Password Reset"
+  end
 
+  def confirmation_code(owner)
+    @owner = owner
+    mail to: @owner.email, subject: "Account Verification"
   end
 end

@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     resources :facilities
   end
 
+  get 'owner/:code/confirm' => 'owners#confirm', as: 'confirm_owner'
+  get 'owner/:id/unconfirmed' => 'owners#unconfirmed', as: 'unconfirmed_owner'
+
   post 'owner/:id/deactivate' => 'owners#deactivate', as: 'deactivate_owner'
   post 'owner/:id/activate' => 'owners#activate', as: 'activate_owner'
   get 'deactivated' => 'owners#deactivated', as: 'deactivated_owner'

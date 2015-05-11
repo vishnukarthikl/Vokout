@@ -1,6 +1,5 @@
 module SessionsHelper
   def log_in(owner, remember_me)
-    puts remember_me
     if remember_me == '1'
       cookies.permanent[:auth_token] = owner.auth_token
     else

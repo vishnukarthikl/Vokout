@@ -1,7 +1,7 @@
 class OwnersController < ApplicationController
   before_filter :authenticate, unless: [:new]
 
-  before_action :set_owner, only: [:show, :edit, :update, :destroy,:deactivate,:activate]
+  before_action :set_owner, only: [:show, :edit, :update, :destroy,:deactivate,:activate,:unconfirmed]
 
   respond_to :json
 
@@ -35,7 +35,7 @@ class OwnersController < ApplicationController
       if @owner.save
         format.html {
           log_in(@owner, true)
-          flash[:success] = "#{@owner.name}, your profile has been created. Please finish the 3 steps to compete your profile"
+          flash[:success] = "#{@owner.name}, your profile has been created"
           redirect_to dashboard_path(@owner)
         }
         format.json { render :show, status: :created, location: @owner }
@@ -81,6 +81,22 @@ class OwnersController < ApplicationController
         format.json { render json: @owner.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm
+    @owner = Owner.find_by_confirmation_code(params[:code])
+    if @owner
+      @owner.confirm
+      flash[:success] = "Your account has been successfully verified"
+      redirect_to dashboard_path
+    else
+      flash[:notice] = "Account verified failed"
+      redirect_to root_url
+    end
+  end
+
+  def unconfirmed
+
   end
 
   def deactivated

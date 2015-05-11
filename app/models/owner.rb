@@ -4,6 +4,7 @@ class Owner < ActiveRecord::Base
 
   before_save { self.email = email.downcase }
   before_create { generate_token(:auth_token) }
+  after_create { send_confirmation_code }
 
   validates :name,  presence: true, length: { maximum: 50 }
 
@@ -33,4 +34,17 @@ class Owner < ActiveRecord::Base
     save!
     OwnerMailer.password_reset(self).deliver
   end
+
+  def send_confirmation_code
+    generate_token(:confirmation_code)
+    self.confirmed = false
+    save!
+    OwnerMailer.confirmation_code(self).deliver
+  end
+
+  def confirm
+    self.confirmed = true
+    save!
+  end
+
 end

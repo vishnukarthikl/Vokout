@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
     if logged_in?
       if current_owner.deactivated
         redirect_to deactivated_owner_path
+      elsif !current_owner.confirmed?
+        redirect_to unconfirmed_owner_path(current_owner)
       end
     end
   end
