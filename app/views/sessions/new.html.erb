@@ -6,7 +6,8 @@
         <%= simple_form_for(:session, url: login_path) do |f| %>
             <%= f.input :email %>
             <%= f.input :password %>
-            <%= f.submit "Log in", class: "btn btn-primary" %>
+            <%= f.input :remember_me, :as => :boolean, :label => false, :inline_label => true %>
+          <%= f.submit "Log in", class: "btn btn-primary" %>
         <% end %>
 
         <p>New user? <%= link_to "Sign up now!", signup_path %></p>

@@ -34,7 +34,7 @@ class OwnersController < ApplicationController
     respond_to do |format|
       if @owner.save
         format.html {
-          log_in @owner
+          log_in(@owner, true)
           flash[:success] = "#{@owner.name}, your profile has been created. Please finish the 3 steps to compete your profile"
           redirect_to dashboard_path(@owner)
         }

@@ -1,8 +1,9 @@
 class Owner < ActiveRecord::Base
-  
+
   has_one :facility
-  
+
   before_save { self.email = email.downcase }
+  before_create { generate_token(:auth_token) }
 
   validates :name,  presence: true, length: { maximum: 50 }
 
@@ -18,6 +19,12 @@ class Owner < ActiveRecord::Base
   def Owner.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
+  end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while Owner.exists?(column => self[column])
   end
 
 end
