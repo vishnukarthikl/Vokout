@@ -68,6 +68,8 @@
 <footer>
   <div class="container center">
     <h1>Have questions?</h1>
-    <a href="/contact" class="btn btn-primary">Contact us</a>
+    <%= link_to "Contact us", new_contact_message_path, class: "btn btn-lg btn-primary" %>
+    <h1>Or ready to try it out</h1>
+    <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
   </div>
 </footer>
