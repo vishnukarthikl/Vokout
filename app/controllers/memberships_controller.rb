@@ -16,15 +16,20 @@ class MembershipsController < ApplicationController
   def create
     @membership = @facility.memberships.build(membership_params)
     respond_to do |format|
-      if @membership.save
-        format.html {
-          flash[:success] = "#{@membership.name} has been created"
-          redirect_to facility_memberships_path(@facility)
-        }
-        format.json { render json: @membership, status: :ok }
+      if !@facility.memberships.exists?(name: @membership.name)
+        if @membership.save
+          format.html {
+            flash[:success] = "#{@membership.name} has been created"
+            redirect_to facility_memberships_path(@facility)
+          }
+          format.json { render json: @membership, status: :ok }
+        else
+          format.html { render :edit }
+          format.json { render json: @membership.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit }
-        format.json { render json: @membership.errors, status: :unprocessable_entity }
+        format.json { render json: {name: 'already used'}, status: :unprocessable_entity }
       end
     end
   end
@@ -36,7 +41,7 @@ class MembershipsController < ApplicationController
           flash[:success] = "membership updated successfully"
           redirect_to facility_memberships_path
         }
-        format.json {render json: @membership, status: :ok}
+        format.json { render json: @membership, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @membership.errors, status: :unprocessable_entity }

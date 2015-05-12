@@ -58,7 +58,7 @@
   membershipSaveFailureCallback = (err) ->
     reason = err.data
     status = "save failed"
-    status += " " + reason if reason
+    status += " " + prettyError(err) if reason
     $scope.newMembershipStatus = {text: status, style: "danger"}
 
 
