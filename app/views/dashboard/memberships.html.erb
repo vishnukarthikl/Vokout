@@ -23,7 +23,7 @@
           <div forminput>
             <label for="newMembershipName">Name</label>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
             </div>
           </div>
@@ -32,9 +32,9 @@
           <div forminput>
             <label for="newMembershipDuration">Duration</label>
 
-            <div class="col-md-3">
-              <div class="input-group">
-                <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" required>
+            <div class="col-md-4">
+              <div class="input-group duration-container">
+                <input class="col-md-4" type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" min="1" max="1000" required>
 
                 <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
                         ng-model="newMembership.duration_type"
@@ -48,10 +48,10 @@
           <div forminput>
             <label for="newMembershipCost">Cost</label>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="input-group">
                 <span class="input-group-addon">₹</span>
-                <input type="number" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
+                <input type="number" min="100" max="100000" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
               </div>
 
             </div>
