@@ -35,7 +35,7 @@ class OwnersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @owner.update_attributes(owner_params)
+      if @owner.update_attributes(owner_update_params)
         format.html {
           flash[:success] = "Profile updated successfully"
           redirect_to :back
@@ -81,6 +81,10 @@ class OwnersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def owner_params
+    params.require(:owner).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def owner_update_params
     params.require(:owner).permit(:name, :password, :password_confirmation)
   end
 end
