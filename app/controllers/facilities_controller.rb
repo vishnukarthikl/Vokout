@@ -1,7 +1,7 @@
 class FacilitiesController < ApplicationController
 
-  before_action :set_owner, only: [:create, :show]
   before_filter :authenticate
+  before_action :set_owner, only: [:create, :show]
 
   def setup
     render 'facilities/setup'
@@ -31,7 +31,7 @@ class FacilitiesController < ApplicationController
 
   private
   def set_owner
-    @owner = current_owner || Owner.find(params[:owner_id])
+    @owner = current_owner
   end
 
   def facility_params

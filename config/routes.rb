@@ -28,16 +28,19 @@ Rails.application.routes.draw do
   get 'contact' => 'contact_messages#new', as: 'contact'
   post 'contact' => 'contact_messages#create', as: 'post_contact'
 
+  get 'owners/:code/confirm' => 'owners#confirm', as: 'confirm_owner'
+  get 'owners/unconfirmed' => 'owners#unconfirmed', as: 'unconfirmed_owner'
+
+  post 'owners/:id/deactivate' => 'admins#deactivate', as: 'deactivate_owner'
+  post 'owners/:id/activate' => 'admins#activate', as: 'activate_owner'
+  delete 'owners/:id/destroy' => 'admins#destroy', as: 'delete_owner'
+  get 'deactivated' => 'owners#deactivated', as: 'deactivated_owner'
+  get 'owners/:id/edit' => 'admins#edit', as: 'edit_owner_admin'
+  patch 'owners/:id/update' => 'admins#update', as: 'update_owner_admin'
+
   resources :owners do
     resources :facilities
   end
-
-  get 'owner/:code/confirm' => 'owners#confirm', as: 'confirm_owner'
-  get 'owner/:id/unconfirmed' => 'owners#unconfirmed', as: 'unconfirmed_owner'
-
-  post 'owner/:id/deactivate' => 'owners#deactivate', as: 'deactivate_owner'
-  post 'owner/:id/activate' => 'owners#activate', as: 'activate_owner'
-  get 'deactivated' => 'owners#deactivated', as: 'deactivated_owner'
 
   resources :facilities do
     resources :memberships

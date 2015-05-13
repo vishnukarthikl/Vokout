@@ -32,7 +32,7 @@
                     <%= '-' %></td>
                 <% end %>
                 <td><%= owner.email %></td>
-                <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
+                <td><%= link_to 'Edit', edit_owner_admin_path(owner) %></td>
                 <td>
                   <% if !owner.deactivated %>
                       <%= link_to 'Deactivate', deactivate_owner_path(owner), method: :post %>
@@ -40,7 +40,7 @@
                       <%= link_to 'Activate', activate_owner_path(owner), method: :post %>
                   <% end %>
                 </td>
-                <td><%= link_to 'Delete', owner, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                <td><%= link_to 'Delete', delete_owner_path(owner), method: :delete, data: {confirm: 'Are you sure?'} %></td>
                 </tr>
         <% end %>
         </tbody>

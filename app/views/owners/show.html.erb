@@ -1,18 +1,20 @@
-<% if logged_in? %>
-    <p>
+<div class="container">
+  <% if logged_in? %>
+      <p>
         <strong>Name:</strong>
         <%= @owner.name %>
-    </p>
+      </p>
 
-    <p>
+      <p>
         <strong>Email:</strong>
         <%= @owner.email %>
-    </p>
+      </p>
 
-    <%= link_to 'Edit', edit_owner_path(@owner) %> |
+      <%= link_to 'Edit', edit_owner_path(@owner) %> |
 
-    <%= link_to "Log out", logout_path, method: "delete" %>
+      <%= link_to "Log out", logout_path, method: "delete" %>
 
-<% else %>
-    <li><%= link_to "Log in", login_path %></li>
-<% end %>
+  <% else %>
+      <li><%= link_to "Log in", login_path %></li>
+  <% end %>
+</div>

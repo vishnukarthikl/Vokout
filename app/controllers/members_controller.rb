@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :set_facility, only: [:new, :create, :update]
+  before_filter :authenticate
 
   def index
     if facility_id
