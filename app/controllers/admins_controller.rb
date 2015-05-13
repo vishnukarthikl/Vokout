@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
   before_action :set_owner, only: [:deactivate, :activate, :destroy, :edit, :update]
 
   def dashboard
-    @owners = Owner.all
+    @owners = Owner.all.includes(:facility)
     @contact_messages = ContactMessage.all
   end
 
