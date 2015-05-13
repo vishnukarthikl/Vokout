@@ -19,15 +19,6 @@
     $scope.newMember.subscription = {}
     $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
 
-  $scope.open = ($event, opened) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope[opened] = true;
-
-  $scope.clear = () ->
-    $scope.newMember.subscription.start_date = null;
-
-
   $scope.saveMember = (memberForm) ->
     $scope.newMember.facility_id = $scope.facility.id
     memberToSave = new memberService $scope.newMember

@@ -100,11 +100,6 @@ RenewCtrl = ($scope, $modalInstance, memberToRenew, memberships, memberService) 
   else
     $scope.renewMembership.start_date = moment().format('DD/MM/YYYY')
 
-  $scope.open = ($event) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.opened = true;
-
   $scope.submitRenewal = ->
     newSubscription = {membership_id: $scope.renewMembership.membership_id, start_date: $scope.renewMembership.start_date}
     memberService.get({facility_id: $scope.member.facility_id, id: $scope.member.id}, (data) ->
@@ -129,12 +124,6 @@ PurchaseCtrl = ($scope, $modalInstance, member, purchaseService) ->
     purchaseToAdd.$save (addedPurchase) ->
       member.purchases.push(addedPurchase) if member.purchases
       $modalInstance.close(addedPurchase)
-
-
-  $scope.open = ($event) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.opened = true;
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')

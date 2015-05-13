@@ -67,3 +67,38 @@
       items = scope.items()
       items.indexOf(viewValue) == -1 if items
   }
+
+@datepicker = ($filter) ->
+  return {
+  restrict: "A",
+  require: "ngModel",
+  scope: {
+    top: '&'
+  }
+  link: (scope, elem, attrs, ngModelCtrl) ->
+    updateModel = (dateText) ->
+      scope.$apply(() ->
+        ngModelCtrl.$setViewValue(dateText)
+      )
+    if scope.top()
+      zIndex = 99999
+    else
+      zIndex = 100
+    options = {
+      dateFormat: "dd/mm/yy",
+      onSelect: (dateText) ->
+        updateModel(dateText)
+      changeYear: true
+      constrainInput: true
+      beforeShow: (input) ->
+        $(input).css({
+          "position": "relative",
+          "z-index": zIndex
+        })
+    }
+
+    ngModelCtrl.$formatters.push((data) ->
+      $filter('date')(data, "dd/MM/yyyy");
+    )
+    elem.datepicker(options)
+  }

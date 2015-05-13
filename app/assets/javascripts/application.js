@@ -23,5 +23,6 @@
 //= require tc-angular-chartjs
 //= require angular-rails-templates
 //= require angular-toggle-switch
+//= require jquery-ui/jquery-ui.js
 //= require_tree ./templates
 //= require_tree .

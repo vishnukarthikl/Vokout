@@ -88,15 +88,6 @@
     $scope.status = "member"
     $scope.setProgress(3)
 
-  $scope.open = ($event, opened) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope[opened] = true;
-
-  $scope.clear = () ->
-    $scope.newMember.subscription.start_date = null;
-
-
   $scope.saveMember = (memberForm) ->
     $scope.newMember.facility_id = $scope.facility.id
     memberToSave = new memberService $scope.newMember

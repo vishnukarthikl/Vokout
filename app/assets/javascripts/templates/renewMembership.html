@@ -17,16 +17,11 @@
             <label for="renewMembershipStartDate">Start date</label>
 
             <div class="col-md-6">
-                <p class="input-group">
-                    <input datepicker-popup="dd/MM/yyyy" name="renewMembershipStartDate"
+                    <input jdatepicker top="true" name="renewMembershipStartDate"
                            ng-model="renewMembership.start_date" type="text"
                            id="renewMembershipStartDate" placeholder="dd/mm/yyyy"
-                           is-open="opened" close-text="Close" ng-required="true">
-                <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i
-                        class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-                </p>
+                           ng-required="true">
+
             </div>
         </div>
         <span class="col-md-offset-4 btn-primary">* Start date is set to the last subscription end date</span>

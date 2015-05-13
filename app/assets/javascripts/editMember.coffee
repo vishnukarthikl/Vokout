@@ -12,11 +12,6 @@
     $scope.memberships = data
   )
 
-  $scope.open = ($event, opened) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope[opened] = true;
-
   $scope.updateMember = ->
     $scope.member.$update afterMemberSave, memberSaveFailureCallback
 
