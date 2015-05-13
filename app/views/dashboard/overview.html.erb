@@ -51,7 +51,7 @@
               <label for="showRevenueForMonths" class="col-sm-3 control-label">last months:</label>
 
               <div class="col-sm-2">
-                <select name="name" id="showRevenueForMonths" class="form-control" ng-model="showRevenueForMonths" ng-init="showRevenueForMonths=6">
+                <select name="showRevenueForMonths" id="showRevenueForMonths" class="form-control" ng-model="showRevenueForMonths" ng-init="showRevenueForMonths=6">
                   <option value="3">3</option>
                   <option value="6">6</option>
                   <option value="9">9</option>
@@ -62,6 +62,11 @@
           </div>
           <div class="col-md-6 bordered chart-legend">
             <canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>
+
+            <select ng-init="splitMonth = 'foo'" name="splitMonth" id="splitMonth" class="form-control"
+                    ng-model="splitMonth" ng-options="split for split in splitMonths" required>
+
+            </select>
           </div>
         </div>
       </div>

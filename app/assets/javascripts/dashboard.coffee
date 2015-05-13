@@ -56,6 +56,8 @@
       $scope.facility = data
       $scope.revenueData = $scope.getRevenueByMonth()
       $scope.revenueSplitData = $scope.getRevenueSplit()
+      $scope.splitMonths = $scope.getSplitMonths()
+      $scope.splitMonth = $scope.splitMonths[0]
     .error (data, status, headers, config) ->
       console.log(status)
 
@@ -65,8 +67,11 @@
       this_month = moment().format("MMMM YYYY")
       $scope.facility.revenues.monthly_revenue[this_month]
 
-  $scope.generateMonths = ->
-    [0..$scope.showRevenueForMonths].map ((i)->
+  generateMonths = ->
+    generateAllMonths($scope.showRevenueForMonths)
+
+  generateAllMonths = (n) ->
+    [0..n].map ((i)->
       moment().subtract(i, 'month').format("MMMM YYYY")
     )
 
@@ -74,9 +79,27 @@
     $scope.revenueData = $scope.getRevenueByMonth()
   )
 
-  $scope.getRevenueSplit = ->
+  $scope.$watch('splitMonth', () ->
+    $scope.revenueSplitData = $scope.getRevenueSplit()
+  )
+
+  $scope.getSplitMonths = () ->
     if $scope.facility
-      revenue_split = $scope.facility.revenues.categorized_all
+      months_with_revenue = []
+      months = generateAllMonths(32)
+      for month in months
+        if $scope.facility.revenues.categorized_monthly[month]
+          months_with_revenue.push(month)
+      months_with_revenue.push("All")
+      months_with_revenue
+
+  $scope.getRevenueSplit = () ->
+    if $scope.facility
+      if $scope.splitMonth == "All"
+        revenue_split = $scope.facility.revenues.categorized_all
+      else
+        revenue_split = $scope.facility.revenues.categorized_monthly[$scope.splitMonth]
+
       i = -1
       for own key, value of revenue_split
         i = i + 1
@@ -89,7 +112,7 @@
 
   $scope.getRevenueByMonth = ->
     if $scope.facility
-      revenueByMonth = ($scope.generateMonths().map ((month)->
+      revenueByMonth = (generateMonths().map ((month)->
         revenueThatMonth = $scope.facility.revenues.monthly_revenue[month]
         if !revenueThatMonth
           revenueThatMonth = 0
