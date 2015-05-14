@@ -3,14 +3,14 @@
     <ul class="nav nav-tabs" role="tablist">
       <li><a href="dashboard">Dashboard</a></li>
       <li><a href="dashboard-members">Members</a></li>
-      <li class="active"><a href="#">Memberships</a></li>
+      <li class="active"><a href="#">Subscriptions</a></li>
     </ul>
   </div>
   <div ng-controller="MembershipCtrl">
     <div id="data" data-facility-id="<%= @facility.id %>"></div>
 
     <div class="row col-md-8">
-      <h3>All Memberships
+      <h3>All Subscriptions
         <button class="btn btn-primary pull-right" ng-click="addNew()">Add new</button>
       </h3>
       <form ng-show="showAddNew" name="membershipForm" class="row form-horizontal" novalidate>
