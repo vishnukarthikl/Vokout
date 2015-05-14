@@ -18,6 +18,8 @@
     $scope.newMember = {}
     $scope.newMember.subscription = {}
     $scope.newMember.subscription.start_date = moment().format('DD/MM/YYYY')
+    $scope.newMember.is_male = "true"
+    $scope.newMember.subscription.membership_id = $scope.facility.memberships[0].id
 
   $scope.saveMember = (memberForm) ->
     $scope.newMember.facility_id = $scope.facility.id
