@@ -56,7 +56,8 @@
 
   $scope.filterMembers = (name, showInactive) ->
     (member) ->
-      member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 and (!member.inactive or (member.inactive and showInactive))
+      ((member.name.toLowerCase().indexOf(name.toLowerCase())  isnt -1 or member.phone_number.indexOf(name)  isnt -1) and
+        (!member.inactive or (member.inactive and showInactive)))
 
   $scope.addPurchase = (member) ->
     $scope.addPurchaseWithResult(member).then((purchase) ->
