@@ -42,14 +42,8 @@
         <div forminput>
           <label for="memberMembershipDate">Subscription start date</label>
           <div class="col-md-4">
-            <p class="input-group">
-              <input id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
-                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.subscription.start_date" is-open="start_date_opened" close-text="Close" ng-required="true"/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,'start_date_opened')">
-                  <i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
+            <input jdatepicker id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
+                   ng-model="newMember.subscription.start_date" ng-required="true"/>
           </div>
         </div>
 
