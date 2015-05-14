@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511084314) do
+ActiveRecord::Schema.define(version: 20150514055538) do
 
   create_table "admins", force: true do |t|
     t.string   "email",              default: "", null: false
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150511084314) do
     t.integer  "member_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.boolean  "inactive"
   end
 
   add_index "subscriptions", ["member_id"], name: "index_subscriptions_on_member_id"

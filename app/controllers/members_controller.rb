@@ -72,13 +72,19 @@ class MembersController < ApplicationController
 
 
   def renewed_subscription(member)
+    newsubscription = nil
     params.require(:subscriptions).each do |subscription|
-      unless subscription[:id]
+      if !subscription[:id]
+        latest_subscription = member.latest_subscription
+        if latest_subscription
+          latest_subscription.inactive = true
+          latest_subscription.save
+        end
         membership = Membership.find(subscription[:membership_id])
-        return Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
+        newsubscription = Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
       end
     end
-    nil
+    newsubscription
   end
 
   def revenue_form(subscription)

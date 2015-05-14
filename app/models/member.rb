@@ -13,6 +13,14 @@ class Member < ActiveRecord::Base
   validates :facility_id, presence: true
 
   def latest_subscription
+    # return the active subscription
+    self.subscriptions.each do |subscription|
+      if !subscription.inactive
+        return subscription
+      end
+    end
+
+    # or return the subscription with end_date furthest in the future among the inactive
     min_date = Date.new
     min_subscription = nil
     self.subscriptions.each do |subscription|
