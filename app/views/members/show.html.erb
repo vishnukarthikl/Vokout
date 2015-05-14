@@ -21,17 +21,19 @@
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
             <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
               <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
-                Renew</a></li>
-            <li ng-show="!deactivated(member)" ng-click="deactivate(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
-            </li>
-            <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                Renew</a>
             </li>
             <li ng-click="addPurchase(member)" role="presentation">
               <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
                 Purchase</a>
             </li>
+            <li ng-show="!deactivated(member)" ng-confirm-click="Are you sure to deactivate?" ng-click="deactivate(member)" role="presentation">
+              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
+            </li>
+            <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
+              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+            </li>
+
 
           </ul>
         </span>
