@@ -10,7 +10,8 @@
     "angular-bootstrap": "latest",
     "moment": "latest",
     "angular-toggle-switch" : "latest",
-    "jquery-ui" : "latest"
+    "jquery-ui" : "latest",
+    "tg-angular-validator" : "latest"
   },
   "resolutions": {
     "angular": "1.3.14"

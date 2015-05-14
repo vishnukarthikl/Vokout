@@ -24,5 +24,6 @@
 //= require angular-rails-templates
 //= require angular-toggle-switch
 //= require jquery-ui/jquery-ui.js
+//= require tg-angular-validator/dist/angular-validator.js
 //= require_tree ./templates
 //= require_tree .

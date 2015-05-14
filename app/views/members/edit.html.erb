@@ -35,8 +35,9 @@
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">+91</span>
-              <input id="memberPhone" type="number" ng-model="member.phone_number" name="memberPhone"
-                     class="form-control" placeholder="" required minlength="10" maxlength="10">
+              <input id="memberPhone" type="text" ng-model="member.phone_number" name="memberPhone"
+                     class="form-control" minlength="10" maxlength="10"
+                     required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no" >
             </div>
 
           </div>
