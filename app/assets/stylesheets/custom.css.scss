@@ -334,3 +334,16 @@ form .glyphicon-ok-circle {
   height: 12px;
   margin-right: 5px;
 }
+
+.numberCircle {
+  border-radius: 50%;
+
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+
+  background: #de2d0f;
+//  border: 2px solid #666;
+  color: #ffffff;
+  text-align: center;
+}

@@ -1,13 +1,13 @@
-<div class="container">
-  <div class="row">
+<div class="container" ng-controller="DashboardCtrl">
+  <div class="row" ng-controller="DashboardOverviewCtrl">
     <ul class="nav nav-tabs" role="tablist">
       <li class="active"><a href="#">Dashboard</a></li>
-      <li><a href="dashboard-members">Members</a></li>
+      <li><a href="dashboard-members">Members <span ng-show="countOfMembersWithExpiredSubscription > 0" class="numberCircle" ng-bind="countOfMembersWithExpiredSubscription" alt="Members whose subscription expired"></span></a></li>
       <li><a href="dashboard-memberships">Subscriptions</a></li>
     </ul>
 
-    <div id="dashboard" ng-controller="DashboardCtrl">
-      <div ng-controller="DashboardOverviewCtrl">
+    <div id="dashboard">
+      <div>
         <div class="row placeholders">
           <div class="col-md-6 col-xs-12">
             <h3>Revenue</h3>
