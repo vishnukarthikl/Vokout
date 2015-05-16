@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'contact' => 'contact_messages#new', as: 'contact'
   post 'contact' => 'contact_messages#create', as: 'post_contact'
 
+  get 'owners/edit' => 'owners#edit', as: 'edit_owner'
+  get 'profile' => 'owners#show', as: 'current_owner'
   get 'owners/:code/confirm' => 'owners#confirm', as: 'confirm_owner'
   get 'owners/unconfirmed' => 'owners#unconfirmed', as: 'unconfirmed_owner'
 

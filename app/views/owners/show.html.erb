@@ -1,20 +1,42 @@
 <div class="container">
-  <% if logged_in? %>
-      <p>
-        <strong>Name:</strong>
-        <%= @owner.name %>
-      </p>
+  <h1>Profile Details</h1>
 
-      <p>
-        <strong>Email:</strong>
-        <%= @owner.email %>
-      </p>
+  <div class="col-md-8 col-md-offset-3">
+    <% if logged_in? %>
+        <div class="col-md-6"><p>
+          <strong>Name:</strong>
+          <%= @owner.name %>
+        </p>
 
-      <%= link_to 'Edit', edit_owner_path(@owner) %> |
+          <p>
+            <strong>Email:</strong>
+            <%= @owner.email %>
+          </p>
 
-      <%= link_to "Log out", logout_path, method: "delete" %>
+          <p>
+            <strong>Gym name:</strong>
+            <%= @owner.facility.name %>
+          </p>
 
-  <% else %>
-      <li><%= link_to "Log in", login_path %></li>
-  <% end %>
+          <p>
+            <strong>Gym address:</strong>
+            <%= @owner.facility.address %>
+          </p>
+
+          <p>
+            <strong>Phone:</strong>
+            <%= @owner.facility.phone %>
+          </p>
+        </div>
+
+        <div class="col-md-6">
+          <%= link_to 'Edit', edit_owner_path, class: "btn btn-primary" %> |
+          <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %> |
+          <%= link_to "Log out", logout_path, method: "delete", class:"btn btn-danger" %>
+        </div>
+
+
+    <% else %>
+        <li><%= link_to "Log in", login_path %></li>
+    <% end %></div>
 </div>

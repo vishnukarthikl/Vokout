@@ -3,8 +3,6 @@ class OwnersController < ApplicationController
 
   before_action :set_owner, only: [:show, :edit, :update]
 
-  respond_to :json
-
   def show
   end
 
@@ -35,10 +33,10 @@ class OwnersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @owner.update_attributes(owner_update_params)
+      if @owner.update_attributes(owner_update_params) && @owner.facility.update_attributes(facility_update_params)
         format.html {
           flash[:success] = "Profile updated successfully"
-          redirect_to :back
+          redirect_to current_owner_path
         }
         format.json { render :show, status: :ok, location: @owner }
       else
@@ -86,5 +84,9 @@ class OwnersController < ApplicationController
 
   def owner_update_params
     params.require(:owner).permit(:name, :password, :password_confirmation)
+  end
+
+  def facility_update_params
+    params.require(:owner).require(:facility).permit(:name, :phone, :address)
   end
 end

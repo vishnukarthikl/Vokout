@@ -7,15 +7,30 @@
         <%= f.label :name %><br>
         <%= f.text_field :name, class: 'form-control' %>
 
+        <%= f.fields_for @owner.facility do |fa| %>
+            <%= fa.label :name, 'Gym name' %><br>
+            <%= fa.text_field :name, class: 'form-control' %>
+
+            <%= fa.label :address, 'Gym address' %><br>
+            <%= fa.text_area :address, class: 'form-control' %>
+
+            <%= fa.label :phone %><br>
+            <%= fa.phone_field :phone, class: 'form-control' %>
+        <% end %>
+
         <%= f.label :password %><br>
         <%= f.password_field :password, class: 'form-control' %>
 
         <%= f.label :password_confirmation %><br>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
+
         <p>
           <span class="btn-warning">Leaving password empty will not update the old password</span>
         </p>
-        <%= f.submit "Save changes", class: "btn btn-primary" %>
+
+
+        <%= f.submit "Save changes", class: "btn btn-primary col-md-3 col-md-offset-2" %>
+        <a type="button" class="btn btn-default col-md-3 col-md-offset-1" href="<%= current_owner_path %>">Cancel</a>
     <% end %>
   </div>
 </div>

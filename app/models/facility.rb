@@ -4,6 +4,9 @@ class Facility < ActiveRecord::Base
   has_many :members
   has_many :revenues
   validates :owner_id, presence: true
+  validates :name, presence: true
+  validates :address, presence: true
+  validates :phone, numericality: true, length: {minimum: 10, maximum: 10}
 
   def calculate_expected_revenue(month)
     expected_renewal_cost = 0
