@@ -1,4 +1,6 @@
 class PasswordResetsController < ApplicationController
+  PASSWORD_RESET_DURATION = 1.days.ago
+
   def new
   end
 
@@ -14,7 +16,7 @@ class PasswordResetsController < ApplicationController
 
   def update
     @owner = Owner.find_by_password_reset_token(params[:id])
-    if @owner.password_reset_sent_at < 2.hours.ago
+    if @owner.password_reset_sent_at < PASSWORD_RESET_DURATION
       redirect_to new_password_reset_path, :alert => "Password reset has expired"
     elsif @owner.update_attributes(owner_params)
       redirect_to sessions_new_path, :notice => "Password has been reset"
