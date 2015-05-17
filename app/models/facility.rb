@@ -8,6 +8,17 @@ class Facility < ActiveRecord::Base
   validates :address, presence: true
   validates :phone, numericality: true, length: {minimum: 10, maximum: 10}
 
+
+  def total_expired_members
+    self.members.inject(0) do |total, m|
+      if !m.inactive and m.latest_subscription.expired
+        total + 1
+      else
+        total
+      end
+    end
+  end
+
   def calculate_expected_revenue(month)
     expected_renewal_cost = 0
     self.members.each do |member|

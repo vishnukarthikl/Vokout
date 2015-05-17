@@ -3,13 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @DashboardCtrl = ($scope, $resource, $http, memberService) ->
 
-  $scope.getExpiredMembersCount = (data)->
-    data.members.reduce((prev, curr) ->
-      if !curr.inactive && curr.latest_subscription.expired
-        return prev + 1
-      return prev
-    , 0)
-
   $scope.refreshData = ->
     $http.get('/facilities/show')
     .success (data) ->
@@ -62,7 +55,6 @@
     $http.get('/facilities/show')
     .success (data) ->
       $scope.facility = data
-      $scope.countOfMembersWithExpiredSubscription = $scope.getExpiredMembersCount(data)
       $scope.revenueData = $scope.getRevenueByMonth()
       $scope.revenueSplitData = $scope.getRevenueSplit()
       $scope.splitMonths = $scope.getSplitMonths()
