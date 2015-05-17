@@ -1,15 +1,20 @@
-<% if @owner.errors.any? or @owner.facility.errors.any? %>
+<% if @owner.errors.any? or (@owner.facility && @owner.facility.errors.any?) %>
     <div id="error_explanation">
       <div class="alert alert-danger">
-
-        <%= pluralize(@owner.errors.count + @owner.facility.errors.count, "error") %> encounterd, please rectify
+        <% if @owner.facility %>
+            <%= pluralize(@owner.errors.count + @owner.facility.errors.count, "error") %> encounterd, please rectify
+        <% else %>
+            <%= pluralize(@owner.errors.count, "error") %> encountered, please rectify
+        <% end %>
       </div>
       <ul>
         <% @owner.errors.full_messages.each do |message| %>
             <li><%= message %></li>
         <% end %>
-        <% @owner.facility.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+        <% if @owner.facility %>
+            <% @owner.facility.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
         <% end %>
       </ul>
     </div>
