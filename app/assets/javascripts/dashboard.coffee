@@ -43,7 +43,8 @@
 
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
-  colors = ['#5DA5DA', '#FAA43A', '#60BD68', '#DECF3F', '#F15854', '#9e9ac8']
+  colors = ["#5DA5DA", "#FAA43A", "#60BD68", "#607B8B", "#DECF3F", "#E05854", "#9E9AC8", "#C0FF3E", "#FF0000",
+            "#8B5A00", "#808000"]
   $scope.options = {
     segmentShowStroke: false,
     animateRotate: true,
