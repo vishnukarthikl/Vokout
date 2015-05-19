@@ -52,8 +52,8 @@
               <tr>
                 <th class="center">Name</th>
                 <th class="center">Phone no</th>
-                <th class="center">Subscription</th>
-                <th class="center">Days left for renewal</th>
+                <th class="center hidden-xs">Subscription</th>
+                <th class="center">Renewal in</th>
               </tr>
               </thead>
 
@@ -62,7 +62,7 @@
                   dir-paginate="member in facility.members | filter:filterMembers(q,shouldShowInactive)| orderBy:orderBySubscriptionExpiry |itemsPerPage: 10">
                 <td><a href="/members/{{member.id}}">{{member.name}}</a></td>
                 <td>{{member.phone_number}}</td>
-                <td>{{member.latest_subscription.membership.name}}</td>
+                <td class="hidden-xs">{{member.latest_subscription.membership.name}}</td>
                 <td>{{ !subscriptionExpired(member) ?
                   member.latest_subscription.days_left_words : "Expired "
                   +member.latest_subscription.days_left_words +" ago" }}
