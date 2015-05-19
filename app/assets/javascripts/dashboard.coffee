@@ -20,6 +20,11 @@
     memberService.get({facility_id: $scope.facility.id, id: member.id},
       (memberResource) ->
         $scope.$parent.extendSubscriptionWithResult(memberResource).then((extendedMember) ->
+          memberIndex = $scope.facility.members.map((x) ->
+            x.id
+          ).indexOf(extendedMember.id)
+          $scope.facility.members[memberIndex] = extendedMember
+
           extensionDate = extendedMember.latest_subscription.extended_till
           $scope.result = extendedMember.name + "'s subscription was extended to " + moment(extensionDate).format('D/M/YYYY')
         )
