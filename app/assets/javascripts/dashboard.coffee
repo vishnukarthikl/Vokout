@@ -55,10 +55,12 @@
   $scope.refreshData = ->
     $http.get('/facilities/show')
     .success (data) ->
+      $scope.showRevenueForType = 'All'
       $scope.facility = data
       $scope.revenueData = $scope.getRevenueByMonth()
       $scope.revenueSplitData = $scope.getRevenueSplit()
       $scope.splitMonths = $scope.getSplitMonths()
+      $scope.revenueTypes = $scope.getAvailableRevenueTypes()
       $scope.splitMonth = $scope.splitMonths[0]
     .error (data, status, headers, config) ->
       console.log(status)
@@ -83,6 +85,10 @@
 
   $scope.$watch('splitMonth', () ->
     $scope.revenueSplitData = $scope.getRevenueSplit()
+  )
+
+  $scope.$watch('showRevenueForType', () ->
+    $scope.revenueData = $scope.getRevenueByMonth()
   )
 
   $scope.getSplitMonths = () ->
@@ -111,11 +117,38 @@
         color: colors[i]
         }
 
+  $scope.getAvailableRevenueTypes = ->
+    if $scope.facility
+      months = generateMonths()
+      revenueTypes = new Set();
+      revenueTypes.add("All")
+      for month in months
+        revenueThatMonth = $scope.facility.revenues.categorized_monthly[month]
+        if revenueThatMonth
+          for own key,value of revenueThatMonth
+            revenueTypes.add(key)
+
+      typesArray = []
+      revenueTypes.forEach (x) ->
+        typesArray.push(x)
+      return typesArray
+
+
+  monthlyRevenue = (month) ->
+    $scope.facility.revenues.monthly_revenue[month]
+
+  monthlyRevenueForType = (month, type) ->
+    revenue = $scope.facility.revenues.categorized_monthly[month]
+    revenue[type] if revenue
 
   $scope.getRevenueByMonth = ->
     if $scope.facility
-      revenueByMonth = (generateMonths().map ((month)->
-        revenueThatMonth = $scope.facility.revenues.monthly_revenue[month]
+      revenueByMonth = (generateMonths().map ((month) ->
+        revenueType = $scope.showRevenueForType
+        if revenueType == 'All'
+          revenueThatMonth = monthlyRevenue(month)
+        else
+          revenueThatMonth = monthlyRevenueForType(month, revenueType)
         if !revenueThatMonth
           revenueThatMonth = 0
         return {
