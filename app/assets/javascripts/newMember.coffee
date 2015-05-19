@@ -72,7 +72,7 @@
     })
 
     modalInstance.result.then((membership) ->
-      $scope.customSubscription = membership.name
+      $scope.customSubscription = {name: membership.name, cost: membership.cost, duration: membership.duration + " " + membership.duration_type}
       $scope.showCustom = true
       $scope.newMember.subscription.membership_id = membership.id
     )
@@ -95,7 +95,7 @@ newCustomMembershipCtrl = ($scope, $modalInstance, memberships, facilityId, memb
   $scope.memberships = memberships
   $scope.facilityId = facilityId
   $scope.durationTypes = ["days", "months", "years"]
-  $scope.newMembership = {duration_type: $scope.durationTypes[0]}
+  $scope.newMembership = {duration_type: $scope.durationTypes[0], temporary: true}
 
   $scope.getMembershipNames = ->
     $scope.memberships.map((x)-> x.name) if $scope.memberships
@@ -122,7 +122,7 @@ newCustomMembershipCtrl = ($scope, $modalInstance, memberships, facilityId, memb
       saveStatus = {}
       saveStatus.text = "save failed"
       saveStatus.text += ": " + reason if reason
-      saveStatus.type = "danger"
+      saveStatus.style = "danger"
       $scope.saveStatus = saveStatus
 
 

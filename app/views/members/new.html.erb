@@ -43,8 +43,9 @@
               <button class="btn btn-warning" ng-click="addCustomSubscription()">Custom Subscription</button>
             </div>
             <div ng-show="showCustom" class="col-md-4">
-
-              <input type="text" disabled="true" ng-model="customSubscription" class="form-control">
+              <span class="lead">{{customSubscription.name}}</span> with cost
+              <span class="lead">{{customSubscription.cost}}</span> and duration
+              <span class="lead">{{customSubscription.duration}}</span>
               <button class="btn btn-warning" ng-click="cancelCustom()">Cancel</button>
             </div>
 
