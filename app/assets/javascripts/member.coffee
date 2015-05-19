@@ -34,7 +34,7 @@
     )
 
   $scope.extendSubscription = (member) ->
-    $scope.extendSubscriptionWithResult(member).then((member, extendedTill) ->
+    $scope.extendSubscriptionWithResult(member).then((member) ->
       extensionDate = member.latest_subscription.extended_till
       $scope.result = member.name + "'s subscription was extended to " + moment(extensionDate).format('D/M/YYYY')
     )
@@ -75,7 +75,7 @@
 
   $scope.filterMembers = (name, showInactive) ->
     (member) ->
-      ((member.name.toLowerCase().indexOf(name.toLowerCase())  isnt -1 or member.phone_number.indexOf(name)  isnt -1) and
+      ((member.name.toLowerCase().indexOf(name.toLowerCase()) isnt -1 or member.phone_number.indexOf(name) isnt -1) and
         (!member.inactive or (member.inactive and showInactive)))
 
   $scope.addPurchase = (member) ->
@@ -150,9 +150,17 @@ PurchaseCtrl = ($scope, $modalInstance, member, purchaseService) ->
 
 ExtendSubscriptionCtrl = ($scope, $modalInstance, member, memberService) ->
   $scope.member = member
-  $scope.extendTill = moment().add(1,'days').format("D/M/YYYY")
+  $scope.initialize = () ->
+    if member.latest_subscription.extended_till
+      $scope.extendTill = moment(member.latest_subscription.extended_till).format("D/M/YYYY")
+      $scope.alreadyExtended = "Member has already been extended before"
+    else
+      $scope.extendTill = moment().add(1, 'days').format("D/M/YYYY")
+
+  $scope.initialize()
+
   $scope.submitExtension = ->
-    if moment($scope.extendTill,'D/M/YYYY') < moment()
+    if moment($scope.extendTill, 'D/M/YYYY') < moment()
       setExtensionStatus("Extension date should be in the future", "danger")
     else
       $scope.member.latest_subscription.extended_till = $scope.extendTill

@@ -16,6 +16,15 @@
       $scope.refreshData()
     )
 
+  $scope.extendSubscription = (member) ->
+    memberService.get({facility_id: $scope.facility.id, id: member.id},
+      (memberResource) ->
+        $scope.$parent.extendSubscriptionWithResult(memberResource).then((extendedMember) ->
+          extensionDate = extendedMember.latest_subscription.extended_till
+          $scope.result = extendedMember.name + "'s subscription was extended to " + moment(extensionDate).format('D/M/YYYY')
+        )
+    )
+
   $scope.getTotalActiveCustomers = (members) ->
     members.reduce((prev, curr) ->
       if !curr.inactive
