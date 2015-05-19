@@ -7,7 +7,11 @@ class Subscription < ActiveRecord::Base
   has_one :revenue, as: :purchasable
 
   def end_date
-    self.start_date.plus_with_duration(self.membership.duration_in_days)
+    if self.extended_till
+      self.extended_till
+    else
+      self.start_date.plus_with_duration(self.membership.duration_in_days)
+    end
   end
 
   def days_left
