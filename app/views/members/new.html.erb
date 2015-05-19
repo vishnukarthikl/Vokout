@@ -1,123 +1,136 @@
 <div ng-controller="NewMemberCtrl">
-  <h1>Registration</h1>
+  <div ng-controller="MembershipCtrl">
+    <div id="data" data-facility-id="<%= @facility.id %>"></div>
+    <h1>Registration</h1>
 
-  <div class="container">
-    <form class="row form-horizontal" name="memberForm" novalidate>
-      <fieldset>
+    <div class="container">
+      <form class="row form-horizontal" name="form.member" novalidate>
+        <fieldset>
 
-        <!-- Form Name -->
-        <legend>Add Members</legend>
+          <!-- Form Name -->
+          <legend>Add Members</legend>
 
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberName">Name</label>
+          <!-- Text input-->
+          <div forminput>
+            <label for="memberName">Name</label>
 
-          <div class="col-md-4">
-            <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
+            <div class="col-md-4">
+              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
 
+            </div>
           </div>
-        </div>
 
-        <!-- Select Basic -->
-        <div forminput>
-          <label for="memberSex">Sex</label>
+          <!-- Select Basic -->
+          <div forminput>
+            <label for="memberSex">Sex</label>
 
-          <div class="col-md-4">
-            <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
-              <option value="true">Male</option>
-              <option value="false">Female</option>
-            </select>
+            <div class="col-md-4">
+              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-        <div forminput>
-          <label for="memberMembership">Subscription</label>
-          <div class="col-md-4">
-            <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
-                    ng-options="membership.id as membership.name for membership in facility.memberships" required>
-            </select>
-          </div>
-        </div>
+          <div forminput>
+            <label for="memberMembership">Subscription</label>
 
-        <div forminput>
-          <label for="memberMembershipDate">Subscription start date</label>
-          <div class="col-md-4">
-            <input jdatepicker id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
-                   ng-model="newMember.subscription.start_date" ng-required="true"/>
-          </div>
-        </div>
+            <div ng-show="!showCustom" class="col-md-4">
+              <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
+                      ng-options="membership.id as membership.name for membership in memberships" required>
+              </select>
+              or
+              <button class="btn btn-warning" ng-click="addCustomSubscription()">Custom Subscription</button>
+            </div>
+            <div ng-show="showCustom" class="col-md-4">
 
-        <!-- Prepended text-->
-        <div forminput>
-          <label for="memberPhone">Phone</label>
-
-          <div class="col-md-4">
-            <div class="input-group">
-              <span class="input-group-addon">+91</span>
-              <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
+              <input type="text" disabled="true" ng-model="customSubscription" class="form-control">
+              <button class="btn btn-warning" ng-click="cancelCustom()">Cancel</button>
             </div>
 
           </div>
-        </div>
 
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberEmail">E mail</label>
+          <div forminput>
+            <label for="memberMembershipDate">Subscription start date</label>
 
-          <div class="col-md-4">
-            <input id="memberEmail" ng-model="newMember.email" name="memberEmail" placeholder="" type="email">
-
+            <div class="col-md-4">
+              <input jdatepicker id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
+                     ng-model="newMember.subscription.start_date" ng-required="true"/>
+            </div>
           </div>
-        </div>
 
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberDob">Date of Birth</label>
+          <!-- Prepended text-->
+          <div forminput>
+            <label for="memberPhone">Phone</label>
 
-          <div class="col-md-4">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">+91</span>
+                <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder="" required minlength="10" maxlength="10">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div forminput>
+            <label for="memberEmail">E mail</label>
+
+            <div class="col-md-4">
+              <input id="memberEmail" ng-model="newMember.email" name="memberEmail" placeholder="" type="email">
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div forminput>
+            <label for="memberDob">Date of Birth</label>
+
+            <div class="col-md-4">
               <input jdatepicker id="memberDob" name="memberDob" type="text" class="form-control"
-                      ng-model="newMember.date_of_birth" is-open="dob_opened" close-text="Close"/>
+                     ng-model="newMember.date_of_birth" is-open="dob_opened" close-text="Close"/>
 
+            </div>
           </div>
-        </div>
 
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberOccupation">Occupation</label>
+          <!-- Text input-->
+          <div forminput>
+            <label for="memberOccupation">Occupation</label>
 
-          <div class="col-md-4">
-            <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
-              <option value="student">Student</option>
-              <option value="working">Working</option>
-              <option value="housewife">Housewife</option>
-              <option value="business">Business</option>
-              <option value="other">Other</option>
-            </select>
+            <div class="col-md-4">
+              <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
+                <option value="student">Student</option>
+                <option value="working">Working</option>
+                <option value="housewife">Housewife</option>
+                <option value="business">Business</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-        <!-- Textarea -->
-        <div forminput>
-          <label for="memberAddress">Address</label>
+          <!-- Textarea -->
+          <div forminput>
+            <label for="memberAddress">Address</label>
 
-          <div class="col-md-4">
-            <textarea class="form-control" id="memberAddress" ng-model="newMember.address" name="memberAddress"></textarea>
+            <div class="col-md-4">
+              <textarea class="form-control" id="memberAddress" ng-model="newMember.address" name="memberAddress"></textarea>
+            </div>
           </div>
-        </div>
 
-        <br/>
-        <!-- Button (Double) -->
-        <div class="form-group">
+          <br/>
+          <!-- Button (Double) -->
+          <div class="form-group">
 
-          <div class="col-md-7 col-md-offset-3">
-            <a href="/dashboard-members" id="setupMembershipBack" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">
-              <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
-            <button id="savememberButton" ng-disabled="memberForm.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
+            <div class="col-md-7 col-md-offset-3">
+              <a href="/dashboard-members" id="setupMembershipBack" name="setupMembershipBack" class="btn btn-default col-md-2 col-md-offset-1">
+                <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
+              <button id="savememberButton" ng-disabled="form.member.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
+            </div>
           </div>
-        </div>
 
-      </fieldset>
-      <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
-    </form>
+        </fieldset>
+        <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
+      </form>
+    </div>
   </div>
 </div>
