@@ -75,14 +75,8 @@
           <label for="memberDob">Date of Birth</label>
 
           <div class="col-md-4">
-            <p class="input-group">
-              <input id="memberDob" name="memberDob" type="text" class="form-control"
-                     datepicker-popup="dd/MM/yyyy" ng-model="newMember.date_of_birth" is-open="dob_opened" close-text="Close"/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,'dob_opened')">
-                  <i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
+              <input jdatepicker id="memberDob" name="memberDob" type="text" class="form-control"
+                      ng-model="newMember.date_of_birth" is-open="dob_opened" close-text="Close"/>
 
           </div>
         </div>
