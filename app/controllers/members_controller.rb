@@ -65,7 +65,12 @@ class MembersController < ApplicationController
     latest_subscription = params.require(:latest_subscription)
     found_subscription = Subscription.find(latest_subscription[:id])
     membership = latest_subscription.require(:membership)
-    found_subscription.update({start_date: latest_subscription[:start_date], membership_id: membership[:id]})
+    update_params = {
+        start_date: latest_subscription[:start_date],
+        membership_id: membership[:id],
+        extended_till: latest_subscription[:extended_till]
+    }
+    found_subscription.update(update_params)
     found_subscription.revenue.update({value: found_subscription.membership.cost, date: found_subscription.start_date})
     @member.reload
   end

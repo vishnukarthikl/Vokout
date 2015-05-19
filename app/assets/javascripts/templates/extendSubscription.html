@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3>Extending subscription for {{member.name}}</h3>
+</div>
+<div class="modal-body">
+    <form name="form.extension" class="form-horizontal" novalidate>
+
+        <div class="form-group">
+            <label class="control-label col-md-4" for="extendTill">Extend till</label>
+
+            <div class="col-md-6">
+                <input class="form-control" jdatepicker top="true" name="extendTill"
+                       ng-model="extendTill" type="text"
+                       id="extendTill" placeholder="dd/mm/yyyy"
+                       ng-required="true">
+            </div>
+        </div>
+
+        <div ng-show="extensionStatus" ng-class="'alert alert-'+extensionStatus.style">
+            {{extensionStatus.text}}
+        </div>
+
+        <div class="modal-footer">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <button type="button" ng-click="submitExtension()" ng-disabled="form.extension.$invalid"
+                            class="btn btn-primary">Give Extension
+                    </button>
+                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

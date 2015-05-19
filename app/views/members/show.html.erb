@@ -27,6 +27,10 @@
               <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
                 Purchase</a>
             </li>
+            <li ng-click="extendSubscription(member)" role="presentation">
+              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-resize-full"></span>
+                Extend Subscription</a>
+            </li>
             <li ng-show="!deactivated(member)" ng-confirm-click="Are you sure to deactivate?" ng-click="deactivate(member)" role="presentation">
               <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
             </li>

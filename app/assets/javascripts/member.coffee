@@ -33,6 +33,25 @@
       $scope.result = member.name + " was deactivated"
     )
 
+  $scope.extendSubscription = (member) ->
+    $scope.extendSubscriptionWithResult(member).then((member, extendedTill) ->
+      extensionDate = member.latest_subscription.extended_till
+      $scope.result = member.name + "'s subscription was extended to " + moment(extensionDate).format('D/M/YYYY')
+    )
+
+  $scope.extendSubscriptionWithResult = (member) ->
+    modalInstance = $modal.open({
+      templateUrl: 'extendSubscription.html',
+      controller: ExtendSubscriptionCtrl,
+      scope: $scope,
+      size: 'md',
+      resolve:
+        member: -> member
+    })
+
+    modalInstance.result
+
+
   $scope.renew = (member, memberships) ->
     if !memberships
       memberships = $scope.memberships
@@ -125,6 +144,34 @@ PurchaseCtrl = ($scope, $modalInstance, member, purchaseService) ->
     purchaseToAdd.$save (addedPurchase) ->
       member.purchases.push(addedPurchase) if member.purchases
       $modalInstance.close(addedPurchase)
+
+  $scope.cancel = ->
+    $modalInstance.dismiss('cancel')
+
+ExtendSubscriptionCtrl = ($scope, $modalInstance, member, memberService) ->
+  $scope.member = member
+  $scope.extendTill = moment().add(1,'days').format("D/M/YYYY")
+  $scope.submitExtension = ->
+    if moment($scope.extendTill,'D/M/YYYY') < moment()
+      setExtensionStatus("Extension date should be in the future", "danger")
+    else
+      $scope.member.latest_subscription.extended_till = $scope.extendTill
+      $scope.member.$update afterExtensionSuccess, extensionFailureCallback
+
+  afterExtensionSuccess = (member) ->
+    $modalInstance.close(member)
+
+  setExtensionStatus = (status, type) ->
+    $scope.extensionStatus = {text: status, style: type}
+
+  extensionFailureCallback = (err) ->
+    (err) ->
+      if err.status != 500
+        reason = prettyError(err)
+
+    status = "save failed"
+    status += ": " + reason if reason
+    setExtensionStatus(status, 'danger')
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
