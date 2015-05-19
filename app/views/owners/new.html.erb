@@ -1,15 +1,17 @@
-<h1>Sign up form</h1>
+<div class="container"><h1>Sign up form</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= simple_form_for(@owner) do |f| %>
-        <%= render 'shared/error_messages' %>
-        <%= f.input :name %><br>
-        <%= f.input :email %><br>
-        <%= f.input :password %><br>
-        <%= f.input :password_confirmation %><br>
-        <%= f.submit 'Sign up', class: 'btn btn-primary',id: 'signup-button' %>
-        <p><%= link_to "Need Help?", contact_path%></p>
-    <% end %>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+      <%= simple_form_for(@owner) do |f| %>
+          <%= render 'shared/error_messages' %>
+          <%= f.input :name %><br>
+          <%= f.input :email %><br>
+          <%= f.input :password %><br>
+          <%= f.input :password_confirmation %><br>
+          <%= f.submit 'Sign up', class: 'btn btn-success', id: 'signup-button' %>
+          <hr />
+          <p><%= link_to "Need Help?", contact_path %></p>
+      <% end %>
+    </div>
   </div>
 </div>
