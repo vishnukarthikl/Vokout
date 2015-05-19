@@ -20,6 +20,9 @@
     $scope.addNew()
     $scope.showAddNew = false
 
+  $scope.getDuration = (membership) ->
+    pluralize(membership.duration_type,membership.duration,true)
+
   $scope.updateMembership = (id, name, duration, durationType, cost, index) ->
     oldMembership = $scope.memberships[index]
     oldMembership.name = name

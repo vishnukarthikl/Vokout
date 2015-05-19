@@ -25,5 +25,6 @@
 //= require angular-toggle-switch
 //= require jquery-ui/jquery-ui.js
 //= require tg-angular-validator/dist/angular-validator.js
+//= require pluralize/pluralize
 //= require_tree ./templates
 //= require_tree .

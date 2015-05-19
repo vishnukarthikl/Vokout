@@ -91,9 +91,8 @@
             <span ng-show="!editing[$index]">{{membership.name}}</span><input type="text" class="form-control" ng-init="editName=membership.name" ng-model="editName" ng-show="editing[$index]">
           </td>
           <td>
-            <span ng-show="!editing[$index]">{{membership.duration}}</span>
+            <span ng-show="!editing[$index]">{{getDuration(membership)}}</span>
             <input type="text" class="form-control" ng-init="editDuration=membership.duration" ng-model="editDuration" ng-show="editing[$index]">
-            <span ng-show="!editing[$index]">{{membership.duration_type}}</span>
             <select ng-show="editing[$index]" ng-model="editDurationType" ng-init="editDurationType=membership.duration_type" ng-options="duration for duration in durationTypes"></select>
           </td>
           <td>
