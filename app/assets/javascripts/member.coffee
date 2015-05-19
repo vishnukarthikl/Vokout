@@ -152,10 +152,8 @@ ExtendSubscriptionCtrl = ($scope, $modalInstance, member, memberService) ->
   $scope.member = member
   $scope.initialize = () ->
     if member.latest_subscription.extended_till
-      $scope.extendTill = moment(member.latest_subscription.extended_till).format("D/M/YYYY")
       $scope.alreadyExtended = "Member has already been extended before"
-    else
-      $scope.extendTill = moment().add(1, 'days').format("D/M/YYYY")
+    $scope.extendTill = moment(member.latest_subscription.end_date).add(1, 'days').format("D/M/YYYY")
 
   $scope.initialize()
 
