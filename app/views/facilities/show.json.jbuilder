@@ -1,6 +1,10 @@
 unless @facility.nil?
   json.extract! @facility, :id, :name, :address, :phone
-  json.memberships @facility.memberships, :id, :name, :duration, :duration_type, :duration_in_days, :cost
+  json.memberships @facility.memberships do |membership|
+    if !membership.temporary
+      json.partial! 'memberships/membership', membership: membership
+    end
+  end
   json.total_expired_members @facility.total_expired_members
   json.members @facility.members do |member|
     json.partial! 'members/member', member: member, show_extra_details: false

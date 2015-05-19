@@ -78,7 +78,8 @@
 
               <div>
                 <button id="facilitySave" ng-click="saveFacility()" ng-disabled="facilityForm.$invalid" name="facilitySave"
-                        class="col-md-2 col-md-offset-4 col-xs-10 col-xs-offset-1 btn btn-success">Save</button>
+                        class="col-md-2 col-md-offset-4 col-xs-10 col-xs-offset-1 btn btn-success">Save
+                </button>
               </div>
             </div>
 
@@ -253,50 +254,7 @@
               </div>
             </div>
 
-            <!-- Text input-->
-            <div forminput>
-              <label for="memberEmail">E mail</label>
-
-              <div class="col-md-4">
-                <input id="memberEmail" ng-model="newMember.email" name="memberEmail" placeholder="" type="email">
-
-              </div>
-            </div>
-
-            <!-- Text input-->
-            <div forminput>
-              <label for="memberDob">Date of Birth</label>
-
-              <div class="col-md-4">
-                <input jdatepicker id="memberDob" name="memberDob" type="text" class="form-control"
-                       ng-model="newMember.date_of_birth"/>
-              </div>
-            </div>
-
-            <!-- Text input-->
-            <div forminput>
-              <label for="memberOccupation">Occupation</label>
-
-              <div class="col-md-4">
-                <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="newMember.occupation">
-                  <option value="student">Student</option>
-                  <option value="working">Working</option>
-                  <option value="housewife">Housewife</option>
-                  <option value="business">Business</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Textarea -->
-            <div forminput>
-              <label for="memberAddress">Address</label>
-
-              <div class="col-md-4">
-                <textarea class="form-control" id="memberAddress" ng-model="newMember.address" name="memberAddress"></textarea>
-              </div>
-            </div>
-
+            <div class="alert alert-info col-md-4 col-md-offset-4">* Other details can be added later by editing the member</div>
             <br/>
             <!-- Button (Double) -->
             <div class="form-group">
