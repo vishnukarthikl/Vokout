@@ -16,7 +16,7 @@ class MembershipsController < ApplicationController
   def create
     @membership = @facility.memberships.build(membership_params)
     respond_to do |format|
-      if !@facility.memberships.exists?({name: @membership.name, temporary: false})
+      if !@facility.memberships.exists?({name: @membership.name, temporary: nil})
         if @membership.save
           format.html {
             flash[:success] = "#{@membership.name} has been created"
