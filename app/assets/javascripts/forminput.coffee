@@ -89,6 +89,7 @@
       onSelect: (dateText) ->
         updateModel(dateText)
       changeYear: true
+      changeMonth: true
       constrainInput: true
       beforeShow: (input) ->
         $(input).css({
