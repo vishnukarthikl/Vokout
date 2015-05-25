@@ -1,8 +1,8 @@
 class Facility < ActiveRecord::Base
   belongs_to :owner
-  has_many :memberships
-  has_many :members
-  has_many :revenues
+  has_many :memberships, dependent: :destroy
+  has_many :members, dependent: :destroy
+  has_many :revenues, dependent: :destroy
   validates :owner_id, presence: true
   validates :name, presence: true
   validates :address, presence: true

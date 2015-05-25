@@ -1,6 +1,6 @@
 class Owner < ActiveRecord::Base
 
-  has_one :facility
+  has_one :facility, dependent: :destroy
 
   before_save { self.email = email.downcase }
   before_create { generate_token(:auth_token) }

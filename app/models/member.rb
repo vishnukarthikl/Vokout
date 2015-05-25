@@ -1,9 +1,10 @@
 class Member < ActiveRecord::Base
 
   belongs_to :facility
-  has_many :subscriptions
-  has_many :revenues
-  has_many :purchases
+  has_many :subscriptions, dependent: :destroy
+  has_many :revenues, dependent: :destroy
+  has_many :purchases, dependent: :destroy
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   validates :name, presence: true, length: {maximum: 50}
