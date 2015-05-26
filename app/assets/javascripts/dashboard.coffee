@@ -27,6 +27,7 @@
 
           extensionDate = extendedMember.latest_subscription.extended_till
           $scope.result = extendedMember.name + "'s subscription was extended to " + moment(extensionDate).format('D/M/YYYY')
+          $scope.refreshData()
         )
     )
 
