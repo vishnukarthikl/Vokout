@@ -6,13 +6,7 @@ class MembershipsController < ApplicationController
   before_action :set_membership, only: [:edit, :destroy, :update]
 
   def index
-    respond_to do |format|
-      format.html { redirect_to dashboard_memberships_path }
-      format.json do
-        @memberships = @facility.memberships.all
-        render @memberships
-      end
-    end
+    @memberships = @facility.memberships
   end
 
   def new
@@ -80,7 +74,7 @@ class MembershipsController < ApplicationController
 
   private
   def set_membership
-    @membership = Membership.where({id:params[:id],facility_id: facility_id}).first
+    @membership = Membership.where({id: params[:id], facility_id: facility_id}).first
   end
 
   def membership_params
