@@ -2,6 +2,7 @@
   <div class="pull-right">
     <%= link_to "Admin Log out", destroy_admin_session_path, method: "delete" ,class: "btn btn-primary"%>
   </div>
+  <%= render 'contact_messages/index.html' %>
   <% if @owners.length == 0 %>
       <h3>No owners</h3>
   <% else %>
@@ -49,7 +50,5 @@
         </tbody>
       </table>
   <% end %>
-
-  <%= render 'contact_messages/index.html' %>
 
 </div>
