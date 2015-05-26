@@ -1,144 +1,145 @@
 <div id="dashboard-members" ng-controller="MemberCtrl">
-  <div id="data" data-member-id="<%= @member.id %>" data-facility-id="<%= @member.facility.id %>" ng-init="refreshData()"></div>
-  <div class="container">
-    <div class="row">
-      <a href="/dashboard-members" class="btn btn-default btn-primary">
-        <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
-    </div>
-    <div class="row">
-      <h3 class="col-md-4 col-xs-6">
-        <span ng-show="!member.inactive" class="btn-success member-status" alt="active"></span>
-        <span ng-show="member.inactive" class="btn-danger member-status"></span>
-        <span>{{member.name}}</span>
-      </h3>
-
-      <div class="col-xs-6">
-        <span class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="takeAction" data-toggle="dropdown">
-            Take Action
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
-                Renew</a>
-            </li>
-            <li ng-click="addPurchase(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
-                Purchase</a>
-            </li>
-            <li ng-click="extendSubscription(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-resize-full"></span>
-                Extend Subscription</a>
-            </li>
-            <li ng-show="!deactivated(member)" ng-confirm-click="Are you sure to deactivate?" ng-click="deactivate(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
-            </li>
-            <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
-              <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
-            </li>
-
-
-          </ul>
-        </span>
-
-        <a class="btn btn-default" href="/facilities/{{member.facility_id}}/members/{{member.id}}/edit">Edit</a>
-
-      </div>
-    </div>
-    <div class="row center bold" ng-show="result">
-      <div class="alert alert-success" role="alert">
-        {{result}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6"><h4>Subscription Details</h4>
-        <table class="table">
-          <tr>
-            <td>Current Subscription</td>
-            <td>{{member.latest_subscription.membership.name}}</td>
-          </tr>
-          <tr>
-            <td>Status</td>
-            <td ng-show="!member.latest_subscription.expired">{{member.latest_subscription.days_left_words}} left for
-              renewal
-            </td>
-            <td class="btn-danger" ng-show="member.latest_subscription.expired">expired
-              {{member.latest_subscription.days_left_words}} ago
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-6"><h4>Contact Details</h4>
-        <table class="table">
-          <tr>
-            <td>Phone</td>
-            <td>{{member.phone_number}}</td>
-          </tr>
-          <tr ng-show="member.email">
-            <td>Email</td>
-            <td>{{member.email}}</td>
-
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row center alert alert-info">
-      <div class="lead">Total Revenue : <span class="stat-highlight">{{getTotalRevenue(member) | number}}</span></div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <h4>Subscription History</h4>
-
-        <div class="lead">
-          Past Subscriptions: <span class="stat-highlight">{{member.subscriptions.length}}</span>
-          <br/>
-          Cost: <span class="stat-highlight">{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
+  <% if !@member %>
+      <h3>Not present</h3>
+  <% else %>
+      <div id="data" data-member-id="<%= @member.id %>" data-facility-id="<%= @member.facility.id %>" ng-init="refreshData()"></div>
+      <div class="container">
+        <div class="row">
+          <a href="/dashboard-members" class="btn btn-default btn-primary">
+            <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
         </div>
-        <table class="table">
-          <tr>
-            <th>Name</th>
-            <th>Cost</th>
-            <th>From</th>
-            <th>To</th>
-          </tr>
-          <tr ng-repeat="subscriptions in member.subscriptions | orderBy:'end_date':true">
-            <td>{{subscriptions.membership.name}}</td>
-            <td>{{subscriptions.membership.cost}}</td>
-            <td>{{subscriptions.start_date | date:"dd/MM/yyyy"}}</td>
-            <td>{{subscriptions.end_date | date:"dd/MM/yyyy"}}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <h4>Purchase History</h4>
+        <div class="row">
+          <h3 class="col-md-4 col-xs-6">
+            <span ng-show="!member.inactive" class="btn-success member-status" alt="active"></span>
+            <span ng-show="member.inactive" class="btn-danger member-status"></span>
+            <span>{{member.name}}</span>
+          </h3>
 
-        <div class="lead" ng-if="member.purchases.length == 0">
-          No purchases present
-        </div>
-        <div ng-if="member.purchases.length > 0">
-          <div class="lead">
-            Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
-            <br/>
-            Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
+          <div class="col-xs-6">
+            <span class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="takeAction" data-toggle="dropdown">
+                Take Action
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li ng-show="subscriptionExpired(member)" ng-click="renew(member)" role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-repeat"></span>
+                    Renew</a>
+                </li>
+                <li ng-click="addPurchase(member)" role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Add
+                    Purchase</a>
+                </li>
+                <li ng-click="extendSubscription(member)" role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-resize-full"></span>
+                    Extend Subscription</a>
+                </li>
+                <li ng-show="!deactivated(member)" ng-confirm-click="Are you sure to deactivate?" ng-click="deactivate(member)" role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-remove"></span>Deactivate</a>
+                </li>
+                <li ng-show="deactivated(member)" ng-click="activate(member)" role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-ok"></span>Activate</a>
+                </li>
+              </ul>
+            </span>
+            <a class="btn btn-default" href="/members/{{member.id}}/edit">Edit</a>
           </div>
-          <table class="table">
-            <tr>
-              <th>Name</th>
-              <th>Cost</th>
-              <th>Type</th>
-              <th>Date</th>
-            </tr>
-            <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
-              <td>{{purchase.name}}</td>
-              <td>{{purchase.cost}}</td>
-              <td>{{purchase.purchase_type}}</td>
-              <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
-            </tr>
-          </table>
+        </div>
+        <div class="row center bold" ng-show="result">
+          <div class="alert alert-success" role="alert">
+            {{result}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6"><h4>Subscription Details</h4>
+            <table class="table">
+              <tr>
+                <td>Current Subscription</td>
+                <td>{{member.latest_subscription.membership.name}}</td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td ng-show="!member.latest_subscription.expired">{{member.latest_subscription.days_left_words}} left
+                  for
+                  renewal
+                </td>
+                <td class="btn-danger" ng-show="member.latest_subscription.expired">expired
+                  {{member.latest_subscription.days_left_words}} ago
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6"><h4>Contact Details</h4>
+            <table class="table">
+              <tr>
+                <td>Phone</td>
+                <td>{{member.phone_number}}</td>
+              </tr>
+              <tr ng-show="member.email">
+                <td>Email</td>
+                <td>{{member.email}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row center alert alert-info">
+          <div class="lead">Total Revenue : <span class="stat-highlight">{{getTotalRevenue(member) | number}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Subscription History</h4>
+
+            <div class="lead">
+              Past Subscriptions: <span class="stat-highlight">{{member.subscriptions.length}}</span>
+              <br/>
+              Cost: <span class="stat-highlight">{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
+            </div>
+            <table class="table">
+              <tr>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>From</th>
+                <th>To</th>
+              </tr>
+              <tr ng-repeat="subscriptions in member.subscriptions | orderBy:'end_date':true">
+                <td>{{subscriptions.membership.name}}</td>
+                <td>{{subscriptions.membership.cost}}</td>
+                <td>{{subscriptions.start_date | date:"dd/MM/yyyy"}}</td>
+                <td>{{subscriptions.end_date | date:"dd/MM/yyyy"}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h4>Purchase History</h4>
+
+            <div class="lead" ng-if="member.purchases.length == 0">
+              No purchases present
+            </div>
+            <div ng-if="member.purchases.length > 0">
+              <div class="lead">
+                Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
+                <br/>
+                Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
+              </div>
+              <table class="table">
+                <tr>
+                  <th>Name</th>
+                  <th>Cost</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                </tr>
+                <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
+                  <td>{{purchase.name}}</td>
+                  <td>{{purchase.cost}}</td>
+                  <td>{{purchase.purchase_type}}</td>
+                  <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+  <% end %>
 
-  </div>
 </div>

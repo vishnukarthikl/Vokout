@@ -4,10 +4,12 @@ class MembersController < ApplicationController
   before_filter :authenticate
 
   def index
-    if facility_id
-      @members = Member.eager_load(subscriptions: :membership).where({facility_id: facility_id})
-    else
-      @members = Member.eager_load(subscriptions: :membership).all
+    respond_to do |format|
+      format.html { redirect_to dashboard_members_path }
+      format.json do
+        @members = Member.eager_load(subscriptions: :membership).where({facility_id: facility_id})
+        render @members, :locals => {show_extra_details: false}
+      end
     end
   end
 
@@ -115,7 +117,7 @@ class MembersController < ApplicationController
 
   private
   def set_member
-    @member = Member.includes(subscriptions: :membership).find(params[:id])
+    @member = Member.includes(subscriptions: :membership).where({id:params[:id],facility_id: facility_id}).first
   end
 
   private
@@ -132,7 +134,7 @@ class MembersController < ApplicationController
   end
 
   def facility_id
-    params[:facility_id]
+    current_owner.facility.id
   end
 
 end

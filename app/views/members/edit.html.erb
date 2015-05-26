@@ -1,131 +1,119 @@
 <div ng-controller="EditMemberCtrl">
-  <div id="data" data-member-id="<%= @member.id %>" data-facility-id="<%= @member.facility.id %>"></div>
-  <div class="container">
-    <form class="row form-horizontal" name="memberForm" novalidate>
-      <fieldset>
-        <!-- Form Name -->
-        <legend>Edit Member</legend>
+  <% if !@member %>
+      Not Present
+  <% else %>
+      <div id="data" data-member-id="<%= @member.id %>" data-facility-id="<%= @member.facility.id %>"></div>
+      <div class="container">
+        <form class="row form-horizontal" name="memberForm" novalidate>
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Edit Member</legend>
+            <!-- Text input-->
+            <div forminput>
+              <label for="memberName">Name</label>
 
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberName">Name</label>
-
-          <div class="col-md-4">
-            <input id="memberName" ng-model="member.name" name="memberName" type="text" placeholder="" required>
-
-          </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div forminput>
-          <label for="memberSex">Sex</label>
-
-          <div class="col-md-4">
-            <select id="memberSex" ng-model="member.is_male" name="memberSex" class="form-control" required>
-              <option value="true">Male</option>
-              <option value="false">Female</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Prepended text-->
-        <div forminput>
-          <label for="memberPhone">Phone</label>
-
-          <div class="col-md-4">
-            <div class="input-group">
-              <span class="input-group-addon">+91</span>
-              <input id="memberPhone" type="text" ng-model="member.phone_number" name="memberPhone"
-                     class="form-control" minlength="10" maxlength="10"
-                     required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no" >
+              <div class="col-md-4">
+                <input id="memberName" ng-model="member.name" name="memberName" type="text" placeholder="" required>
+              </div>
             </div>
+            <!-- Select Basic -->
+            <div forminput>
+              <label for="memberSex">Sex</label>
 
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberEmail">E mail</label>
-
-          <div class="col-md-4">
-            <input id="memberEmail" ng-model="member.email" name="memberEmail" placeholder="" type="email">
-
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberDob">Date of Birth</label>
-
-          <div class="col-md-4">
-            <input jdatepicker id="memberDob" name="memberDob" type="text" class="form-control"
-                   ng-model="member.date_of_birth"/>
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div forminput>
-          <label for="memberOccupation">Occupation</label>
-
-          <div class="col-md-4">
-            <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="member.occupation">
-              <option value="student">Student</option>
-              <option value="working">Working</option>
-              <option value="housewife">Housewife</option>
-              <option value="business">Business</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Textarea -->
-        <div forminput>
-          <label for="memberAddress">Address</label>
-
-          <div class="col-md-4">
-            <textarea class="form-control" id="memberAddress" ng-model="member.address" name="memberAddress"></textarea>
-          </div>
-        </div>
-
-
-        <div style="border: solid;padding: 10px;background-color: aliceblue">
-          <div forminput>
-            <label for="memberSubscription">Subscription</label>
-
-            <div class="col-md-4">
-              <select ng-model="member.latest_subscription.membership.id" id="memberSubscription" name="memberSubscription" class="form-control"
-                      ng-options="membership.id as membership.name for membership in memberships" required>
-              </select>
+              <div class="col-md-4">
+                <select id="memberSex" ng-model="member.is_male" name="memberSex" class="form-control" required>
+                  <option value="true">Male</option>
+                  <option value="false">Female</option>
+                </select>
+              </div>
             </div>
-          </div>
+            <!-- Prepended text-->
+            <div forminput>
+              <label for="memberPhone">Phone</label>
 
-          <div forminput>
-            <label for="memberSubscriptionDate">Subscription start date</label>
-
-            <div class="col-md-4">
-              <input jdatepicker id="memberSubscriptionDate" name="memberSubscriptionDate" type="text" class="form-control"
-                     ng-model="member.latest_subscription.start_date" ng-required="true"/>
-
+              <div class="col-md-4">
+                <div class="input-group">
+                  <span class="input-group-addon">+91</span>
+                  <input id="memberPhone" type="text" ng-model="member.phone_number" name="memberPhone"
+                         class="form-control" minlength="10" maxlength="10"
+                         required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no">
+                </div>
+              </div>
             </div>
-          </div>
+            <!-- Text input-->
+            <div forminput>
+              <label for="memberEmail">E mail</label>
 
-          <span class="col-md-offset-4">* Changing subscription will also change the revenue</span>
-        </div>
+              <div class="col-md-4">
+                <input id="memberEmail" ng-model="member.email" name="memberEmail" placeholder="" type="email">
+              </div>
+            </div>
+            <!-- Text input-->
+            <div forminput>
+              <label for="memberDob">Date of Birth</label>
 
-        <br/>
-        <!-- Button (Double) -->
-        <div class="form-group">
+              <div class="col-md-4">
+                <input jdatepicker id="memberDob" name="memberDob" type="text" class="form-control"
+                       ng-model="member.date_of_birth"/>
+              </div>
+            </div>
+            <!-- Text input-->
+            <div forminput>
+              <label for="memberOccupation">Occupation</label>
 
-          <div class="col-md-7 col-md-offset-3">
-            <a href="/members/{{member.id}}" class="btn btn-default col-md-2 col-md-offset-1">
-              <span class="glyphicon glyphicon-chevron-left"> Cancel</span></a>
-            <button ng-confirm-click="Are you sure you want to change this information?" id="editMemberButton" ng-disabled="memberForm.$invalid" ng-click="updateMember()"
-                    name="editMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Update</button>
-          </div>
-        </div>
+              <div class="col-md-4">
+                <select name="memberOccupation" id="memberOccupation" class="form-control" ng-model="member.occupation">
+                  <option value="student">Student</option>
+                  <option value="working">Working</option>
+                  <option value="housewife">Housewife</option>
+                  <option value="business">Business</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <!-- Textarea -->
+            <div forminput>
+              <label for="memberAddress">Address</label>
 
-      </fieldset>
-      <alert ng-show="memberStatus" type="{{memberStatus.style}}" class="center">{{memberStatus.text}}</alert>
-    </form>
-  </div>
+              <div class="col-md-4">
+                <textarea class="form-control" id="memberAddress" ng-model="member.address" name="memberAddress"></textarea>
+              </div>
+            </div>
+            <div style="border: solid;padding: 10px;background-color: aliceblue">
+              <div forminput>
+                <label for="memberSubscription">Subscription</label>
+
+                <div class="col-md-4">
+                  <select ng-model="member.latest_subscription.membership.id" id="memberSubscription" name="memberSubscription" class="form-control"
+                          ng-options="membership.id as membership.name for membership in memberships" required>
+                  </select>
+                </div>
+              </div>
+              <div forminput>
+                <label for="memberSubscriptionDate">Subscription start date</label>
+
+                <div class="col-md-4">
+                  <input jdatepicker id="memberSubscriptionDate" name="memberSubscriptionDate" type="text" class="form-control"
+                         ng-model="member.latest_subscription.start_date" ng-required="true"/>
+                </div>
+              </div>
+              <span class="col-md-offset-4">* Changing subscription will also change the revenue</span>
+            </div>
+            <br/>
+            <!-- Button (Double) -->
+            <div class="form-group">
+              <div class="col-md-7 col-md-offset-3">
+                <a href="/members/{{member.id}}" class="btn btn-default col-md-2 col-md-offset-1">
+                  <span class="glyphicon glyphicon-chevron-left"> Cancel</span></a>
+                <button ng-confirm-click="Are you sure you want to change this information?" id="editMemberButton" ng-disabled="memberForm.$invalid" ng-click="updateMember()"
+                        name="editMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Update
+                </button>
+              </div>
+            </div>
+          </fieldset>
+          <alert ng-show="memberStatus" type="{{memberStatus.style}}" class="center">{{memberStatus.text}}</alert>
+        </form>
+      </div>
+  <% end %>
+
 </div>
