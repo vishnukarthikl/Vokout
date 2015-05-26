@@ -339,19 +339,27 @@ form .glyphicon-ok-circle {
   margin-right: 5px;
 }
 
-.numberCircle {
-  border-radius: 50%;
-
-  width: 36px;
-  height: 36px;
-  padding: 8px;
-
-  background: #de2d0f;
-  //  border: 2px solid #666;
-  color: #ffffff;
-  text-align: center;
+.noti_bubble {
+  position:absolute;
+  top: -3px;
+  right:2px;
+  padding:1px 2px 1px 2px;
+  background-color:red;
+  color:white;
+  font-weight:bold;
+  font-size:1em;
+  border-radius:30px;
+  box-shadow:1px 1px 1px gray;
 }
-
+.noti_highlight {
+  padding:1px 2px 1px 2px;
+  background-color:red;
+  color:white;
+  font-weight:bold;
+  font-size:1em;
+  border-radius:30px;
+  box-shadow:1px 1px 1px gray;
+}
 canvas {
   width: 100% !important;
   max-width: 800px;

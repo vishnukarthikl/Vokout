@@ -2,11 +2,13 @@
   <div class="row" ng-controller="DashboardOverviewCtrl">
     <ul class="nav nav-tabs" role="tablist">
       <li class="active"><a href="#">Dashboard</a></li>
-      <li><a href="dashboard-members">Members
-        <% if @facility.total_expired_members > 0 %>
-            <span class="numberCircle" alt="Members whose subscription expired"><%= @facility.total_expired_members %></span>
-        <% end %>
-      </a>
+      <li>
+        <a href="dashboard-members">
+          Members
+          <% if @facility.total_expired_members > 0 %>
+              <span class="noti_bubble"><%= @facility.total_expired_members %></span>
+          <% end %>
+        </a>
       </li>
       <li><a href="dashboard-memberships">Subscriptions</a></li>
     </ul>
