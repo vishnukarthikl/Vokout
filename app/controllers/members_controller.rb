@@ -26,6 +26,7 @@ class MembersController < ApplicationController
       if @member.save
         subscription.save if subscription
         revenue.save if revenue
+        @member.added_lost_histories.create({is_lost: false, since: subscription.start_date})
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @member }
       else
@@ -46,6 +47,7 @@ class MembersController < ApplicationController
       new_subscription = renewed_subscription(@member)
       revenue_for_renewal = revenue_form(new_subscription) if new_subscription
       if @member.update(member_params) && update_latest_subscription_and_revenue()
+        add_member_gained(new_subscription) if new_subscription
         new_subscription.save if new_subscription
         revenue_for_renewal.save if revenue_for_renewal
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -54,6 +56,12 @@ class MembersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def add_member_gained(subscription)
+    if @member.added_lost_histories.last.is_lost
+      @member.added_lost_histories.create({is_lost: false, since: subscription.start_date})
     end
   end
 

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519181534) do
+ActiveRecord::Schema.define(version: 20150528151712) do
+
+  create_table "added_lost_histories", force: true do |t|
+    t.integer  "member_id"
+    t.boolean  "is_lost"
+    t.date     "since"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "added_lost_histories", ["is_lost"], name: "index_added_lost_histories_on_is_lost"
+  add_index "added_lost_histories", ["member_id"], name: "index_added_lost_histories_on_member_id"
+  add_index "added_lost_histories", ["since"], name: "index_added_lost_histories_on_since"
 
   create_table "admins", force: true do |t|
     t.string   "email",              default: "", null: false

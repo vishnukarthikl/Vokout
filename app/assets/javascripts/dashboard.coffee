@@ -77,6 +77,7 @@
       $scope.splitMonths = $scope.getSplitMonths()
       $scope.revenueTypes = $scope.getAvailableRevenueTypes()
       $scope.splitMonth = $scope.splitMonths[0]
+      $scope.membersAddedLost = $scope.getMembersAddedLost()
     .error (data, status, headers, config) ->
       console.log(status)
 
@@ -104,6 +105,10 @@
 
   $scope.$watch('showRevenueForType', () ->
     $scope.revenueData = $scope.getRevenueByMonth()
+  )
+
+  $scope.$watch('showAddedLostForMonths', () ->
+    $scope.membersAddedLost = $scope.getMembersAddedLost()
   )
 
   $scope.getSplitMonths = () ->
@@ -187,6 +192,60 @@
       labels: labels
       datasets: datasets
       }
+
+
+  membersAdded = (month) ->
+    added = $scope.facility.members_stats.members_added_monthly[month]
+    if added
+      return added
+    else
+      return 0
+
+  membersLost = (month) ->
+    lost = $scope.facility.members_stats.members_lost_monthly[month]
+    if lost
+      return lost
+    else
+      return 0
+
+  $scope.getMembersAddedLost = ->
+    if $scope.facility
+      addedLostMonthly = (generateAllMonths($scope.showAddedLostForMonths).map ((month) ->
+        {
+        month: month
+        added: membersAdded(month)
+        lost: membersLost(month)
+        }
+        )).reverse()
+
+      labels = addedLostMonthly.map((al) ->
+        al.month
+      )
+      lost = addedLostMonthly.map((al)->
+        al.lost
+      )
+      added = addedLostMonthly.map((al) ->
+        al.added
+      )
+      datasets = [
+        {
+          label: "Added",
+          fillColor: "#43AC6A",
+          data: added
+        },{
+          label: "Lost",
+          fillColor: "#f04124",
+          data: lost
+        }
+      ]
+
+      return {
+        labels:labels
+        datasets:datasets
+      }
+
+
+
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
   $scope.refreshData()

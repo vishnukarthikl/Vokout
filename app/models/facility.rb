@@ -50,7 +50,7 @@ class Facility < ActiveRecord::Base
 
   def calculate_revenue_split_monthly
     revenues_map = revenues.map do |r|
-      {time_frame: r.date.strftime('%B')+ ' '+ r.date.strftime('%Y'), revenue: r}
+      {time_frame: month_year(r.date), revenue: r}
     end
     monthly_split = revenues_map.inject(Hash.new) do |hash, revenue|
       unless hash[revenue[:time_frame]]
@@ -87,12 +87,53 @@ class Facility < ActiveRecord::Base
 
   def calculate_monthly_revenue
     revenues_map = revenues.map do |r|
-      {time_frame: r.date.strftime('%B')+ ' '+ r.date.strftime('%Y'), value: r.value}
+      {time_frame: month_year(r.date), value: r.value}
     end
     revenues_map.inject(Hash.new(0)) { |h, e| h[e[:time_frame]] += e[:value]; h }
   end
 
   def is_date_in_month(date, in_month)
     date.month == in_month.month && date.year == in_month.year
+  end
+
+  def members_lost_monthly
+    self.members.each do |member|
+      latest_subscription = member.latest_subscription
+      if latest_subscription.expired
+        if latest_subscription.end_date < 1.months.ago
+          last_status = member.added_lost_histories.order(:since).last
+          if !last_status || !last_status.is_lost
+            member.added_lost_histories.create({is_lost: true, since: latest_subscription.end_date})
+          end
+        end
+      end
+    end
+
+    monthly_lost_count()
+  end
+
+  def members_added_monthly()
+    monthly_gained_count()
+  end
+
+  def monthly_gained_count()
+    monthly_count(false)
+  end
+
+  def monthly_lost_count()
+    monthly_count(true)
+  end
+
+  def monthly_count(lost)
+    monthly = AddedLostHistory.where({is_lost: lost}).group_by { |m| month_year(m.since) }
+    monthly_count = {}
+    monthly.map do |k, v|
+      monthly_count[k] = v.count
+    end
+    monthly_count
+  end
+
+  def month_year(date)
+    date.strftime('%B')+ ' '+ date.strftime('%Y')
   end
 end

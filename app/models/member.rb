@@ -4,6 +4,7 @@ class Member < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :revenues, dependent: :destroy
   has_many :purchases, dependent: :destroy
+  has_many :added_lost_histories, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 

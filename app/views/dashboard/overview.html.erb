@@ -52,8 +52,8 @@
         </div>
         <div class="row">
 
-          <div class="col-md-6 col-xs-11 bordered">
-            <canvas class="col-md-12" tc-chartjs chart-type="bar" chart-data="revenueData"></canvas>
+          <div class="col-md-6 col-xs-12 bordered">
+            <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueData"></canvas>
             <div class="form-group">
               <label for="showRevenueForMonths" class="col-sm-6 control-label">last months:</label>
 
@@ -77,8 +77,25 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 col-xs-12 bordered">
+            <canvas class="col-md-12" tc-chartjs-bar chart-data="membersAddedLost"></canvas>
 
-          <div class="col-md-6 col-xs-11 bordered chart-legend">
+            <div class="form-group">
+              <label for="showAddedLostForMonths" class="col-sm-6 control-label">last months:</label>
+
+              <div class="col-sm-6">
+                <select name="showAddedLostForMonths" id="showAddedLostForMonths" class="form-control" ng-model="showAddedLostForMonths" ng-init="showAddedLostForMonths=6">
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-xs-12 bordered chart-legend">
             <canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>
 
             <select name="splitMonth" id="splitMonth" class="form-control"
