@@ -46,8 +46,9 @@ class MembersController < ApplicationController
     respond_to do |format|
       new_subscription = renewed_subscription(@member)
       revenue_for_renewal = revenue_form(new_subscription) if new_subscription
+      previous_status = @member.inactive
       if @member.update(member_params) && update_latest_subscription_and_revenue()
-        add_member_gained(new_subscription) if new_subscription
+        update_added_lost(@member, previous_status)
         new_subscription.save if new_subscription
         revenue_for_renewal.save if revenue_for_renewal
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -59,11 +60,21 @@ class MembersController < ApplicationController
     end
   end
 
-  def add_member_gained(subscription)
-    if @member.added_lost_histories.last.is_lost
-      @member.added_lost_histories.create({is_lost: false, since: subscription.start_date})
+  LOST_DAYS_THRESHOLD = 21.days
+
+  def update_added_lost(member, previously_inactive)
+    if !previously_inactive and member.inactive
+      member.added_lost_histories.create({is_lost: true, since: Date.today})
+    elsif previously_inactive and !member.inactive
+      latest_history = member.added_lost_histories.order(:since).order(:created_at).last
+      if latest_history.is_lost and latest_history.since < LOST_DAYS_THRESHOLD.ago
+        member.added_lost_histories.create({is_lost: false, since: Date.today})
+      elsif latest_history.is_lost
+        latest_history.delete
+      end
     end
   end
+
 
   def update_latest_subscription_and_revenue
     latest_subscription = params.require(:latest_subscription)
@@ -119,7 +130,7 @@ class MembersController < ApplicationController
 
   private
   def set_member
-    @member = Member.includes(subscriptions: :membership).where({id:params[:id],facility_id: facility_id}).first
+    @member = Member.includes(subscriptions: :membership).where({id: params[:id], facility_id: facility_id}).first
   end
 
   private

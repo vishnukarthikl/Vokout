@@ -96,26 +96,6 @@ class Facility < ActiveRecord::Base
     date.month == in_month.month && date.year == in_month.year
   end
 
-  def members_lost_monthly
-    self.members.each do |member|
-      latest_subscription = member.latest_subscription
-      if latest_subscription.expired
-        if latest_subscription.end_date < 1.months.ago
-          last_status = member.added_lost_histories.order(:since).last
-          if !last_status || !last_status.is_lost
-            member.added_lost_histories.create({is_lost: true, since: latest_subscription.end_date})
-          end
-        end
-      end
-    end
-
-    monthly_lost_count()
-  end
-
-  def members_added_monthly()
-    monthly_gained_count()
-  end
-
   def monthly_gained_count()
     monthly_count(false)
   end
