@@ -26,6 +26,7 @@ $gray-medium-light: #eaeaea;
 
 html {
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 @media (max-width: 979px) {
