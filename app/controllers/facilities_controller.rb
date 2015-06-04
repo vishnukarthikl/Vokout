@@ -7,9 +7,12 @@ class FacilitiesController < ApplicationController
     render 'facilities/setup'
   end
 
+  TRIAL_PERIOD = 1.months
+
   def create
     @owner = current_owner
     @facility = @owner.build_facility(facility_params)
+    @facility.expires_on = TRIAL_PERIOD.since
     respond_to do |format|
       if @facility.save
         format.html {

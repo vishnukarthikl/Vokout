@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528151712) do
+ActiveRecord::Schema.define(version: 20150603092843) do
 
   create_table "added_lost_histories", force: true do |t|
     t.integer  "member_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150528151712) do
     t.datetime "updated_at", null: false
     t.text     "address"
     t.string   "phone"
+    t.date     "expires_on"
   end
 
   add_index "facilities", ["owner_id"], name: "index_facilities_on_owner_id"

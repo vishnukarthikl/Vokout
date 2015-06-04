@@ -13,14 +13,14 @@
           <th>Name</th>
           <th>Gym</th>
           <th>Phone</th>
-          <th>Email</th>
+          <th>Days for Expiry</th>
           <th colspan="2"></th>
         </tr>
         </thead>
 
         <tbody>
         <% @owners.each do |owner| %>
-            <tr>
+            <tr class="<%= owner.facility and (owner.facility.expires_on - Date.today).floor < 0? 'danger':'' %>">
               <td><%= owner.name %></td>
               <td>
                 <% if owner.facility %>
@@ -33,8 +33,17 @@
                 <% if owner.facility %>
                     <%= owner.facility.phone %>
                 <% else %>
-                    <%= '-' %></td>
+                    <%= '-' %>
                 <% end %>
+              </td>
+              <td>
+                <% if owner.facility %>
+                    <%= time_ago_in_words(owner.facility.expires_on) %>
+                <% else %>
+                    <%= '-' %>
+                <% end %>
+              </td>
+
                 <td><%= owner.email %></td>
                 <td><%= link_to 'Edit', edit_owner_admin_path(owner) %></td>
                 <td>

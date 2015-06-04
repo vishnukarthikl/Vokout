@@ -12,27 +12,33 @@
             <strong>Email:</strong>
             <%= @owner.email %>
           </p>
+          <% if @owner.facility %>
+              <p>
+                <strong>Gym name:</strong>
+                <%= @owner.facility.name %>
+              </p>
 
-          <p>
-            <strong>Gym name:</strong>
-            <%= @owner.facility.name %>
-          </p>
+              <p>
+                <strong>Gym address:</strong>
+                <%= @owner.facility.address %>
+              </p>
 
-          <p>
-            <strong>Gym address:</strong>
-            <%= @owner.facility.address %>
-          </p>
+              <p>
+                <strong>Phone:</strong>
+                <%= @owner.facility.phone %>
+              </p>
 
-          <p>
-            <strong>Phone:</strong>
-            <%= @owner.facility.phone %>
-          </p>
+              <p>
+                <strong>Payment due on:</strong>
+                <span class="<%= @owner.facility and (@owner.facility.expires_on - Date.today).floor < 0 ? 'btn-danger' : '' %>"><%= @owner.facility.expires_on.strftime("%B %d") %></span>
+              </p>
+          <% end %>
         </div>
 
         <div class="col-md-6">
           <%= link_to 'Edit', edit_owner_path, class: "btn btn-primary" %> |
           <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %> |
-          <%= link_to "Log out", logout_path, method: "delete", class:"btn btn-danger" %>
+          <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-danger" %>
         </div>
 
 
