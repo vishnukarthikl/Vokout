@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603092843) do
+ActiveRecord::Schema.define(version: 20150604133035) do
 
   create_table "added_lost_histories", force: true do |t|
     t.integer  "member_id"
