@@ -58,7 +58,7 @@
 
 
 @DashboardOverviewCtrl = ($scope, $resource, $http) ->
-  colors = ["#5DA5DA", "#FAA43A", "#60BD68", "#607B8B", "#DECF3F", "#E05854", "#9E9AC8", "#C0FF3E", "#FF0000",
+  colors = ["#337ab7", "#FAA43A", "#60BD68", "#607B8B", "#DECF3F", "#E05854", "#9E9AC8", "#C0FF3E", "#FF0000",
             "#8B5A00", "#808000"]
   $scope.options = {
     segmentShowStroke: false,
@@ -78,6 +78,7 @@
       $scope.revenueTypes = $scope.getAvailableRevenueTypes()
       $scope.splitMonth = $scope.splitMonths[0]
       $scope.membersAddedLost = $scope.getMembersAddedLost()
+      $scope.revenueLostData = $scope.getRevenueLost()
     .error (data, status, headers, config) ->
       console.log(status)
 
@@ -109,6 +110,10 @@
 
   $scope.$watch('showAddedLostForMonths', () ->
     $scope.membersAddedLost = $scope.getMembersAddedLost()
+  )
+
+  $scope.$watch('showRevenueLostForMonths', () ->
+    $scope.revenueLostData = $scope.getRevenueLost()
   )
 
   $scope.getSplitMonths = () ->
@@ -238,6 +243,40 @@
           data: lost
         }
       ]
+
+      return {
+        labels:labels
+        datasets:datasets
+      }
+
+  lostRevenue = (month) ->
+    revenueLost = $scope.facility.revenues.revenue_lost[month]
+    if revenueLost
+      return revenueLost
+    else
+      0
+
+  $scope.getRevenueLost = () ->
+    if $scope.facility
+      revenueLostMonthly = (generateAllMonths($scope.showRevenueLostForMonths).map ((month) ->
+        {
+        month: month
+        lostRevenue: lostRevenue(month)
+        }
+      )).reverse()
+
+      labels = revenueLostMonthly.map((lr) ->
+        lr.month
+      )
+      data = revenueLostMonthly.map((lr) ->
+        lr.lostRevenue
+      )
+
+      datasets = [{
+        label: "Lost Revenue",
+        fillColor: "#f04124",
+        data: data
+      }]
 
       return {
         labels:labels

@@ -19,6 +19,7 @@ unless @facility.nil?
     json.all @facility.revenues do |revenue|
       json.partial! 'revenues/revenue', revenue: revenue
     end
+    json.revenue_lost @facility.calculate_monthly_lost_revenue
   end
   json.members_stats do
     json.members_lost_monthly @facility.monthly_lost_count

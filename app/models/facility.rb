@@ -96,6 +96,18 @@ class Facility < ActiveRecord::Base
     date.month == in_month.month && date.year == in_month.year
   end
 
+  def calculate_monthly_lost_revenue
+    members = self.members.map { |m| m.id }
+    lost_histories = AddedLostHistory.where({is_lost: true, member_id: members})
+    lost_histories.inject(Hash.new(0)) do |h, lost|
+      latest_subscription = lost.member.latest_subscription
+      if latest_subscription
+        h[month_year(lost.since)] += latest_subscription.membership.cost
+        h
+      end
+    end
+  end
+
   def monthly_gained_count()
     monthly_count(false)
   end
@@ -105,7 +117,8 @@ class Facility < ActiveRecord::Base
   end
 
   def monthly_count(lost)
-    monthly = AddedLostHistory.where({is_lost: lost}).group_by { |m| month_year(m.since) }
+    members = self.members.map { |m| m.id }
+    monthly = AddedLostHistory.where({is_lost: lost, member_id: members}).group_by { |m| month_year(m.since) }
     monthly_count = {}
     monthly.map do |k, v|
       monthly_count[k] = v.count

@@ -64,7 +64,7 @@ class MembersController < ApplicationController
 
   def update_added_lost(member, previously_inactive)
     if !previously_inactive and member.inactive
-      member.added_lost_histories.create({is_lost: true, since: Date.today})
+      member.added_lost_histories.create({is_lost: true, since: member.latest_subscription.end_date})
     elsif previously_inactive and !member.inactive
       latest_history = member.added_lost_histories.order(:since).order(:created_at).last
       if latest_history.is_lost and latest_history.since < LOST_DAYS_THRESHOLD.ago
