@@ -6,7 +6,7 @@ class CreateActiveMembersHistory < ActiveRecord::Migration
       t.integer :total
       t.date :in
     end
-    add_foreign_key :active_members_histories, :facility
+    add_foreign_key :active_members_histories, :facilities
     add_index :active_members_histories, :in
   end
 end
