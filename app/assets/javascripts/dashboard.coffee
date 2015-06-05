@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @DashboardCtrl = ($scope, $resource, $http, memberService) ->
-
   $scope.refreshData = ->
     $http.get('/facilities/show')
     .success (data) ->
@@ -79,6 +78,7 @@
       $scope.splitMonth = $scope.splitMonths[0]
       $scope.membersAddedLost = $scope.getMembersAddedLost()
       $scope.revenueLostData = $scope.getRevenueLost()
+      $scope.activeCustomerData = $scope.getActiveCustomerData()
     .error (data, status, headers, config) ->
       console.log(status)
 
@@ -114,6 +114,10 @@
 
   $scope.$watch('showRevenueLostForMonths', () ->
     $scope.revenueLostData = $scope.getRevenueLost()
+  )
+
+  $scope.$watch('showActiveCustomerForMonths', () ->
+    $scope.activeCustomerData = $scope.getActiveCustomerData()
   )
 
   $scope.getSplitMonths = () ->
@@ -221,7 +225,7 @@
         added: membersAdded(month)
         lost: membersLost(month)
         }
-        )).reverse()
+      )).reverse()
 
       labels = addedLostMonthly.map((al) ->
         al.month
@@ -237,7 +241,7 @@
           label: "Added",
           fillColor: "#43AC6A",
           data: added
-        },{
+        }, {
           label: "Lost",
           fillColor: "#f04124",
           data: lost
@@ -245,8 +249,8 @@
       ]
 
       return {
-        labels:labels
-        datasets:datasets
+      labels: labels
+      datasets: datasets
       }
 
   lostRevenue = (month) ->
@@ -279,11 +283,50 @@
       }]
 
       return {
-        labels:labels
-        datasets:datasets
+      labels: labels
+      datasets: datasets
       }
 
+  averageMonthlyActive = (month) ->
+    activeMembersCount = $scope.facility.members_stats.active_members_history[month]
+    if activeMembersCount
+      return activeMembersCount
+    else
+      0
 
+
+  $scope.getActiveCustomerData = () ->
+    if $scope.facility
+      monthlyActive = (generateAllMonths($scope.showActiveCustomerForMonths).map ((month) ->
+        {
+        month: month
+        count: averageMonthlyActive(month)
+        }
+      )).reverse()
+
+      labels = monthlyActive.map((ma) ->
+        ma.month
+      )
+
+      data = monthlyActive.map((ma) ->
+        ma.count
+      )
+
+      datasets = [{
+          label: "Active Customers",
+          fillColor: "#43AC6A",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(255,255,205,1)",
+          data: data
+        }]
+
+      return {
+      labels: labels
+      datasets: datasets
+      }
 
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->

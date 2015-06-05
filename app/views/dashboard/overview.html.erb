@@ -107,6 +107,25 @@
             </select>
           </div>
           <div class="col-md-6 col-xs-12 bordered chart-holder">
+            <h3>Active Customers</h3>
+            <canvas class="col-md-12" tc-chartjs-line chart-data="activeCustomerData"></canvas>
+
+            <div class="form-group">
+              <label for="showActiveCustomerForMonths" class="col-sm-6 control-label">last months:</label>
+
+              <div class="col-sm-6">
+                <select name="showActiveCustomerForMonths" id="showActiveCustomerForMonths" class="form-control" ng-model="showActiveCustomerForMonths" ng-init="showActiveCustomerForMonths=6">
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Revenue Lost</h3>
             <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueLostData"></canvas>
 

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604133035) do
+ActiveRecord::Schema.define(version: 20150605091003) do
+
+  create_table "active_members_histories", force: true do |t|
+    t.integer "facility_id"
+    t.integer "count"
+    t.integer "total"
+    t.date    "in"
+  end
+
+  add_index "active_members_histories", ["facility_id"], name: "index_active_members_histories_on_facility_id"
+  add_index "active_members_histories", ["in"], name: "index_active_members_histories_on_in"
 
   create_table "added_lost_histories", force: true do |t|
     t.integer  "member_id"

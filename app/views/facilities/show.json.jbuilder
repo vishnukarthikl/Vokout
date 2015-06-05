@@ -24,5 +24,6 @@ unless @facility.nil?
   json.members_stats do
     json.members_lost_monthly @facility.monthly_lost_count
     json.members_added_monthly @facility.monthly_gained_count
+    json.active_members_history @facility.active_members_history
   end
 end

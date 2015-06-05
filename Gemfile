@@ -18,6 +18,8 @@ gem 'simple_form', '~> 3.1.0', github:'plataformatec/simple_form', branch: 'mast
 gem 'puma'
 gem 'devise'
 gem 'bootstrap_form'
+gem 'rufus-scheduler'
+
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

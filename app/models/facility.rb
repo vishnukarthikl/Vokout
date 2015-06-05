@@ -3,6 +3,7 @@ class Facility < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :revenues, dependent: :destroy
+  has_many :active_members_histories, dependent: :destroy
   validates :owner_id, presence: true
   validates :name, presence: true
   validates :address, presence: true
@@ -124,6 +125,16 @@ class Facility < ActiveRecord::Base
       monthly_count[k] = v.count
     end
     monthly_count
+  end
+
+  def active_members_history
+    active_members_histories = ActiveMembersHistory.where({facility_id: self.id}).group_by { |m| month_year(m.in) }
+    average_monthly_active = {}
+    active_members_histories.map() do |month,history|
+      total_active = history.inject(0) { |total, h| total+h.count }
+      average_monthly_active[month] = total_active/history.count
+    end
+    average_monthly_active
   end
 
   def month_year(date)
