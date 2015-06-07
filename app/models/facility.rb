@@ -137,6 +137,16 @@ class Facility < ActiveRecord::Base
     average_monthly_active
   end
 
+  def net_added_lost_this_month
+    members = self.members.map { |m| m.id }
+    last_month = AddedLostHistory.where(member_id: members).where('since > ?', 1.month.ago)
+    added_last_month = last_month.where(is_lost: false).count
+    lost_last_month = last_month.where(is_lost: true).count
+    print added_last_month
+    print lost_last_month
+    added_last_month - lost_last_month
+  end
+
   def month_year(date)
     date.strftime('%B')+ ' '+ date.strftime('%Y')
   end

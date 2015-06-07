@@ -47,6 +47,24 @@
                 <td>Total Customers</td>
                 <td>{{facility.members.length}}</td>
               </tr>
+              <tr>
+                <td>
+                  Net customer added/lost this month
+                </td>
+                <td ng-if="facility.members_stats.net_added_lost_this_month > 0">
+                  {{facility.members_stats.net_added_lost_this_month}}
+                  <span class="glyphicon glyphicon-arrow-up customer-added"></span>
+                </td>
+                <td ng-if="facility.members_stats.net_added_lost_this_month < 0">
+                  {{-facility.members_stats.net_added_lost_this_month}}
+                  <span class="glyphicon glyphicon-arrow-down customer-lost"></span>
+                </td>
+                <td ng-if="facility.members_stats.net_added_lost_this_month == 0">
+                  0
+                  <span class="glyphicon glyphicon-random"></span>
+
+                </td>
+              </tr>
             </table>
           </div>
         </div>
