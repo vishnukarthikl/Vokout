@@ -134,6 +134,13 @@ class Facility < ActiveRecord::Base
       total_active = history.inject(0) { |total, h| total+h.count }
       average_monthly_active[month] = total_active/history.count
     end
+    average_monthly_active[month_year(Date.today)] = self.members.inject(0) do |total,m|
+      if !m.inactive
+        total+1
+      else
+        total
+      end
+    end
     average_monthly_active
   end
 
