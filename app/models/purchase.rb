@@ -8,6 +8,6 @@ class Purchase < ActiveRecord::Base
 
   private
   def create_log
-    self.create_audit_log(facility: self.member.facility, date: self.date)
+    self.create_audit_log(facility: self.member.facility, date: self.date, description: 'purchased')
   end
 end

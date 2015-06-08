@@ -49,7 +49,10 @@ class MembersController < ApplicationController
       previous_status = @member.inactive
       if @member.update(member_params) && update_latest_subscription_and_revenue()
         update_added_lost(@member, previous_status)
-        new_subscription.save if new_subscription
+        if new_subscription
+          new_subscription.save
+          new_subscription.create_audit_log(facility: @member.facility, date: new_subscription.start_date, description: 'renewed')
+        end
         revenue_for_renewal.save if revenue_for_renewal
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @member }
@@ -65,8 +68,10 @@ class MembersController < ApplicationController
   def update_added_lost(member, previously_inactive)
     if !previously_inactive and member.inactive
       member.added_lost_histories.create({is_lost: true, since: member.latest_subscription.end_date})
+      member.audit_logs.create(facility: member.facility, date: DateTime.now, description: 'deactivated')
     elsif previously_inactive and !member.inactive
       latest_history = member.added_lost_histories.order(:since).order(:created_at).last
+      member.audit_logs.create(facility: member.facility, date: DateTime.now, description: 'activated')
       if latest_history.is_lost and latest_history.since < LOST_DAYS_THRESHOLD.ago
         member.added_lost_histories.create({is_lost: false, since: Date.today})
       elsif latest_history.is_lost

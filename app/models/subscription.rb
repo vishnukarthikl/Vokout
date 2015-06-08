@@ -5,6 +5,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :member
   belongs_to :membership
   has_one :revenue, as: :purchasable, dependent: :destroy
+  has_one :audit_log, as: :auditable, dependent: :destroy
 
   def end_date
     if self.extended_till

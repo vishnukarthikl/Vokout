@@ -14,13 +14,30 @@
   </div>
   <div ng-controller="HistoryCtrl">
     <div id="data" data-facility-id="<%= @facility.id %>"></div>
-        <table class="table lead">
-          <tr ng-repeat="log in logs">
-            <td ng-if="log.auditable_type=='Purchase'">
-              <span class="glyphicon glyphicon-shopping-cart"></span> {{log.member.name}} bought {{log.purchase.name}} for {{log.purchase.cost}} on
-              <span class="">{{formatDate(log.date)}}</span>
-            </td>
-          </tr>
-        </table>
+    <div class="center">
+      <dir-pagination-controls></dir-pagination-controls>
+    </div>
+    <table class="table">
+      <tr dir-paginate="log in logs | itemsPerPage: 10">
+        <td ng-if="log.auditable_type=='Purchase'">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+          <span class="member-name">{{log.member.name}}</span> {{log.description}} '{{log.purchase.name}}' for
+          {{log.purchase.cost}} on
+          <span class="date-holder">{{formatDate(log.date)}}</span>
+        </td>
+        <td ng-if="log.auditable_type=='Member'">
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="member-name">{{log.member.name}}</span> was {{log.description}} on
+          <span class="date-holder">{{formatDate(log.date)}}</span>
+        </td>
+        <td ng-if="log.auditable_type=='Subscription'">
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="member-name">{{log.member.name}}</span> {{log.description}} subscription {{log.membership.name}}
+          on
+          <span class="date-holder">{{formatDate(log.date)}}</span>
+        </td>
+      </tr>
+    </table>
+
   </div>
 </div>

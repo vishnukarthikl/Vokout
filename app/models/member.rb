@@ -1,10 +1,13 @@
 class Member < ActiveRecord::Base
 
+  after_create :create_added_log
+
   belongs_to :facility
   has_many :subscriptions, dependent: :destroy
   has_many :revenues, dependent: :destroy
   has_many :purchases, dependent: :destroy
   has_many :added_lost_histories, dependent: :destroy
+  has_many :audit_logs, as: :auditable, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
@@ -32,5 +35,15 @@ class Member < ActiveRecord::Base
       end
     end
     min_subscription
+  end
+
+  private
+  def create_added_log
+    create_log('added')
+  end
+
+  private
+  def create_log(description)
+    self.create_audit_log(facility: self.facility, date: Date.today,description: description)
   end
 end
