@@ -7,6 +7,7 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
 .controller('NewMemberCtrl', @NewMemberCtrl)
 .controller('EditMemberCtrl', @EditMemberCtrl)
 .controller('MembershipCtrl', @MembershipCtrl)
+.controller('HistoryCtrl', @HistoryCtrl)
 .factory('memberService', ($resource) ->
     $resource('/facilities/:facility_id/members/:id', {facility_id: "@facility_id", id: "@id"},
             {update: {method: "PUT"}}, isArray: true)
@@ -18,6 +19,8 @@ vorkoutjs = angular.module('vorkoutjs', ['ngResource', 'angularUtils.directives.
 .factory('purchaseService', ($resource)->
     $resource('/members/:member_id/purchases/:purchase_id', {member_id: "@member_id", id: "@id"},
             {update: {method: "PUT"}}, isArray: true)
+).factory('historyService',($resource)->
+    $resource('/facilities/:facility_id/audit_logs/:audit_log_id', {facility_id: "@facility_id", id: "@id"})
 )
 .config ["$httpProvider", ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')

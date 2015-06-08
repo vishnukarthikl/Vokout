@@ -3,6 +3,7 @@ class Facility < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :revenues, dependent: :destroy
+  has_many :audit_logs, dependent: :destroy
   has_many :active_members_histories, dependent: :destroy
   validates :owner_id, presence: true
   validates :name, presence: true

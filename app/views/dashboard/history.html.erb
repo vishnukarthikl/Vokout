@@ -1,0 +1,26 @@
+<div class="container dashboard-container">
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li><a href="dashboard">Dashboard</a></li>
+      <li><a href="dashboard-members">Members
+        <% if @facility.total_expired_members > 0 %>
+            <span class="noti_bubble"><%= @facility.total_expired_members %></span>
+        <% end %>
+      </a>
+      </li>
+      <li><a href="dashboard-memberships">Subscriptions</a></li>
+      <li class="active"><a href="#">History</a></li>
+    </ul>
+  </div>
+  <div ng-controller="HistoryCtrl">
+    <div id="data" data-facility-id="<%= @facility.id %>"></div>
+        <table class="table lead">
+          <tr ng-repeat="log in logs">
+            <td ng-if="log.auditable_type=='Purchase'">
+              <span class="glyphicon glyphicon-shopping-cart"></span> {{log.member.name}} bought {{log.purchase.name}} for {{log.purchase.cost}} on
+              <span class="">{{formatDate(log.date)}}</span>
+            </td>
+          </tr>
+        </table>
+  </div>
+</div>

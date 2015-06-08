@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#overview', as: 'dashboard'
   get 'dashboard-members' => 'dashboard#members', as: 'dashboard_members'
   get 'dashboard-memberships' => 'dashboard#memberships', as: 'dashboard_memberships'
+  get 'dashboard-history' => 'dashboard#history', as: 'dashboard_history'
 
   get 'contact' => 'contact_messages#new', as: 'contact'
   post 'contact' => 'contact_messages#create', as: 'post_contact'
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
   resources :facilities do
     resources :memberships
     resources :members
+    resources :audit_logs, only:[:index]
   end
 
   get 'admin-dashboard' => 'admins#dashboard', as: 'admin_dashboard'
