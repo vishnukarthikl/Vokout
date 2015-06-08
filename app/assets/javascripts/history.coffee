@@ -9,7 +9,7 @@
   $scope.formatDate = (date) ->
     moment(date).format('D/M/YYYY')
 
-  $scope.logTypes = ['All', 'Addition', 'Renewal', 'Purchases', 'Activation', 'Deactivation']
+  $scope.logTypes = ['All', 'Addition', 'Renewal', 'Purchases', 'Activation', 'Deactivation','Extension']
 
   $scope.filterLogType = (logType) ->
     (log) ->
@@ -25,5 +25,7 @@
         'activated' == log.description
       else if logType == 'Deactivation'
         'deactivated' == log.description
+      else if logType == 'Extension'
+        'extended' == log.description
       else
         false

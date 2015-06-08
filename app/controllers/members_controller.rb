@@ -92,6 +92,9 @@ class MembersController < ApplicationController
     }
     found_subscription.update(update_params)
     found_subscription.revenue.update({value: found_subscription.membership.cost, date: found_subscription.start_date})
+    if latest_subscription[:extended_till]
+      found_subscription.create_audit_log(facility: @member.facility, date: DateTime.now, description: 'extended')
+    end
     @member.reload
   end
 

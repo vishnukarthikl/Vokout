@@ -36,8 +36,13 @@
           <span class="date-holder">{{formatDate(log.date)}}</span>
         </td>
         <td ng-if="log.auditable_type=='Subscription'">
-          <span class="glyphicon glyphicon-user"></span>
-          <span class="member-name">{{log.member.name}}</span> {{log.description}} subscription {{log.membership.name}}
+          <span class="glyphicon glyphicon-calendar"></span>
+          <span ng-if="log.description=='renewed'">
+            <span class="member-name">{{log.member.name}}</span> {{log.description}} subscription {{log.membership.name}}
+          </span>
+          <span ng-if="log.description=='extended'">
+            <span class="member-name">{{log.member.name}}</span> {{log.description}} subscription {{log.membership.name}} to {{formatDate(log.subscription.end_date)}}
+          </span>
           on
           <span class="date-holder">{{formatDate(log.date)}}</span>
         </td>
