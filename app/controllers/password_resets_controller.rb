@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
   def create
     owner = Owner.find_by_email(params[:email])
     owner.send_password_reset if owner
-    redirect_to root_url, :notice => "Email sent with password reset instructions"
+    redirect_to root_url, :notice => "We will send an Email with password reset instructions in 5 minutes"
   end
 
   def edit
