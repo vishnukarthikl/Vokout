@@ -14,11 +14,16 @@
   </div>
   <div ng-controller="HistoryCtrl">
     <div id="data" data-facility-id="<%= @facility.id %>"></div>
-    <div class="center">
-      <dir-pagination-controls></dir-pagination-controls>
+    <div>
+      <div class="col-md-3"><label for="showLogType">Type
+      </label><select name="showLogType" id="showLogType" class="form-control"
+                      ng-model="showLogType" ng-options="logType for logType in logTypes" ng-init="showLogType=logTypes[0]"></select>
+      </div>
+
+      <dir-pagination-controls class="col-md-4 col-md-offset-2"></dir-pagination-controls>
     </div>
     <table class="table">
-      <tr dir-paginate="log in logs | itemsPerPage: 10">
+      <tr dir-paginate="log in logs | filter:filterLogType(showLogType) | itemsPerPage: 10">
         <td ng-if="log.auditable_type=='Purchase'">
           <span class="glyphicon glyphicon-shopping-cart"></span>
           <span class="member-name">{{log.member.name}}</span> {{log.description}} '{{log.purchase.name}}' for
