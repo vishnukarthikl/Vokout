@@ -68,7 +68,12 @@ class MembersController < ApplicationController
   def update_added_lost(member, previously_inactive)
     if !previously_inactive and member.inactive
       member.added_lost_histories.create({is_lost: true, since: member.latest_subscription.end_date})
-      member.audit_logs.create(facility: member.facility, date: DateTime.now, description: 'deactivated')
+      if member.latest_subscription.expired
+        lost_on = member.latest_subscription.end_date
+      else
+        lost_on = DateTime.now
+      end
+      member.audit_logs.create(facility: member.facility, date: lost_on, description: 'deactivated')
     elsif previously_inactive and !member.inactive
       latest_history = member.added_lost_histories.order(:since).order(:created_at).last
       member.audit_logs.create(facility: member.facility, date: DateTime.now, description: 'activated')
