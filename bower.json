@@ -6,13 +6,13 @@
     "angular-resource": "1.3.14",
     "angular-messages": "1.3.14",
     "angular-utils-pagination": "latest",
-    "tc-angular-chartjs": "latest",
     "angular-bootstrap": "latest",
     "moment": "latest",
     "angular-toggle-switch" : "latest",
     "jquery-ui" : "latest",
     "tg-angular-validator" : "latest",
-    "pluralize" : "latest"
+    "pluralize" : "latest",
+    "angularjs-nvd3-directives": "latest"
   },
   "resolutions": {
     "angular": "1.3.14"

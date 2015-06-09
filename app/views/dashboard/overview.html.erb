@@ -73,7 +73,11 @@
 
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Monthly Revenue</h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueData"></canvas>
+            <nvd3-discrete-bar-chart data="revenueData" id="reveneMonthly" width="550" height="420"
+                                     showXAxis="false" showYAxis="true"
+                                     tooltips="true" color="colorFunction()" >
+              <svg></svg>
+            </nvd3-discrete-bar-chart>
             <div class="form-group">
               <label for="showRevenueForMonths" class="col-sm-6 control-label">last months:</label>
 
@@ -99,7 +103,12 @@
           </div>
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Customers Added and Lost </h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="membersAddedLost"></canvas>
+            <!--<canvas class="col-md-12" tc-chartjs-bar chart-data="membersAddedLost"></canvas>-->
+            <nvd3-multi-bar-chart data="membersAddedLost" id="membersAddedLostChart" width="550" height="420"
+                                     showXAxis="false" showYAxis="true"
+                                     tooltips="true" color="addedLostColor()" stacked="true">
+              <svg></svg>
+            </nvd3-multi-bar-chart>
 
             <div class="form-group">
               <label for="showAddedLostForMonths" class="col-sm-6 control-label">last months:</label>
@@ -118,7 +127,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12 bordered chart-legend chart-holder">
             <h3>Monthly Revenue Split</h3>
-            <canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>
+            <!--<canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>-->
 
             <select name="splitMonth" id="splitMonth" class="form-control"
                     ng-model="splitMonth" ng-options="split for split in splitMonths" required>
@@ -127,7 +136,7 @@
           </div>
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Active Customers</h3>
-            <canvas class="col-md-12" tc-chartjs-line chart-data="activeCustomerData"></canvas>
+            <!--<canvas class="col-md-12" tc-chartjs-line chart-data="activeCustomerData"></canvas>-->
 
             <div class="form-group">
               <label for="showActiveCustomerForMonths" class="col-sm-6 control-label">last months:</label>
@@ -146,7 +155,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Revenue Lost</h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueLostData"></canvas>
+            <!--<canvas class="col-md-12" tc-chartjs-bar chart-data="revenueLostData"></canvas>-->
 
             <div class="form-group">
               <label for="showRevenueLostForMonths" class="col-sm-6 control-label">last months:</label>
