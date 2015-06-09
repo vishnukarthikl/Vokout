@@ -19,9 +19,8 @@
 //= require angular-bootstrap
 //= require bootstrap-sass-official/assets/javascripts/bootstrap
 //= require moment
-//= require d3/d3.js
-//= require nvd3/nv.d3.js
-//= require angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js
+//= require Chart.js/Chart.js
+//= require tc-angular-chartjs
 //= require angular-rails-templates
 //= require angular-toggle-switch
 //= require jquery-ui/jquery-ui.js

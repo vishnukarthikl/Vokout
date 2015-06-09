@@ -130,14 +130,6 @@
       months_with_revenue.push("All")
       months_with_revenue
 
-  $scope.revenueSplitX = () ->
-    (d) ->
-      d.label
-
-  $scope.revenueSplitY = () ->
-    (d) ->
-      d.value
-
   $scope.getRevenueSplit = () ->
     if $scope.facility
       if $scope.splitMonth == "All"
@@ -151,6 +143,7 @@
         {
         value: value
         label: key
+        color: colors[i]
         }
 
   $scope.getAvailableRevenueTypes = ->
@@ -177,11 +170,6 @@
     revenue = $scope.facility.revenues.categorized_monthly[month]
     revenue[type] if revenue
 
-  colorCategory = d3.scale.category20()
-  $scope.colorFunction = ->
-    (d, i)->
-      colorCategory(d);
-
   $scope.getRevenueByMonth = ->
     if $scope.facility
       revenueByMonth = (generateMonths().map ((month) ->
@@ -203,13 +191,16 @@
       data = revenueByMonth.map((r)->
         r.value
       )
-
-      return [
-        {
-          "key": "Revenue"
-          "values": d3.zip(labels, data)
-        }
-      ]
+      datasets = []
+      datasets[0] = {
+        label: "Revenue",
+        fillColor: "#337ab7",
+        data: data
+      }
+      return {
+      labels: labels
+      datasets: datasets
+      }
 
 
   membersAdded = (month) ->
@@ -225,12 +216,6 @@
       return lost
     else
       return 0
-
-  addedLostColorArray = ["#43AC6A", "#F04124"]
-
-  $scope.addedLostColor = () ->
-    (d, i) ->
-      addedLostColorArray[i]
 
   $scope.getMembersAddedLost = ->
     if $scope.facility
@@ -251,18 +236,22 @@
       added = addedLostMonthly.map((al) ->
         al.added
       )
-
-      return [
+      datasets = [
         {
-          "key": "Added"
-          "values": d3.zip(labels, added)
-        },
-        {
-          "key": "Lost"
-          "values": d3.zip(labels, lost)
+          label: "Added",
+          fillColor: "#43AC6A",
+          data: added
+        }, {
+          label: "Lost",
+          fillColor: "#f04124",
+          data: lost
         }
       ]
 
+      return {
+      labels: labels
+      datasets: datasets
+      }
 
   lostRevenue = (month) ->
     revenueLost = $scope.facility.revenues.revenue_lost[month]
@@ -270,9 +259,6 @@
       return revenueLost
     else
       0
-
-  $scope.revenueLostColor = (d) ->
-    "#F04124"
 
   $scope.getRevenueLost = () ->
     if $scope.facility
@@ -290,11 +276,16 @@
         lr.lostRevenue
       )
 
-      return [{
-        "key": "Revenue Lost"
-        "values": d3.zip(labels, data)
+      datasets = [{
+        label: "Lost Revenue",
+        fillColor: "#f04124",
+        data: data
+      }]
+
+      return {
+      labels: labels
+      datasets: datasets
       }
-      ]
 
   averageMonthlyActive = (month) ->
     activeMembersCount = $scope.facility.members_stats.active_members_history[month]
@@ -303,8 +294,6 @@
     else
       0
 
-  $scope.activeCustomerColor = (d) ->
-    "#43AC6A"
 
   $scope.getActiveCustomerData = () ->
     if $scope.facility
@@ -323,11 +312,21 @@
         ma.count
       )
 
-      return [{
-        "key": "Active Customers"
-        "values": d3.zip(labels, data)
+      datasets = [{
+          label: "Active Customers",
+          fillColor: "#43AC6A",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(255,255,205,1)",
+          data: data
+        }]
+
+      return {
+      labels: labels
+      datasets: datasets
       }
-      ]
 
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
