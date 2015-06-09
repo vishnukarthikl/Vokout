@@ -103,7 +103,6 @@
           </div>
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Customers Added and Lost </h3>
-            <!--<canvas class="col-md-12" tc-chartjs-bar chart-data="membersAddedLost"></canvas>-->
             <nvd3-multi-bar-chart data="membersAddedLost" id="membersAddedLostChart" width="550" height="420"
                                      showXAxis="false" showYAxis="true"
                                      tooltips="true" color="addedLostColor()" stacked="true">
@@ -127,7 +126,11 @@
         <div class="row">
           <div class="col-md-6 col-xs-12 bordered chart-legend chart-holder">
             <h3>Monthly Revenue Split</h3>
-            <!--<canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>-->
+            <nvd3-pie-chart data="revenueSplitData" id="revenueSplitChart" width="550" height="420"
+                x="revenueSplitX()" y="revenueSplitY()" showLabels="true" labelType="percent"
+                showlegend="true" tooltips="true">
+              <svg></svg>
+            </nvd3-pie-chart>
 
             <select name="splitMonth" id="splitMonth" class="form-control"
                     ng-model="splitMonth" ng-options="split for split in splitMonths" required>

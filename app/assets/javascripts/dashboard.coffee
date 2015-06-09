@@ -130,6 +130,14 @@
       months_with_revenue.push("All")
       months_with_revenue
 
+  $scope.revenueSplitX = () ->
+    (d) ->
+      d.label
+
+  $scope.revenueSplitY = () ->
+    (d) ->
+      d.value
+
   $scope.getRevenueSplit = () ->
     if $scope.facility
       if $scope.splitMonth == "All"
@@ -143,7 +151,6 @@
         {
         value: value
         label: key
-        color: colors[i]
         }
 
   $scope.getAvailableRevenueTypes = ->
