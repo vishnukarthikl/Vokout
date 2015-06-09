@@ -325,8 +325,13 @@ form .glyphicon-ok-circle {
   padding: 2px;
 }
 
-.bordered {
-  border: solid;
+.chart-holder {
+  position: relative;
+  margin: 0 auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 }
 
 .chart-legend ul {
@@ -367,9 +372,6 @@ canvas {
   height: auto !important;
 }
 
-.chart-holder {
-  height:400px;
-}
 
 .dashboard-container {
   padding-left: 40px;

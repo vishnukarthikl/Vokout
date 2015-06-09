@@ -71,9 +71,9 @@
         </div>
         <div class="row">
 
-          <div class="col-md-6 col-xs-12 bordered chart-holder">
+          <div class="col-md-6 col-xs-12 chart-holder">
             <h3>Monthly Revenue</h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueData"></canvas>
+            <canvas tc-chartjs-line chart-data="revenueData"></canvas>
             <div class="form-group">
               <label for="showRevenueForMonths" class="col-sm-6 control-label">last months:</label>
 
@@ -97,9 +97,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-xs-12 bordered chart-holder">
+          <div class="col-md-6 col-xs-12 chart-holder">
             <h3>Customers Added and Lost </h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="membersAddedLost"></canvas>
+            <canvas tc-chartjs-bar chart-data="membersAddedLost"></canvas>
 
             <div class="form-group">
               <label for="showAddedLostForMonths" class="col-sm-6 control-label">last months:</label>
@@ -116,18 +116,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-xs-12 bordered chart-legend chart-holder">
+          <div class="col-md-6 col-xs-12  chart-legend chart-holder">
             <h3>Monthly Revenue Split</h3>
-            <canvas class="col-md-12" chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>
+            <canvas chart-options="options" tc-chartjs-doughnut chart-data="revenueSplitData" auto-legend></canvas>
 
             <select name="splitMonth" id="splitMonth" class="form-control"
                     ng-model="splitMonth" ng-options="split for split in splitMonths" required>
 
             </select>
           </div>
-          <div class="col-md-6 col-xs-12 bordered chart-holder">
+          <div class="col-md-6 col-xs-12  chart-holder">
             <h3>Active Customers</h3>
-            <canvas class="col-md-12" tc-chartjs-line chart-data="activeCustomerData"></canvas>
+            <canvas tc-chartjs-line chart-data="activeCustomerData"></canvas>
 
             <div class="form-group">
               <label for="showActiveCustomerForMonths" class="col-sm-6 control-label">last months:</label>
@@ -144,9 +144,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-xs-12 bordered chart-holder">
+          <div class="col-md-6 col-xs-12  chart-holder">
             <h3>Revenue Lost</h3>
-            <canvas class="col-md-12" tc-chartjs-bar chart-data="revenueLostData"></canvas>
+            <canvas tc-chartjs-bar chart-data="revenueLostData"></canvas>
 
             <div class="form-group">
               <label for="showRevenueLostForMonths" class="col-sm-6 control-label">last months:</label>
