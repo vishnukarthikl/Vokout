@@ -140,7 +140,7 @@
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Active Customers</h3>
             <nvd3-discrete-bar-chart data="activeCustomerData" id="activeCustomerChart" width="550" height="420"
-                                     showYAxis="true" color="activeCustomerColor" tooltips="true" yaxistickformat="d3.format(',.0d')" >
+                                     showYAxis="true" color="activeCustomerColor" tooltips="true" >
               <svg></svg>
             </nvd3-discrete-bar-chart>
             <div class="form-group">
@@ -160,7 +160,10 @@
         <div class="row">
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Revenue Lost</h3>
-            <!--<canvas class="col-md-12" tc-chartjs-bar chart-data="revenueLostData"></canvas>-->
+            <nvd3-discrete-bar-chart data="revenueLostData" id="revenueLostChart" width="550" height="420"
+                                     showYAxis="true" color="revenueLostColor" tooltips="true"  >
+              <svg></svg>
+            </nvd3-discrete-bar-chart>
 
             <div class="form-group">
               <label for="showRevenueLostForMonths" class="col-sm-6 control-label">last months:</label>

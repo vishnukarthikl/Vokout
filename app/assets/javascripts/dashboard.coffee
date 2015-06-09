@@ -226,7 +226,7 @@
     else
       return 0
 
-  addedLostColorArray = ["#43AC6A", "#f04124"]
+  addedLostColorArray = ["#43AC6A", "#F04124"]
 
   $scope.addedLostColor = () ->
     (d, i) ->
@@ -271,6 +271,9 @@
     else
       0
 
+  $scope.revenueLostColor = (d) ->
+    "#F04124"
+
   $scope.getRevenueLost = () ->
     if $scope.facility
       revenueLostMonthly = (generateAllMonths($scope.showRevenueLostForMonths).map ((month) ->
@@ -287,16 +290,11 @@
         lr.lostRevenue
       )
 
-      datasets = [{
-        label: "Lost Revenue",
-        fillColor: "#f04124",
-        data: data
-      }]
-
-      return {
-      labels: labels
-      datasets: datasets
+      return [{
+        "key": "Revenue Lost"
+        "values": d3.zip(labels, data)
       }
+      ]
 
   averageMonthlyActive = (month) ->
     activeMembersCount = $scope.facility.members_stats.active_members_history[month]
