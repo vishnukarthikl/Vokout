@@ -139,8 +139,10 @@
           </div>
           <div class="col-md-6 col-xs-12 bordered chart-holder">
             <h3>Active Customers</h3>
-            <!--<canvas class="col-md-12" tc-chartjs-line chart-data="activeCustomerData"></canvas>-->
-
+            <nvd3-discrete-bar-chart data="activeCustomerData" id="activeCustomerChart" width="550" height="420"
+                                     showYAxis="true" color="activeCustomerColor" tooltips="true" yaxistickformat="d3.format(',.0d')" >
+              <svg></svg>
+            </nvd3-discrete-bar-chart>
             <div class="form-group">
               <label for="showActiveCustomerForMonths" class="col-sm-6 control-label">last months:</label>
 

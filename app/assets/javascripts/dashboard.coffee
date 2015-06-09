@@ -305,6 +305,8 @@
     else
       0
 
+  $scope.activeCustomerColor = (d) ->
+    "#43AC6A"
 
   $scope.getActiveCustomerData = () ->
     if $scope.facility
@@ -323,21 +325,11 @@
         ma.count
       )
 
-      datasets = [{
-        label: "Active Customers",
-        fillColor: "#43AC6A",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(255,255,205,1)",
-        data: data
-      }]
-
-      return {
-      labels: labels
-      datasets: datasets
+      return [{
+        "key": "Active Customers"
+        "values": d3.zip(labels, data)
       }
+      ]
 
 
 @DashboardMembersCtrl = ($scope, $resource, $http, $modal, $window) ->
