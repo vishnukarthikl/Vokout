@@ -44,6 +44,6 @@ class Member < ActiveRecord::Base
 
   private
   def create_log(description)
-    self.create_audit_log(facility: self.facility, date: Date.today,description: description)
+    self.audit_logs.create(facility: self.facility, date: Date.today,description: description)
   end
 end
