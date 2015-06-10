@@ -4,18 +4,32 @@
   <% else %>
       <div id="data" data-member-id="<%= @member.id %>" data-facility-id="<%= @member.facility.id %>" ng-init="refreshData()"></div>
       <div class="container">
-        <div class="row">
-          <a href="/dashboard-members" class="btn btn-default btn-primary">
-            <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
-        </div>
-        <div class="row">
-          <h3 class="col-md-4 col-xs-6">
-            <span ng-show="!member.inactive" class="btn-success member-status" alt="active"></span>
-            <span ng-show="member.inactive" class="btn-danger member-status"></span>
-            <span>{{member.name}}</span>
-          </h3>
+        <div class="col-md-3">
+          <div class="row nav-holder">
+            <a href="/dashboard-members" class="btn btn-default btn-primary">
+              <span class="glyphicon glyphicon-chevron-left"> Back</span></a>
+          </div>
 
-          <div class="col-xs-6">
+          <div class="row">
+            <span ng-click="showChangeAvatar=true" ng-init="showChangeAvatar=false"><%= image_tag @member.avatar.url(:square) %></span>
+
+            <div class="row">
+              <div class="col-md-10" ng-if="showChangeAvatar"><%= form_for(@member, multipart: true) do |f| %>
+                    <div class="field">
+                      <%= f.label :avatar %>
+                      <%= f.file_field :avatar %>
+                    </div>
+                    <div class="actions">
+                      <%= f.submit 'Change picture', class: 'btn btn-warning' %>
+                    </div>
+                <% end %></div>
+            </div>
+            <h3>
+              {{member.name}}
+            </h3>
+          </div>
+
+          <div class="row">
             <span class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" id="takeAction" data-toggle="dropdown">
                 Take Action
@@ -44,21 +58,21 @@
             </span>
             <a class="btn btn-default" href="/members/{{member.id}}/edit">Edit</a>
           </div>
-        </div>
-        <div class="row center bold" ng-show="result">
-          <div class="alert alert-success" role="alert">
-            {{result}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6"><h4>Subscription Details</h4>
-            <table class="table">
+
+          <div class="row">
+            <table>
               <tr>
-                <td>Current Subscription</td>
-                <td>{{member.latest_subscription.membership.name}}</td>
+                <td class="profile-property">
+                  Subscription
+                </td>
+                <td>
+                  {{member.latest_subscription.membership.name}}
+                </td>
               </tr>
               <tr>
-                <td>Status</td>
+                <td class="profile-property">
+                  Subscription status
+                </td>
                 <td ng-show="!member.latest_subscription.expired">{{member.latest_subscription.days_left_words}} left
                   for
                   renewal
@@ -67,33 +81,35 @@
                   {{member.latest_subscription.days_left_words}} ago
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="col-md-6"><h4>Contact Details</h4>
-            <table class="table">
               <tr>
-                <td>Phone</td>
+                <td class="profile-property">Phone</td>
                 <td>{{member.phone_number}}</td>
               </tr>
               <tr ng-show="member.email">
-                <td>Email</td>
+                <td class="profile-property">Email</td>
                 <td>{{member.email}}</td>
+              </tr>
+              <tr>
+                <td class="profile-property">Total revenue</td>
+                <td>{{getTotalRevenue(member) | number}}</td>
               </tr>
             </table>
           </div>
         </div>
-        <div class="row center alert alert-info">
-          <div class="lead">Total Revenue : <span class="stat-highlight">{{getTotalRevenue(member) | number}}</span>
+        <div class="col-md-9 member-details-holder">
+          <div class="row center bold" ng-show="result">
+            <div class="alert alert-success" role="alert">
+              {{result}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <h4>Subscription History</h4>
+
+          <div class="row">
+            <h3>Subscription History</h3>
 
             <div class="lead">
-              Past Subscriptions: <span class="stat-highlight">{{member.subscriptions.length}}</span>
+              Past Subscriptions: <span>{{member.subscriptions.length}}</span>
               <br/>
-              Cost: <span class="stat-highlight">{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
+              Cost: <span>{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
             </div>
             <table class="table">
               <tr>
@@ -110,17 +126,18 @@
               </tr>
             </table>
           </div>
-          <div class="col-md-6">
-            <h4>Purchase History</h4>
+
+          <div class="row">
+            <h3>Purchase History</h3>
 
             <div class="lead" ng-if="member.purchases.length == 0">
               No purchases present
             </div>
             <div ng-if="member.purchases.length > 0">
               <div class="lead">
-                Purchases: <span class="stat-highlight">{{member.purchases.length}}</span>
+                Purchases: <span>{{member.purchases.length}}</span>
                 <br/>
-                Cost: <span class="stat-highlight">{{getTotalPurchasesCost(member.purchases) | number}} </span>
+                Cost: <span>{{getTotalPurchasesCost(member.purchases) | number}} </span>
               </div>
               <table class="table">
                 <tr>
@@ -139,7 +156,7 @@
             </div>
           </div>
         </div>
+
       </div>
   <% end %>
-
 </div>

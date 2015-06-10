@@ -50,6 +50,14 @@ GEM
       sprockets
       tilt
     arel (6.0.0)
+    aws-sdk (2.0.48)
+      aws-sdk-resources (= 2.0.48)
+    aws-sdk-core (2.0.48)
+      builder (~> 3.0)
+      jmespath (~> 1.0)
+      multi_json (~> 1.0)
+    aws-sdk-resources (2.0.48)
+      aws-sdk-core (= 2.0.48)
     bcrypt (3.1.7)
     binding_of_caller (0.7.3.pre1)
       debug_inspector (>= 0.0.1)
@@ -59,6 +67,10 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -89,6 +101,8 @@ GEM
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jmespath (1.0.2)
+      multi_json (~> 1.0)
     jquery-rails (4.0.0.beta2)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0.beta, < 5.0)
@@ -105,6 +119,11 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
+    paperclip (4.2.2)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
@@ -189,6 +208,7 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails-templates
+  aws-sdk
   bcrypt (= 3.1.7)
   bootstrap_form
   byebug (= 3.4.0)
@@ -197,6 +217,7 @@ DEPENDENCIES
   foreman
   jbuilder (= 2.2.3)
   jquery-rails (= 4.0.0.beta2)
+  paperclip
   pg (= 0.17.1)
   puma
   rails (= 4.2.0.rc3)

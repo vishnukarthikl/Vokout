@@ -87,34 +87,39 @@ class MembersController < ApplicationController
 
 
   def update_latest_subscription_and_revenue
-    latest_subscription = params.require(:latest_subscription)
-    found_subscription = Subscription.find(latest_subscription[:id])
-    membership = latest_subscription.require(:membership)
-    update_params = {
-        start_date: latest_subscription[:start_date],
-        membership_id: membership[:id],
-        extended_till: latest_subscription[:extended_till]
-    }
-    found_subscription.update(update_params)
-    found_subscription.revenue.update({value: found_subscription.membership.cost, date: found_subscription.start_date})
-    if latest_subscription[:extended_till]
-      found_subscription.create_audit_log(facility: @member.facility, date: DateTime.now, description: 'extended')
+    if params[:latest_subscription]
+      latest_subscription = params.require(:latest_subscription)
+      found_subscription = Subscription.find(latest_subscription[:id])
+      membership = latest_subscription.require(:membership)
+      update_params = {
+          start_date: latest_subscription[:start_date],
+          membership_id: membership[:id],
+          extended_till: latest_subscription[:extended_till]
+      }
+      found_subscription.update(update_params)
+      found_subscription.revenue.update({value: found_subscription.membership.cost, date: found_subscription.start_date})
+      if latest_subscription[:extended_till]
+        found_subscription.create_audit_log(facility: @member.facility, date: DateTime.now, description: 'extended')
+      end
+      @member.reload
     end
-    @member.reload
+    true
   end
 
 
   def renewed_subscription(member)
     newsubscription = nil
-    params.require(:subscriptions).each do |subscription|
-      if !subscription[:id]
-        latest_subscription = member.latest_subscription
-        if latest_subscription
-          latest_subscription.inactive = true
-          latest_subscription.save
+    if params[:subscriptions]
+      params.require(:subscriptions).each do |subscription|
+        if !subscription[:id]
+          latest_subscription = member.latest_subscription
+          if latest_subscription
+            latest_subscription.inactive = true
+            latest_subscription.save
+          end
+          membership = Membership.find(subscription[:membership_id])
+          newsubscription = Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
         end
-        membership = Membership.find(subscription[:membership_id])
-        newsubscription = Subscription.new({member: member, membership: membership, start_date: subscription[:start_date]})
       end
     end
     newsubscription
@@ -152,7 +157,7 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    params.require(:member).permit([:name, :email, :phone_number, :is_male, :inactive, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
+    params.require(:member).permit([:name, :avatar, :email, :phone_number, :is_male, :inactive, :date_of_birth, :occupation, :address, :pincode, :emergency_number, :facility_id])
   end
 
   def subscription_params

@@ -8,6 +8,13 @@ class Member < ActiveRecord::Base
   has_many :purchases, dependent: :destroy
   has_many :added_lost_histories, dependent: :destroy
   has_many :audit_logs, as: :auditable, dependent: :destroy
+  has_attached_file :avatar, styles: {
+                               thumb: '100x100>',
+                               square: '200x200#',
+                               medium: '300x300>'
+                           }, :default_url => "missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
