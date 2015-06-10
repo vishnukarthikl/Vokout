@@ -19,7 +19,7 @@ gem 'puma'
 gem 'devise'
 gem 'bootstrap_form'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk-v1'
 
 
 group :development, :test do
