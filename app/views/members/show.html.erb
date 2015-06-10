@@ -111,7 +111,7 @@
               <br/>
               Cost: <span>{{getTotalSubscriptionsCost(member.subscriptions) | number}} </span>
             </div>
-            <table class="table">
+            <table class="table table-hover">
               <tr>
                 <th>Name</th>
                 <th>Cost</th>
@@ -120,7 +120,7 @@
               </tr>
               <tr ng-repeat="subscriptions in member.subscriptions | orderBy:'end_date':true">
                 <td>{{subscriptions.membership.name}}</td>
-                <td>{{subscriptions.membership.cost}}</td>
+                <td>{{subscriptions.membership.cost | number}}</td>
                 <td>{{subscriptions.start_date | date:"dd/MM/yyyy"}}</td>
                 <td>{{subscriptions.end_date | date:"dd/MM/yyyy"}}</td>
               </tr>
@@ -139,7 +139,7 @@
                 <br/>
                 Cost: <span>{{getTotalPurchasesCost(member.purchases) | number}} </span>
               </div>
-              <table class="table">
+              <table class="table table-hover">
                 <tr>
                   <th>Name</th>
                   <th>Cost</th>
@@ -148,7 +148,7 @@
                 </tr>
                 <tr ng-repeat="purchase in member.purchases | orderBy:'date':true">
                   <td>{{purchase.name}}</td>
-                  <td>{{purchase.cost}}</td>
+                  <td>{{purchase.cost | number}}</td>
                   <td>{{purchase.purchase_type}}</td>
                   <td>{{purchase.date | date:"dd/MM/yyyy" }}</td>
                 </tr>
