@@ -6,7 +6,7 @@ class Membership < ActiveRecord::Base
   belongs_to :facility
   has_many :subscriptions, dependent: :destroy
   validates :facility_id, presence: true
-  validates :cost, presence: true,:numericality => { :greater_than => 0, :less_than => 100000 }
+  validates :cost, presence: true,:numericality => { :greater_than_or_equal_to => 0, :less_than => 100000 }
   validates :duration, presence: true,:numericality => { :greater_than => 0, :less_than => 1000 }
   validates_inclusion_of :duration_type, :in => DURATION_TYPES.keys.map { |x| x.to_s }
   validates :name, presence: true
