@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_collaborator
-   if current_owner.is_collaborator
+   if logged_in? and current_owner.is_collaborator
      redirect_to dashboard_members_path
    end
   end
