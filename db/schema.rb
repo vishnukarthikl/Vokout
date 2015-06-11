@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609140319) do
+ActiveRecord::Schema.define(version: 20150611034605) do
 
   create_table "active_members_histories", force: true do |t|
     t.integer "facility_id"
@@ -73,15 +73,12 @@ ActiveRecord::Schema.define(version: 20150609140319) do
 
   create_table "facilities", force: true do |t|
     t.string   "name"
-    t.integer  "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "address"
     t.string   "phone"
     t.date     "expires_on"
   end
-
-  add_index "facilities", ["owner_id"], name: "index_facilities_on_owner_id"
 
   create_table "members", force: true do |t|
     t.string   "name"
@@ -131,9 +128,12 @@ ActiveRecord::Schema.define(version: 20150609140319) do
     t.datetime "password_reset_sent_at"
     t.string   "confirmation_code"
     t.boolean  "confirmed"
+    t.boolean  "is_collaborator"
+    t.integer  "facility_id"
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true
+  add_index "owners", ["facility_id"], name: "index_owners_on_facility_id"
 
   create_table "purchases", force: true do |t|
     t.string   "name"

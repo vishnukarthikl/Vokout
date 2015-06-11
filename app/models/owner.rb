@@ -1,6 +1,6 @@
 class Owner < ActiveRecord::Base
 
-  has_one :facility, dependent: :destroy
+  belongs_to :facility, dependent: :destroy
 
   before_save { self.email = email.downcase }
   before_create { generate_token(:auth_token) }
@@ -32,14 +32,14 @@ class Owner < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.now
     save!
-    OwnerMailer.password_reset(self).deliver
+    OwnerMailer.password_reset(self).deliver_now
   end
 
   def send_confirmation_code
     generate_token(:confirmation_code)
     self.confirmed = false
     save!
-    OwnerMailer.confirmation_code(self).deliver
+    OwnerMailer.confirmation_code(self).deliver_now
   end
 
   def confirm

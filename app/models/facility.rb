@@ -1,15 +1,18 @@
 class Facility < ActiveRecord::Base
-  belongs_to :owner
+  has_many :owners
   has_many :memberships, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :revenues, dependent: :destroy
   has_many :audit_logs, dependent: :destroy
   has_many :active_members_histories, dependent: :destroy
-  validates :owner_id, presence: true
   validates :name, presence: true
   validates :address, presence: true
   validates :phone, numericality: true, length: {minimum: 10, maximum: 10}
 
+
+  def owner
+    self.owners.select { |o| !o.is_collaborator }.first
+  end
 
   def total_expired_members
     self.members.inject(0) do |total, m|
@@ -131,11 +134,11 @@ class Facility < ActiveRecord::Base
   def active_members_history
     active_members_histories = ActiveMembersHistory.where({facility_id: self.id}).group_by { |m| month_year(m.in) }
     average_monthly_active = {}
-    active_members_histories.map() do |month,history|
+    active_members_histories.map() do |month, history|
       total_active = history.inject(0) { |total, h| total+h.count }
       average_monthly_active[month] = total_active/history.count
     end
-    average_monthly_active[month_year(Date.today)] = self.members.inject(0) do |total,m|
+    average_monthly_active[month_year(Date.today)] = self.members.inject(0) do |total, m|
       if !m.inactive
         total+1
       else

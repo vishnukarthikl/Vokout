@@ -11,7 +11,8 @@ class FacilitiesController < ApplicationController
 
   def create
     @owner = current_owner
-    @facility = @owner.build_facility(facility_params)
+    @facility = Facility.new(facility_params)
+    @facility.owners << @owner
     @facility.expires_on = TRIAL_PERIOD.since
     respond_to do |format|
       if @facility.save
