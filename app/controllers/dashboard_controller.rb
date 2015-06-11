@@ -1,12 +1,13 @@
 class DashboardController < ApplicationController
   before_filter :authenticate
+  before_filter :check_collaborator, only: [:overview, :memberships, :history]
 
   before_action :set_owner_facility
 
   include AccountsetupHelper
 
   def overview
-    unless is_account_setup(@facility)
+    if !is_account_setup(@facility)
       redirect_to setup_path
     end
   end

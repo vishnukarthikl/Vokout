@@ -38,12 +38,28 @@
           </div>
           <div class="col-md-6">
             <%= link_to 'Edit', edit_owner_path, class: "btn btn-primary" %> |
-            <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %> |
-            <%= link_to 'Collaborator', new_collaborator_path, class: "btn btn-info" %> |
+            <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %>
           </div>
         </div>
         <div class="row">
-          <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-danger" %>
+          <% if @owner.facility and @owner.facility.collaborators %>
+              <h4>Collaborators</h4>
+              <table class="table">
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                </tr>
+                <% @owner.facility.collaborators.each do |collaborator| %>
+                    <tr>
+                      <td><%= collaborator.name %></td>
+                      <td><%= collaborator.email %></td>
+                    </tr>
+                <% end %>
+              </table>
+          <% end %>
+          <%= link_to 'Add Collaborator', new_collaborator_path, class: "btn btn-info pull" %>
+
+
         </div>
 
     <% else %>

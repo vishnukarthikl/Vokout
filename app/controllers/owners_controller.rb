@@ -1,5 +1,6 @@
 class OwnersController < ApplicationController
   before_filter :authenticate, only: [:show, :edit, :update, :unconfirmed, :deactivated]
+  before_filter :check_collaborator, except: [ :create_collaborator, :confirm_collaborator, :collaborator_password, :unconfirmed]
 
   before_action :set_owner, only: [:show, :edit, :update]
 
@@ -129,10 +130,10 @@ class OwnersController < ApplicationController
   end
 
   def collaborator_params
-    params.require(:owner).permit(:name,:email)
+    params.require(:owner).permit(:name, :email)
   end
 
   def collaborator_password_param
-    params.require(:owner).permit(:password,:password_confirmation)
+    params.require(:owner).permit(:password, :password_confirmation)
   end
 end

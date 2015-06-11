@@ -1,12 +1,14 @@
 <div class="container dashboard-container">
-  <div class="row">
-    <ul class="nav nav-tabs" role="tablist">
-      <li><a href="dashboard">Dashboard</a></li>
-      <li class="active"><a href="#">Members</a></li>
-      <li><a href="dashboard-memberships">Subscriptions</a></li>
-      <li><a href="dashboard-history">History</a></li>
-    </ul>
-  </div>
+  <% if !@owner.is_collaborator %>
+      <div class="row">
+        <ul class="nav nav-tabs" role="tablist">
+          <li><a href="dashboard">Dashboard</a></li>
+          <li class="active"><a href="#">Members</a></li>
+          <li><a href="dashboard-memberships">Subscriptions</a></li>
+          <li><a href="dashboard-history">History</a></li>
+        </ul>
+      </div>
+  <% end %>
 
   <div ng-controller="MemberCtrl">
     <div ng-controller="DashboardCtrl">
@@ -45,7 +47,7 @@
         <div class="row">
           <div class="lead" ng-show="facility.total_expired_members > 0">
             Members with expired subscription :
-              <span class="noti_highlight">{{facility.total_expired_members}}</span>
+            <span class="noti_highlight">{{facility.total_expired_members}}</span>
           </div>
           <div class="panel panel-default" ng-show="facility.members.length > 0">
             <div class="panel-heading">List of all members</div>

@@ -14,6 +14,10 @@ class Facility < ActiveRecord::Base
     self.owners.select { |o| !o.is_collaborator }.first
   end
 
+  def collaborators
+    self.owners.select { |o| o.is_collaborator }
+  end
+
   def total_expired_members
     self.members.inject(0) do |total, m|
       if !m.inactive and m.latest_subscription.expired
