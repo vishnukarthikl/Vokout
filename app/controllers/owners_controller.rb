@@ -10,6 +10,9 @@ class OwnersController < ApplicationController
   end
 
   def new_collaborator
+    if !current_owner.facility
+      redirect_to current_owner_path
+    end
     @owner = Owner.new
   end
 

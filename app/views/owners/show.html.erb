@@ -57,7 +57,9 @@
                 <% end %>
               </table>
           <% end %>
-          <%= link_to 'Add Collaborator', new_collaborator_path, class: "btn btn-info pull" %>
+          <% if @owner.facility %>
+              <%= link_to 'Add Collaborator', new_collaborator_path, class: "btn btn-info pull" %>
+          <% end %>
 
 
         </div>
