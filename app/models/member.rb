@@ -51,6 +51,11 @@ class Member < ActiveRecord::Base
 
   private
   def create_log(description)
-    self.audit_logs.create(facility: self.facility, date: Date.today,description: description)
+    if self.latest_subscription
+      added_date = self.latest_subscription.start_date
+    else
+      added_date = DateTime.now
+    end
+    self.audit_logs.create(facility: self.facility, date: added_date, description: description)
   end
 end
