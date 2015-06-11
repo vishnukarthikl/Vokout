@@ -1,6 +1,6 @@
 class OwnersController < ApplicationController
   before_filter :authenticate, only: [:show, :edit, :update, :unconfirmed, :deactivated]
-  before_filter :check_collaborator, except: [ :create_collaborator, :confirm_collaborator, :collaborator_password, :unconfirmed]
+  before_filter :check_collaborator, except: [:create_collaborator, :confirm_collaborator, :collaborator_password, :unconfirmed]
 
   before_action :set_owner, only: [:show, :edit, :update]
 
@@ -23,7 +23,7 @@ class OwnersController < ApplicationController
     @owner.facility = current_owner.facility
     if @owner.save
       flash[:success] = "#{@owner.name}, has been added as a collaborator"
-      redirect_to owner_path(current_owner)
+      redirect_to current_owner_path
     else
       render :new_collaborator
     end
@@ -89,15 +89,27 @@ class OwnersController < ApplicationController
   end
 
   def collaborator_password
-    if @owner.update_attributes(collaborator_password_param)
+    validate_password
+    if @owner.errors.any?
+      render :confirm_collaborator
+    elsif @owner.update_attributes(collaborator_password_param)
       @owner.confirmed = true
       @owner.save
       flash[:success] = "Your account has been successfully created"
       redirect_to dashboard_path
     else
-      format.html { render :confirm_collaborator }
+      render :confirm_collaborator
     end
 
+  end
+
+  def validate_password
+    if collaborator_password_param[:password].empty?
+      @owner.errors.add(:password, "Can't be blank")
+    end
+    if collaborator_password_param[:password_confirmation].empty?
+      @owner.errors.add(:password_confirmation, "Can't be blank")
+    end
   end
 
   def unconfirmed
@@ -139,4 +151,5 @@ class OwnersController < ApplicationController
   def collaborator_password_param
     params.require(:owner).permit(:password, :password_confirmation)
   end
+
 end
