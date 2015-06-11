@@ -11,7 +11,7 @@
           </div>
 
           <div class="row">
-            <span ng-click="showChangeAvatar=true" ng-init="showChangeAvatar=false"><%= image_tag @member.avatar.url(:square) %></span>
+            <span class="avatar" ng-click="showChangeAvatar=true" ng-init="showChangeAvatar=false"><%= image_tag @member.avatar.url(:square) %></span>
 
             <div class="row">
               <div class="col-md-10" ng-if="showChangeAvatar"><%= form_for(@member, multipart: true) do |f| %>
@@ -59,7 +59,7 @@
             <a class="btn btn-default" href="/members/{{member.id}}/edit">Edit</a>
           </div>
 
-          <div class="row">
+          <div class="row profile-stats">
             <table>
               <tr>
                 <td class="profile-property">
