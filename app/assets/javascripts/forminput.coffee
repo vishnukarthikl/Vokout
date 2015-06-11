@@ -7,14 +7,15 @@
       input.classList.add("form-control")
 
     label = topElement.querySelector("label")
-    label.classList.add("control-label", "col-md-4")
+    label.classList.add("control-label", "col-md-4", "col-xs-12")
     topElement.classList.add("form-group")
+    topElement.querySelector("div").classList.add("col-md-4")
     name = input.name
     return name
 
   addMessages = (form, element, name, $compile, scope) ->
     elementAccessor = form.$name + '.' + name
-    glypspan = '<span class="glyphicon glyphicon-ok-circle"></span>'
+    glypspan = '<span class="hidden-xs glyphicon glyphicon-ok-circle"></span>'
     errordiv = '<div class="help-block" ng-messages="' + elementAccessor + '.$error"
                 ng-messages-include="messages.html" >
             </div>'

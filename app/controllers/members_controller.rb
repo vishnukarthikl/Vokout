@@ -27,6 +27,7 @@ class MembersController < ApplicationController
         subscription.save if subscription
         revenue.save if revenue
         @member.added_lost_histories.create({is_lost: false, since: subscription.start_date})
+        @member.reload
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @member }
       else

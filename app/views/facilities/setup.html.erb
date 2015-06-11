@@ -1,297 +1,279 @@
-<div class="container" ng-controller="SetupCtrl">
-  <div class="container">
-    <div class="row list-group">
-      <div class="col-md-2 col-xs-4 col-md-offset-3 setup-status-box" ng-class="{'active-box': status=='facility'}">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" ng-class="steps[1]">
-          </div>
-        </div>
-        <div class="col-md-offset-5 col-xs-offset-4">Step 1</div>
-        <div class="col-md-offset-3 col-xs-offset-5 col-sm-offset-3"><span class="glyphicon glyphicon-home"></span>
-          <span class="hidden-xs">Gym Details</span>
+<div class="container setup" ng-controller="SetupCtrl">
+  <div class="row list-group">
+    <div class="col-md-2 col-xs-4 col-md-offset-3 setup-status-box" ng-class="{'active-box': status=='facility'}">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" ng-class="steps[1]">
         </div>
       </div>
-      <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='membership'}">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" ng-class="steps[2]">
-          </div>
-        </div>
-        <div class="col-md-offset-5 col-xs-offset-4 col-sm-offset-5">Step 2</div>
-        <div class="col-md-offset-3 col-xs-offset-5 col-sm-offset-4"><span class="glyphicon glyphicon-calendar"></span>
-          <span class="hidden-xs">Subscription</span>
+      <div class="col-md-offset-5 col-xs-offset-3">Step 1</div>
+      <div class="col-md-offset-3 col-xs-offset-5 col-sm-offset-3"><span class="glyphicon glyphicon-home"></span>
+        <span class="hidden-xs">Gym Details</span>
+      </div>
+    </div>
+    <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='membership'}">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" ng-class="steps[2]">
         </div>
       </div>
-      <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='member'}">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" ng-class="steps[3]">
-          </div>
-        </div>
-        <div class="col-md-offset-5 col-xs-offset-4 col-sm-offset-5">Step 3</div>
-        <div class="col-md-offset-4 col-xs-offset-5 col-sm-offset-4"><span class="glyphicon glyphicon-user"></span>
-          <span class="hidden-xs">Member</span>
+      <div class="col-md-offset-5 col-xs-offset-3 col-sm-offset-5">Step 2</div>
+      <div class="col-md-offset-3 col-xs-offset-5 col-sm-offset-4"><span class="glyphicon glyphicon-calendar"></span>
+        <span class="hidden-xs">Subscription</span>
+      </div>
+    </div>
+    <div class="col-md-2 col-xs-4 setup-status-box" ng-class="{'active-box': status=='member'}">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" ng-class="steps[3]">
         </div>
       </div>
-
+      <div class="col-md-offset-5 col-xs-offset-3 col-sm-offset-5">Step 3</div>
+      <div class="col-md-offset-4 col-xs-offset-5 col-sm-offset-4"><span class="glyphicon glyphicon-user"></span>
+        <span class="hidden-xs">Member</span>
+      </div>
     </div>
 
-    <div ng-switch on="status">
-      <div class="row" ng-switch-when="facility">
-        <form name="form.facility" class="form-horizontal" novalidate>
-          <fieldset>
-            <!-- Form Name -->
-            <legend>Initial Setup</legend>
+  </div>
 
-            <!-- Text input-->
-            <div forminput>
-              <label for="facilityName">Gym Name</label>
+  <div ng-switch on="status">
+    <div class="row" ng-switch-when="facility">
+      <form name="form.facility" class="form-horizontal" novalidate>
+        <fieldset>
+          <!-- Form Name -->
+          <legend>Initial Setup</legend>
 
-              <div class="col-md-4">
-                <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" required/>
+          <!-- Text input-->
+          <div forminput>
+            <label for="facilityName">Gym Name</label>
+
+            <div>
+              <input id="facilityName" ng-model="newFacility.name" name="facilityName" type="text" required/>
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div forminput>
+            <label for="facilityAddress">Address</label>
+
+            <div>
+              <textarea ng-model="newFacility.address" id="facilityAddress" name="facilityAddress" required></textarea>
+            </div>
+          </div>
+
+          <!-- Prepended text-->
+          <div forminput>
+            <label for="facilityPhone">Phone number</label>
+
+            <div>
+              <div class="input-group">
+                <span class="input-group-addon">+91</span>
+                <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text"
+                       required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no">
               </div>
             </div>
+          </div>
 
-            <!-- Textarea -->
-            <div forminput>
-              <label for="facilityAddress">Address</label>
+          <br/>
 
-              <div class="col-md-4">
-                <textarea ng-model="newFacility.address" id="facilityAddress" name="facilityAddress" required></textarea>
-              </div>
+          <div class="form-group">
+
+            <div>
+              <button id="facilitySave" ng-click="saveFacility()" ng-disabled="form.facility.$invalid" name="facilitySave"
+                      class="col-md-2 col-md-offset-4 col-xs-10 col-xs-offset-1 btn btn-success">Save
+              </button>
             </div>
+          </div>
 
-            <!-- Prepended text-->
-            <div forminput>
-              <label for="facilityPhone">Phone number</label>
+        </fieldset>
+      </form>
+    </div>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-addon">+91</span>
-                  <input id="facilityPhone" ng-model="newFacility.phone" name="facilityPhone" type="text"
-                         required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no">
-                </div>
-              </div>
+    <div class="row" ng-switch-when="membership">
+      <form name="form.membership" class="row form-horizontal" novalidate>
+        <fieldset>
+
+          <legend>Subscription</legend>
+
+          <div forminput>
+            <label for="newMembershipName">Name</label>
+
+            <div>
+              <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
+
             </div>
+          </div>
 
-            <br/>
-            <!-- Button (Double) -->
-            <div class="form-group">
+          <div forminput>
+            <label for="newMembershipDuration">Duration</label>
 
-              <div>
-                <button id="facilitySave" ng-click="saveFacility()" ng-disabled="form.facility.$invalid" name="facilitySave"
-                        class="col-md-2 col-md-offset-4 col-xs-10 col-xs-offset-1 btn btn-success">Save
-                </button>
-              </div>
-            </div>
+            <div>
+              <div class="duration-container">
+                <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration"
+                       min="1" max="1000" placeholder="" type="text" required>
 
-          </fieldset>
-        </form>
-      </div>
-
-      <div class="row" ng-switch-when="membership">
-        <form name="form.membership" class="row form-horizontal" novalidate>
-          <fieldset>
-
-            <!-- Form Name -->
-            <legend>Subscription</legend>
-
-            <!-- Text input-->
-            <div forminput>
-              <label for="newMembershipName">Name</label>
-
-              <div class="col-md-3">
-                <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
-
-              </div>
-            </div>
-
-            <!-- Appended Input-->
-            <div forminput>
-              <label for="newMembershipDuration">Duration</label>
-
-              <div class="col-md-3">
-                <div class="input-group duration-container">
-                  <input type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration"
-                         min="1" max="1000" placeholder="" type="text" required>
-
-                  <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
-                          ng-model="newMembership.duration_type"
-                          ng-options="duration for duration in durationTypes">
-                  </select>
-                </div>
-
-              </div>
-            </div>
-            <!-- Prepended text-->
-            <div forminput>
-              <label for="newMembershipCost">Cost</label>
-
-              <div class="col-md-3">
-                <div class="input-group">
-                  <span class="input-group-addon">₹</span>
-                  <input type="number" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder=""
-                         min="0" max="100000" required numeric>
-                </div>
-
-              </div>
-            </div>
-
-            <br/>
-            <!-- Button (Double) -->
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="membershipSave"></label>
-
-              <div class="col-md-6 col-md-offset-4">
-                <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="form.membership.$invalid" name="MembershipSave"
-                        class="btn btn-success btn-primary col-md-3">Save
-                </button>
-              </div>
-            </div>
-
-          </fieldset>
-          <alert ng-show="newMembershipStatus" type="{{newMembershipStatus.style}}" class="center">{{newMembershipStatus.text}}</alert>
-
-
-        </form>
-
-        <br/>
-
-        <div class="row panel panel-default" ng-show="facility.memberships.length > 0">
-          <div class="panel-heading">List of all memberships added</div>
-
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Duration</th>
-              <th>Cost</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-repeat="membership in facility.memberships">
-              <td>{{membership.name}}</td>
-              <td>{{membership.duration}} {{membership.duration_type}}</td>
-              <td>{{membership.cost}}</td>
-            </tr>
-            </tbody>
-          </table>
-
-        </div>
-        <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton"
-                class="btn btn-primary col-md-2 col-md-offset-5">Step 3
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </button>
-      </div>
-
-      <div class="row" ng-switch-when="member">
-
-        <form class="row form-horizontal" name="form.member" novalidate>
-          <fieldset>
-
-            <!-- Form Name -->
-            <legend>Add Members</legend>
-
-            <!-- Text input-->
-            <div forminput>
-              <label for="memberName">Name</label>
-
-              <div class="col-md-4">
-                <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
-
-              </div>
-            </div>
-
-            <!-- Select Basic -->
-            <div forminput>
-              <label for="memberSex">Sex</label>
-
-              <div class="col-md-4">
-                <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
-                  <option value="true">Male</option>
-                  <option value="false">Female</option>
+                <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
+                        ng-model="newMembership.duration_type"
+                        ng-options="duration for duration in durationTypes">
                 </select>
               </div>
+
             </div>
+          </div>
+          <div forminput>
+            <label for="newMembershipCost">Cost</label>
 
-            <div forminput>
-              <label for="memberMembership">Membership</label>
-
-              <div class="col-md-4">
-                <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
-                        ng-options="membership.id as membership.name for membership in facility.memberships" required>
-                </select>
+            <div>
+              <div class="input-group">
+                <span class="input-group-addon">₹</span>
+                <input type="number" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder=""
+                       min="0" max="100000" required numeric>
               </div>
+
             </div>
+          </div>
 
-            <div forminput>
-              <label for="memberMembershipDate">Membership start date</label>
+          <br/>
+          <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="form.membership.$invalid" name="MembershipSave"
+                  class="btn btn-success btn-primary col-md-2 col-md-offset-5 col-xs-10 col-xs-offset-1">Save
+          </button>
 
-              <div class="col-md-4">
-                <input jdatepicker id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
-                       ng-model="newMember.subscription.start_date" ng-required="true"/>
+        </fieldset>
 
-              </div>
-            </div>
+      </form>
 
-            <!-- Prepended text-->
-            <div forminput>
-              <label for="memberPhone">Phone</label>
+      <br/>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-addon">+91</span>
-                  <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder=""
-                         required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no">
-                </div>
+      <div class="row panel panel-default" ng-show="facility.memberships.length > 0">
+        <div class="panel-heading">List of all memberships added</div>
 
-              </div>
-            </div>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Cost</th>
+          </tr>
+          </thead>
 
-            <div class="alert alert-info col-md-4 col-md-offset-4">* Other details can be added later by editing the
-              member
-            </div>
-            <br/>
-            <!-- Button (Double) -->
-            <div class="form-group">
+          <tbody>
+          <tr ng-repeat="membership in facility.memberships">
+            <td>{{membership.name}}</td>
+            <td>{{membership.duration}} {{membership.duration_type}}</td>
+            <td>{{membership.cost}}</td>
+          </tr>
+          </tbody>
+        </table>
 
-              <div class="col-md-7 col-md-offset-3">
-                <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default btn-warning col-md-2 col-md-offset-1">
-                  <span class="glyphicon glyphicon-chevron-left"> Back</span></button>
-                <button id="savememberButton" ng-disabled="form.member.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-md-2 col-md-offset-1">Save</button>
-              </div>
-            </div>
-
-          </fieldset>
-          <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
-        </form>
-
-        <br/>
-
-        <div class="row panel panel-default" ng-show="facility.members.length > 0">
-          <div class="panel-heading">List of all members</div>
-
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone no</th>
-              <th>Subscription</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-repeat="member in facility.members">
-              <td>{{member.name}}</td>
-              <td>{{member.phone_number}}</td>
-              <td>{{member.latest_subscription.membership.name}}</td>
-            </tr>
-            </tbody>
-          </table>
-
-        </div>
-
-        <a id="skipMemberButton" ng-disabled="facility.members.length == 0" href="/" name="skipMemberButton" class="btn btn-primary col-md-2 col-md-offset-5">Go to Dashboard</a>
       </div>
+      <button id="memberSetupButton" ng-click="setupMember(membershipForm)" ng-show="facility.memberships.length > 0" name="memberSetupButton"
+              class="btn btn-primary col-md-2 col-md-offset-5 col-xs-10 col-xs-offset-1">Step 3
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </button>
+    </div>
+
+    <div class="row" ng-switch-when="member">
+
+      <form class="row form-horizontal" name="form.member" novalidate>
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Add Members</legend>
+
+          <!-- Text input-->
+          <div forminput>
+            <label for="memberName">Name</label>
+
+            <div>
+              <input id="memberName" ng-model="newMember.name" name="memberName" type="text" placeholder="" required>
+
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div forminput>
+            <label for="memberSex">Sex</label>
+
+            <div>
+              <select id="memberSex" ng-model="newMember.is_male" name="memberSex" class="form-control" required>
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div forminput>
+            <label for="memberMembership">Membership</label>
+
+            <div>
+              <select ng-model="newMember.subscription.membership_id" id="memberMembership" name="memberMembership" class="form-control"
+                      ng-options="membership.id as membership.name for membership in facility.memberships" required>
+              </select>
+            </div>
+          </div>
+
+          <div forminput>
+            <label for="memberMembershipDate">Membership start date</label>
+
+            <div>
+              <input jdatepicker id="memberMembershipDate" name="memberMembershipDate" type="text" class="form-control"
+                     ng-model="newMember.subscription.start_date" ng-required="true"/>
+
+            </div>
+          </div>
+
+          <!-- Prepended text-->
+          <div forminput>
+            <label for="memberPhone">Phone</label>
+
+            <div>
+              <div class="input-group">
+                <span class="input-group-addon">+91</span>
+                <input id="memberPhone" type="number" ng-model="newMember.phone_number" name="memberPhone" class="form-control" placeholder=""
+                       required validate-on="dirty" ng-pattern="/^(\d){10}$/" invalid-message="Enter a valid phone no">
+              </div>
+
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="col-md-7 col-md-offset-3">
+            <button id="setupMembershipBack" ng-click="setupMembership()" name="setupMembershipBack" class="btn btn-default btn-warning col-xs-4 col-xs-offset-1 col-md-2 col-md-offset-1">
+              <span class="glyphicon glyphicon-chevron-left"> Back</span></button>
+            <button id="savememberButton" ng-disabled="form.member.$invalid" ng-click="saveMember(memberForm)" name="saveMemberButton" class="btn btn-success col-xs-4 col-xs-offset-1 col-md-2 col-md-offset-1">Save</button>
+          </div>
+
+        </fieldset>
+        <alert ng-show="newMemberStatus" type="{{newMemberStatus.style}}" class="center">{{newMemberStatus.text}}</alert>
+      </form>
+
+      <br/>
+
+      <div class="row panel panel-default" ng-show="facility.members.length > 0">
+        <div class="col-xs-12">
+          <a id="skipMemberButton" href="/" name="skipMemberButton" class="btn btn-primary col-xs-5 col-xs-offset-3 col-md-2 col-md-offset-5">Go
+            to Dashboard</a>
+        </div>
+        <div class="panel-heading">List of all members</div>
+
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone no</th>
+            <th>Subscription</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="member in facility.members">
+            <td>{{member.name}}</td>
+            <td>{{member.phone_number}}</td>
+            <td>{{member.latest_subscription.membership.name}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
     </div>
   </div>
 </div>

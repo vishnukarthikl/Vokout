@@ -191,19 +191,6 @@ form .glyphicon-ok-circle {
   width: 100%
 }
 
-.duration-container {
-  display: inline;
-}
-
-#newMembershipDuration {
-  width: 30%;
-}
-
-#newMembershipDurationType {
-  width: 60%;
-  margin-left: 5%;
-}
-
 .setup-status-box {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -374,8 +361,8 @@ canvas {
 
 
 .dashboard-container {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .customer-lost {
@@ -415,4 +402,14 @@ canvas {
 
 .avatar {
   cursor: pointer;
+}
+
+.setup {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.padding-side {
+  padding-left: 20px;
+  padding-right: 20px;
 }

@@ -33,10 +33,13 @@
     $scope.newMemberStatus = {text: status, style: type}
 
   memberSaveFailureCallback = (err) ->
-    console.log(err)
-    reason = prettyError(err)
-    status = "save failed"
-    status += ": " + reason if reason
+    if err.status != 500
+      reasons = prettyError(err)
+
+    status = ""
+    if reasons
+      for reason,i in reasons
+        status += (reason + "</br>")
     showModalWithStatus(memberStatus(status, 'danger'))
 
   prettyError = (err) ->

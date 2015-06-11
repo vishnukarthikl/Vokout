@@ -19,64 +19,66 @@
       <h3>All Subscriptions
         <button class="btn btn-primary pull-right" ng-click="addNew()">Add new</button>
       </h3>
-      <form ng-show="showAddNew" name="membershipForm" class="row form-horizontal" novalidate>
-        <fieldset>
+      <div class="padding-side">
+        <form ng-show="showAddNew" name="membershipForm" class="row form-horizontal" novalidate>
+          <fieldset>
 
-          <!-- Form Name -->
-          <legend>Add New</legend>
+            <!-- Form Name -->
+            <legend>Add New</legend>
 
-          <!-- Text input-->
-          <div forminput>
-            <label for="newMembershipName">Name</label>
+            <!-- Text input-->
+            <div forminput>
+              <label for="newMembershipName">Name</label>
 
-            <div class="col-md-4">
-              <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
-            </div>
-          </div>
-
-          <!-- Appended Input-->
-          <div forminput>
-            <label for="newMembershipDuration">Duration</label>
-
-            <div class="col-md-4">
-              <div class="input-group duration-container">
-                <input class="col-md-4" type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" min="1" max="1000" required>
-
-                <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
-                        ng-model="newMembership.duration_type"
-                        ng-options="duration for duration in durationTypes">
-                </select>
+              <div class="col-md-4">
+                <input unique-items items="getMembershipNames()" id="newMembershipName" ng-model="newMembership.name" name="newMembershipName" type="text" placeholder="eg monthly" required>
               </div>
-
             </div>
-          </div>
-          <!-- Prepended text-->
-          <div forminput>
-            <label for="newMembershipCost">Cost</label>
 
-            <div class="col-md-4">
-              <div class="input-group">
-                <span class="input-group-addon">₹</span>
-                <input type="number" min="0" max="100000" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
+            <!-- Appended Input-->
+            <div forminput>
+              <label for="newMembershipDuration">Duration</label>
+
+              <div class="col-md-4">
+                <div class="input-group duration-container">
+                  <input class="col-md-4" type="number" id="newMembershipDuration" ng-model="newMembership.duration" name="newMembershipDuration" placeholder="" type="text" min="1" max="1000" required>
+
+                  <select name="newMembershipDurationType" id="newMembershipDurationType" class="form-control"
+                          ng-model="newMembership.duration_type"
+                          ng-options="duration for duration in durationTypes">
+                  </select>
+                </div>
+
               </div>
-
             </div>
-          </div>
+            <!-- Prepended text-->
+            <div forminput>
+              <label for="newMembershipCost">Cost</label>
 
-          <br/>
-          <!-- Button (Double) -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="membershipSave"></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <span class="input-group-addon">₹</span>
+                  <input type="number" min="0" max="100000" id="newMembershipCost" ng-model="newMembership.cost" name="newMembershipCost" placeholder="" type="text" required numeric>
+                </div>
 
-            <div class="col-md-6 col-md-offset-4">
-              <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave"
-                      class="btn btn-success btn-primary col-md-3">Add
-              </button>
-              <button class="btn btn-warning col-md-3 col-md-offset-1" ng-click="cancelAdd()">Cancel</button>
+              </div>
             </div>
-          </div>
-        </fieldset>
-      </form>
+
+            <br/>
+            <!-- Button (Double) -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="membershipSave"></label>
+
+              <div class="col-md-6 col-md-offset-4">
+                <button id="membershipSave" ng-click="saveMembership(membershipForm)" ng-disabled="membershipForm.$invalid" name="MembershipSave"
+                        class="btn btn-success btn-primary col-md-3 col-xs-4 col-xs-offset-1">Add
+                </button>
+                <button class="btn btn-warning col-md-3 col-md-offset-1 col-xs-4 col-xs-offset-1" ng-click="cancelAdd()">Cancel</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
       <table class="table">
         <thead>
         <tr>
