@@ -3,7 +3,26 @@ class OwnersController < ApplicationController
 
   before_action :set_owner, only: [:show, :edit, :update]
 
+  before_action :set_owner_from_param, only: :collaborator_password
+
   def show
+  end
+
+  def new_collaborator
+    @owner = Owner.new
+  end
+
+  def create_collaborator
+    @owner = Owner.new(collaborator_params)
+    @owner.is_collaborator = true
+    @owner.password = SecureRandom.urlsafe_base64
+    @owner.facility = current_owner.facility
+    if @owner.save
+      flash[:success] = "#{@owner.name}, has been added as a collaborator"
+      redirect_to owner_path(current_owner)
+    else
+      render :new_collaborator
+    end
   end
 
   def new
@@ -58,6 +77,25 @@ class OwnersController < ApplicationController
     end
   end
 
+  def confirm_collaborator
+    @owner = Owner.find_by_confirmation_code(params[:code])
+    if @owner.confirmed
+      redirect_to dashboard_path
+    end
+  end
+
+  def collaborator_password
+    if @owner.update_attributes(collaborator_password_param)
+      @owner.confirmed = true
+      @owner.save
+      flash[:success] = "Your account has been successfully created"
+      redirect_to dashboard_path
+    else
+      format.html { render :confirm_collaborator }
+    end
+
+  end
+
   def unconfirmed
 
   end
@@ -88,5 +126,13 @@ class OwnersController < ApplicationController
 
   def facility_update_params
     params.require(:owner).require(:facility).permit(:name, :phone, :address)
+  end
+
+  def collaborator_params
+    params.require(:owner).permit(:name,:email)
+  end
+
+  def collaborator_password_param
+    params.require(:owner).permit(:password,:password_confirmation)
   end
 end

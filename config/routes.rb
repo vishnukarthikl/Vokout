@@ -41,6 +41,11 @@ Rails.application.routes.draw do
   get 'owners/:id/edit' => 'admins#edit', as: 'edit_owner_admin'
   patch 'owners/:id/update' => 'admins#update', as: 'update_owner_admin'
 
+  get 'new-collaborator' => 'owners#new_collaborator', as:'new_collaborator'
+  post 'new-collaborator' => 'owners#create_collaborator', as:'create_collaborator'
+  get 'collaborators/:code/confirm' => 'owners#confirm_collaborator', as: 'confirm_collaborator'
+  patch 'collaborator-password/:id' => 'owners#collaborator_password', as: 'collaborator_password'
+
   resources :owners do
     resources :facilities
   end

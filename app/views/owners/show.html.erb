@@ -3,46 +3,51 @@
 
   <div class="col-md-8 col-md-offset-3">
     <% if logged_in? %>
-        <div class="col-md-6"><p>
-          <strong>Name:</strong>
-          <%= @owner.name %>
-        </p>
 
-          <p>
-            <strong>Email:</strong>
-            <%= @owner.email %>
+        <div class="row">
+          <div class="col-md-6"><p>
+            <strong>Name:</strong>
+            <%= @owner.name %>
           </p>
-          <% if @owner.facility %>
-              <p>
-                <strong>Gym name:</strong>
-                <%= @owner.facility.name %>
-              </p>
 
-              <p>
-                <strong>Gym address:</strong>
-                <%= @owner.facility.address %>
-              </p>
+            <p>
+              <strong>Email:</strong>
+              <%= @owner.email %>
+            </p>
+            <% if @owner.facility %>
+                <p>
+                  <strong>Gym name:</strong>
+                  <%= @owner.facility.name %>
+                </p>
 
-              <p>
-                <strong>Phone:</strong>
-                <%= @owner.facility.phone %>
-              </p>
+                <p>
+                  <strong>Gym address:</strong>
+                  <%= @owner.facility.address %>
+                </p>
 
-              <p>
-                <strong>Payment due on:</strong>
-                <span class="<%= @owner.facility and (@owner.facility.expires_on - Date.today).floor < 0 ? 'btn-danger' : '' %>"><%= @owner.facility.expires_on.strftime("%B %d") %></span>
-              </p>
-          <% end %>
+                <p>
+                  <strong>Phone:</strong>
+                  <%= @owner.facility.phone %>
+                </p>
+
+                <p>
+                  <strong>Payment due on:</strong>
+                  <span class="<%= @owner.facility and (@owner.facility.expires_on - Date.today).floor < 0 ? 'btn-danger' : '' %>"><%= @owner.facility.expires_on.strftime("%B %d") %></span>
+                </p>
+            <% end %>
+          </div>
+          <div class="col-md-6">
+            <%= link_to 'Edit', edit_owner_path, class: "btn btn-primary" %> |
+            <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %> |
+            <%= link_to 'Collaborator', new_collaborator_path, class: "btn btn-info" %> |
+          </div>
         </div>
-
-        <div class="col-md-6">
-          <%= link_to 'Edit', edit_owner_path, class: "btn btn-primary" %> |
-          <%= link_to 'Dashboard', dashboard_path, class: "btn btn-success" %> |
+        <div class="row">
           <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-danger" %>
         </div>
 
-
     <% else %>
         <li><%= link_to "Log in", login_path %></li>
-    <% end %></div>
+    <% end %>
+  </div>
 </div>

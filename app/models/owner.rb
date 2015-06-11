@@ -39,7 +39,12 @@ class Owner < ActiveRecord::Base
     generate_token(:confirmation_code)
     self.confirmed = false
     save!
-    OwnerMailer.confirmation_code(self).deliver_now
+    if !self.is_collaborator
+      OwnerMailer.confirmation_code(self).deliver_now
+    else
+      OwnerMailer.set_password(self).deliver_now
+    end
+
   end
 
   def confirm

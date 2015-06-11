@@ -15,4 +15,9 @@ class OwnerMailer < ApplicationMailer
     @owner = owner
     mail to: @owner.email, subject: "Account Verification"
   end
+
+  def set_password(collaborator)
+    @owner = collaborator
+    mail to: @owner.email, subject: "Added as Collaborator"
+  end
 end

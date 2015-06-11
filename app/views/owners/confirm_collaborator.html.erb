@@ -1,0 +1,15 @@
+<div class="container"><h1>Set password</h1>
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+      <%= simple_form_for(@owner, url: collaborator_password_path(@owner)) do |f| %>
+          <%= render 'shared/error_messages' %>
+          <%= f.input :password %><br>
+          <%= f.input :password_confirmation %><br>
+          <%= f.submit 'Set password', class: 'btn btn-success', id: 'signup-button' %>
+          <hr />
+          <p><%= link_to "Need Help?", contact_path %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
