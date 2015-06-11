@@ -133,7 +133,6 @@ ActiveRecord::Schema.define(version: 20150611034605) do
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email", unique: true
-  add_index "owners", ["facility_id"], name: "index_owners_on_facility_id"
 
   create_table "purchases", force: true do |t|
     t.string   "name"
