@@ -1,5 +1,5 @@
 class Purchase < ActiveRecord::Base
-  after_save :create_log
+  after_create :create_log
   belongs_to :member
   has_one :revenue, as: :purchasable, dependent: :destroy
   has_many :audit_logs, as: :auditable, dependent: :destroy
