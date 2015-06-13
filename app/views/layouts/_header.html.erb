@@ -18,7 +18,7 @@
               <%= current_owner.name %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <% if !@owner.is_collaborator %>
+              <% if @owner and !@owner.is_collaborator %>
                   <li><%= link_to "Profile", current_owner_path %></li>
               <% end %>
               <li>
