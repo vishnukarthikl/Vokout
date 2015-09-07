@@ -17,10 +17,10 @@
     <h1 class="text-align-center">Focus on what you do best and grow your business</h1>
   </div>
   <div class="row col-lg-10 col-lg-offset-1">
-    <p class="text-center lead">Vorkout is a cloud based web application, which allows gym owners to bill their
-      customers, track business performance and manage customer information from anywhere. Say goodbye to ledgers or
-      card
-      systems.</p>
+    <p class="text-center lead">Vorkout is a cloud based web application, which allows gym owners to track business performance, manage customer information and bill their
+      customers from anywhere. Say goodbye to ledgers or card
+      systems.
+    </p>
 
   </div>
   <div class="row text-center">
@@ -62,28 +62,36 @@
       <iframe width="560" height="349" src="https://www.youtube.com/embed/4IqEfo8Ejck" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
-  <hr />
+  <hr/>
   <div class="row">
     <h1>Discover insights from the dashboard</h1>
+
     <div class="col-sm-12">
       <img src="<%= asset_path('dashboard.png') %>" width="100%" height="100%">
       <img src="<%= asset_path('dashboard2.png') %>" width="100%" height="100%">
     </div>
   </div>
   <div class="row">
-    <h1>Manage your customers</h1>
+    <h1>Manage your customers with ease</h1>
+
     <div class="col-sm-12">
       <img src="<%= asset_path('members.png') %>" width="100%" height="100%">
     </div>
+    <h1>And much more....</h1>
   </div>
 
 </div>
 
 <footer>
   <div class="container center">
-    <h1>Have questions?</h1>
-    <%= link_to "Contact us", new_contact_message_path, class: "btn btn-lg btn-primary" %>
-    <h1>Or ready to try it out</h1>
-    <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
+    <div class="col-md-6">
+      <h3>Ready to try it out</h3>
+      <%= link_to "Sign up", signup_path, id: "sign-up-button", class: "btn btn-lg btn-success" %>
+    </div>
+    <div class="col-md-6">
+      <h3>Have questions?</h3>
+      <%= link_to "Contact us", new_contact_message_path, class: "btn btn-lg btn-primary" %>
+
+    </div>
   </div>
 </footer>
