@@ -17,6 +17,7 @@ class ContactMessagesController < ApplicationController
     @contact_message = ContactMessage.new(contact_message_params)
     if @contact_message.save
       flash[:success] = 'Your message has been received, We will get back to you shortly'
+      ContactMailer.enquiry(@contact_message).deliver_now
       redirect_to contact_path
     else
       render :new
